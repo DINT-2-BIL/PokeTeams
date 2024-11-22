@@ -8,6 +8,7 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.util.Conexion;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +27,9 @@ import javafx.stage.Stage;
 
 public class controllerTarjetaAñadirMiembro implements Initializable {
     private controllerConfirmar cc;
+    private controllerAñadirMiembro cam;
+    private Conexion conexion = null;
+    private Stage miStage;
 
     @FXML
     private ImageView imgPokemonMiembro;
@@ -39,30 +43,8 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_pokemon_equipo_v1.fxml"));
             root = loader.load();
-
-            Stage miStage = new Stage();
-            Scene inicio = new Scene(root);
-            miStage.setScene(inicio);
             miStage.setTitle("Añadir miembro");
-            miStage.setOnCloseRequest(evento -> {
-                evento.consume();
-                Parent raiz = null;
-                FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
-                try {
-                    raiz = cargador.load();
-                } catch (IOException ex) {
-                    Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                cc = cargador.getController();
-
-                Stage confirmar = new Stage();
-                Scene scene = new Scene(raiz);
-                confirmar.setScene(scene);
-                confirmar.getIcons().add(new Image("Victini.png"));
-                confirmar.setTitle("Confirmar");
-                cc.enviaStage(miStage);
-                confirmar.showAndWait();
-            });
+            cam.asignarCerrado(conexion);
             miStage.getIcons().add(new Image("Plusle.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
@@ -72,6 +54,20 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_pokemon_equipo_v1.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+        cam = loader.getController();
+        miStage = new Stage();
+        Scene inicio = new Scene(root);
+        miStage.setScene(inicio);
     }
 
+    public void asignarConexion(Conexion c) {
+        conexion = c;
+    }
 }

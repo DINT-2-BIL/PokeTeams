@@ -9,6 +9,7 @@ package com.fcm.pokeTeams;
  * @author DFran49
  */
 import com.fcm.pokeTeams.modelos.Miembro;
+import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +34,7 @@ public class controllerTarjetaMiembro implements Initializable{
     controllerMiembro cm;
     private controllerConfirmar cc;
     controllerAñadirMiembro cam;
+    private Conexion conexion = null;
     Stage emergenteEditar;
     Stage emergenteVer;
     Miembro miembro;
@@ -48,25 +50,7 @@ public class controllerTarjetaMiembro implements Initializable{
     void editar(ActionEvent event) {
         this.cam.enviaMiembro(miembro);
         this.emergenteEditar.setTitle(miembro.getMote());
-        emergenteEditar.setOnCloseRequest(evento -> {
-            evento.consume();
-            Parent raiz = null;
-            FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
-            try {
-                raiz = cargador.load();
-            } catch (IOException ex) {
-                Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            cc = cargador.getController();
-
-            Stage confirmar = new Stage();
-            Scene scene = new Scene(raiz);
-            confirmar.setScene(scene);
-            confirmar.setTitle("Confirmar");
-            cc.enviaStage(emergenteEditar);
-            confirmar.getIcons().add(new Image("Victini.png"));
-            confirmar.showAndWait();
-        });
+        cam.asignarCerrado(conexion);
         emergenteEditar.getIcons().add(util.getImage(miembro.getSprite()));
         emergenteEditar.show();
     }
@@ -137,13 +121,14 @@ public class controllerTarjetaMiembro implements Initializable{
         emergenteVer = new Stage();
         emergenteVer.setResizable(false);
         emergenteVer.setScene(sceneC);
-        emergenteVer.setTitle("Añadir/Editar miembro");
+        emergenteVer.setTitle("Ver miembro");
     }
     
-    public void asignarMiembro(Miembro m) {
+    public void asignarMiembro(Miembro m, Conexion c) {
         txtNombreMiembro.setText(m.getMote());
         util.recuperarImagenBBDD(m.getSprite(), imgPokemonMiembro);
         miembro = m;
+        conexion = c;
     }
     
     void setControladorEnlace(controllerEquipo c) {

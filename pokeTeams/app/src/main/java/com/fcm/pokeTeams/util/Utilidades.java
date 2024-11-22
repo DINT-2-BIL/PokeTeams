@@ -5,24 +5,36 @@
 package com.fcm.pokeTeams.util;
 
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
+import com.fcm.pokeTeams.modelos.Habilidad;
+import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Movimiento;
 import com.fcm.pokeTeams.modelos.MovimientoEnvoltorio;
+import com.fcm.pokeTeams.modelos.Pokemon;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -39,6 +51,19 @@ public class Utilidades {
         return new Image(is);
     }
     
+    public String codificarImagen(Image img) {
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(img, null);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] imageBytes = null;
+        try {
+            ImageIO.write(bufferedImage, "png", baos);
+            imageBytes = baos.toByteArray();
+        } catch (IOException ex) {
+            Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Base64.getEncoder().encodeToString(imageBytes);
+    }
+    
     public void recuperarImagenBBDD(String b64, ImageView imagen) {
         imagen.setImage(getImage(b64));
     }
@@ -51,6 +76,11 @@ public class Utilidades {
         tooltip.consumeAutoHidingEventsProperty().set(true);
         tooltip.hideOnEscapeProperty().set(true);
         Tooltip.install(n, tooltip);
+    }
+    
+    public HabilidadesEnvoltorio leerHabilidades(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, HabilidadesEnvoltorio.class);
     }
     
     public void leerMovimientos(Miembro m, List<TextField> lt) {

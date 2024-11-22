@@ -71,7 +71,7 @@ public class controllerEquipos implements Initializable {
     @FXML
     void abrirEquipo(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
-            this.ce.enviaMiembros(participantes, txtNombreEquipo.getText());
+            this.ce.enviaMiembros(participantes, txtNombreEquipo.getText(), conexion);
             this.emergente.setTitle(txtNombreEquipo.getText());
             this.emergente.getIcons().add(new Image("Maushold.png"));
             this.emergente.show();

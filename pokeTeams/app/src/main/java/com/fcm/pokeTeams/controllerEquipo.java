@@ -5,6 +5,7 @@
 package com.fcm.pokeTeams;
 
 import com.fcm.pokeTeams.modelos.Miembro;
+import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +27,9 @@ import javafx.scene.layout.GridPane;
  */
 public class controllerEquipo implements Initializable {
     private controllerEquipos ces;
+    private Conexion conexion = null;
     private controllerTarjetaMiembro ctm;
+    private controllerTarjetaAñadirMiembro ctam;
     private List<Miembro> listaMiembros;
     private Utilidades utils = new Utilidades();
 
@@ -40,11 +43,11 @@ public class controllerEquipo implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
     
-    void enviaMiembros(List<Miembro> lm, String nombre) {
+    void enviaMiembros(List<Miembro> lm, String nombre, Conexion c) {
+        conexion = c;
         listaMiembros = lm;
         txtNombreEquipo.setText(nombre);
         utils.crearTooltip("Equipo: " + nombre, txtNombreEquipo);
-        
         try {
             int col = 0;
             int row = 0;
@@ -53,7 +56,7 @@ public class controllerEquipo implements Initializable {
                 SplitPane tarjeta = cargarTarjeta.load();
                 controllerTarjetaMiembro controladorTarjeta = cargarTarjeta.getController();
                 
-                controladorTarjeta.asignarMiembro(listaMiembros.get(i));
+                controladorTarjeta.asignarMiembro(listaMiembros.get(i), conexion);
                 ctm = cargarTarjeta.getController();
                 ctm.setControladorEnlace(this);
                 utils.crearTooltip(listaMiembros.get(i).getMote(), tarjeta);
@@ -67,6 +70,8 @@ public class controllerEquipo implements Initializable {
             if (lm.size() < 6) {
                 FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("fxml/tarjeta_añadir_miembro_v1.fxml"));
                 SplitPane tarjeta = cargarTarjeta.load();
+                controllerTarjetaAñadirMiembro controladorTarjeta = cargarTarjeta.getController();
+                controladorTarjeta.asignarConexion(conexion);
                 utils.crearTooltip("Añadir miembro", tarjeta);
                 gridMiembros.add(tarjeta, col, row);
             }

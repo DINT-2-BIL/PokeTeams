@@ -9,22 +9,34 @@ package com.fcm.pokeTeams;
  * @author DFran49
  */
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
+import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
+import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Movimiento;
 import com.fcm.pokeTeams.modelos.MovimientoEnvoltorio;
 import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -37,10 +49,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class controllerAñadirMiembro implements Initializable {
     private controllerTarjetaMiembro ctm;
+    private controllerConfirmar cc;
     Utilidades util = new Utilidades();
+    private Conexion conexion = null;
     private Miembro miembro;
 
     @FXML
@@ -203,10 +218,68 @@ public class controllerAñadirMiembro implements Initializable {
             }
         });
         util.crearTooltip("Imagen del pokemon", imgPokemon);
+        
+        try {
+            String query = "SELECT Especie FROM pokemon";
+
+            Statement statement = conexion.getConexion().createStatement();
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                cbEspecie.getItems().add(result.getString("Especie"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al conectar con la BD: " + e.getMessage());
+        }
+        
+        
+        cbEspecie.valueProperty().addListener((observable, valViejo, valNuevo) -> {
+            String especie = valNuevo;
+            txtEspecie.setText(especie);
+            try {
+                String query = "SELECT * FROM pokemon WHERE Especie = '" + especie + "'";
+                Statement statement = conexion.getConexion().createStatement();
+                ResultSet result = statement.executeQuery(query);
+                result.next();
+                HabilidadesEnvoltorio listaHabilidades = util.leerHabilidades(result.getString("Habilidades"));
+                cbTipo1.setValue(result.getString("Tipo_1"));
+                cbTipo2.setValue(result.getString("Tipo_2"));
+            } catch (SQLException e) {
+                System.out.println("Error al conectar con la BD: " + e.getMessage());
+            }
+            
+        });
     }
 
     void setControladorEnlace(controllerTarjetaMiembro c) {
         ctm = c;
+    }
+    
+    void asignarCerrado(Conexion c) {
+        conexion = c;
+        txtMote.setText("a");
+        ((Stage) txtMote.getScene().getWindow()).setOnCloseRequest(evento -> {
+            evento.consume();
+            Parent raiz = null;
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+            try {
+                raiz = cargador.load();
+            } catch (IOException ex) {
+                Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cc = cargador.getController();
+
+            Stage confirmar = new Stage();
+            Scene scene = new Scene(raiz);
+            confirmar.setScene(scene);
+            confirmar.setTitle("Confirmar");
+            cc.enviaStage((Stage) txtEVsAtk.getScene().getWindow());
+            confirmar.getIcons().add(new Image("Victini.png"));
+            confirmar.showAndWait();
+            if ((boolean) confirmar.getUserData()) {
+                System.out.println("ola");
+            }
+        });
+        txtMote.setText("");
     }
     
     void enviaMiembro(Miembro m) {

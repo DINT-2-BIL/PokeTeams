@@ -31,6 +31,7 @@ public class controllerConfirmar implements Initializable{
     @FXML
     void cerrar(ActionEvent event) {
         Stage a = (Stage) btnCancelar.getScene().getWindow();
+        a.setUserData(false);
         a.close();
         entrada.close();
     }
@@ -38,6 +39,7 @@ public class controllerConfirmar implements Initializable{
     @FXML
     void guardar(ActionEvent event) {
         Stage a = (Stage) btnCancelar.getScene().getWindow();
+        a.setUserData(true);
         a.close();
         entrada.close();
     }
