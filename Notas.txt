@@ -1,0 +1,4 @@
+He usado un fichero properties (Se encuentra en resources[main] en el cual se indican el puerto, el usuario y la bbdd.
+He leido json en las ventanas de editar y ver miembros de equipo y pokemon (para vargar información).
+Usuario administrador: "Rosa" Contraseña: "rosa"
+Usuario no admin: "Rojo" Contraseña: "rojo"

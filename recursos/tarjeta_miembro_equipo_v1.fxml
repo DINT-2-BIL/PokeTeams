@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.2348993288590604" maxHeight="300.0" maxWidth="405.0" minHeight="300.0" minWidth="300.0" onMouseClicked="#verMiembro" orientation="VERTICAL" prefHeight="300.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerTarjetaMiembro">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="88.0" prefWidth="598.0">
+         <children>
+            <Label fx:id="txtNombreMiembro" layoutX="145.0" layoutY="4.0" text="Bulbasaur">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <StackPane maxHeight="250.0" minHeight="250.0" prefHeight="250.0" prefWidth="405.0">
+         <children>
+            <ImageView fx:id="imgPokemonMiembro" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </StackPane>
+  </items>
+   <contextMenu>
+      <ContextMenu fx:id="menu">
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#editar" text="Editar" />
+            <MenuItem mnemonicParsing="false" onAction="#eliminar" text="Eliminar" />
+         </items>
+      </ContextMenu>
+   </contextMenu>
+</SplitPane>

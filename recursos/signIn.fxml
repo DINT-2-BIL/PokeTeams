@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefWidth="840.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerSignIn">
+   <children>
+      <Label text="Bienvenido">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+         <children>
+            <Label text="¿Cómo te llamas?">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtNombre" maxWidth="260.0" promptText="Nombre">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Introduce nombre" />
+               </tooltip>
+            </TextField>
+            <Label layoutX="337.0" layoutY="10.0" text="¿Qué eres?">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Selecciona tu género" />
+               </tooltip>
+            </Label>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <RadioButton fx:id="rbFemenino" mnemonicParsing="false" text="Femenino">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="genero" />
+                     </toggleGroup>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Femenino" />
+                     </tooltip>
+                  </RadioButton>
+                  <RadioButton fx:id="rbMasculino" mnemonicParsing="false" text="Masculino" toggleGroup="$genero">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Masculino" />
+                     </tooltip>
+                  </RadioButton>
+                  <RadioButton fx:id="rbOtro" mnemonicParsing="false" text="Otro" toggleGroup="$genero">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Otro" />
+                     </tooltip>
+                  </RadioButton>
+               </children>
+            </HBox>
+            <Label layoutX="337.0" layoutY="222.0" text="Sube una imagen para ti">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <StackPane maxHeight="200.0" maxWidth="200.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <StackPane minHeight="200.0" minWidth="300.0">
+                     <children>
+                        <ImageView fx:id="imgRegistro" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#subirImagen" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/add.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+               </children>
+            </StackPane>
+            <Label layoutX="337.0" layoutY="29.0" text="Introduce tu contraseña">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="pwContraseña" maxWidth="260.0" promptText="Contraseña">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Introduce tu contraseña" />
+               </tooltip>
+            </PasswordField>
+            <Label layoutX="337.0" layoutY="267.0" text="Confirma tu contraseña">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="pwConfContraseña" layoutX="330.0" layoutY="251.0" maxWidth="260.0" promptText="Confirmar contraseña">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Repite la contraseña" />
+               </tooltip>
+            </PasswordField>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Button fx:id="btnConfirmar" mnemonicParsing="false" onAction="#registrar" text="Confirmar">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Registrarse" />
+               </tooltip>
+            </Button>
+            <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#inicio" text="Inicio">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Iniciar sesión" />
+               </tooltip>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</VBox>
