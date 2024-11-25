@@ -272,7 +272,7 @@ public class controllerAñadirMiembro implements Initializable {
             Scene scene = new Scene(raiz);
             confirmar.setScene(scene);
             confirmar.setTitle("Confirmar");
-            cc.enviaStage((Stage) txtEVsAtk.getScene().getWindow());
+            cc.enviaStage((Stage) txtEVsAtk.getScene().getWindow(), conexion, "a", false);
             confirmar.getIcons().add(new Image("Victini.png"));
             confirmar.showAndWait();
             if ((boolean) confirmar.getUserData()) {

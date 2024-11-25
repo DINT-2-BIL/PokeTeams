@@ -99,7 +99,8 @@ public class controllerTarjetaPokemon implements Initializable {
             Scene inicio = new Scene(root);
             miStage.setScene(inicio);
             miStage.setTitle("Confirmar");
-            cc.enviaStage(editar);
+            cc.enviarAPokemon(editar, conexion, cCore, admin);
+            cc.enviarEditarPokemon(pokemon);
             miStage.setUserData(2);
             miStage.getIcons().add(new Image("Victini.png"));
             miStage.showAndWait();

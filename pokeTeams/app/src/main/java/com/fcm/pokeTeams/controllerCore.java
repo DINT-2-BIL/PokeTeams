@@ -240,7 +240,8 @@ public class controllerCore implements Initializable {
                 Scene scene = new Scene(raiz);
                 confirmar.setScene(scene);
                 confirmar.setTitle("Confirmar");
-                cc.enviaStage(miStage);
+                cc.enviarAPokemon(miStage, conexion, this, entrenador.isEsAdmin());
+                confirmar.setUserData(1);
                 confirmar.getIcons().add(new Image("Victini.png"));
                 confirmar.showAndWait();
             });
