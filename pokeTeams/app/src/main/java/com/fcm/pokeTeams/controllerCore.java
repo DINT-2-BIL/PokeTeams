@@ -12,6 +12,8 @@ import com.fcm.pokeTeams.util.Utilidades;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -67,6 +69,7 @@ public class controllerCore implements Initializable {
     Conexion conexion = null;
     int col = 0;
     int row = 0;
+    private int idEntrenador;
     Utilidades utils = new Utilidades();
     ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
     private controllerConfirmar cc;
@@ -171,6 +174,40 @@ public class controllerCore implements Initializable {
             miStage.setTitle("Añadir equipo");
             miStage.getIcons().add(new Image("Plusle.png"));
             miStage.showAndWait();
+            List<String> datos = (List<String>) miStage.getUserData();
+            if (!datos.isEmpty()) {
+                PreparedStatement preparado = null;
+                 try {
+                    String query = "INSERT INTO equipo (ID_Equipo, ID_Entrenador, Nombre_Equipo, Formato) VALUES (?, ?, ?, ?)";
+                    Connection c = conexion.getConexion();
+                    preparado = c.prepareStatement(query);
+
+                    String select = "SELECT MAX(ID_Equipo) AS ultimo_equipo FROM equipo";
+                    Statement statement = conexion.getConexion().createStatement();
+                    ResultSet result = statement.executeQuery(select);
+                    result.next();
+                    
+                    preparado.setInt(1, result.getInt("ultimo_equipo")+1);
+                    preparado.setInt(2, idEntrenador);
+                    preparado.setString(3, datos.get(0));
+                    preparado.setString(4, datos.get(1));
+
+                    if (preparado.executeUpdate() > 0) {
+                        System.out.println("Inserción exitosa.");
+                    } else {
+                        System.out.println("No se insertó el Equipo.");
+                    }
+                    cargarGridEquipo();
+                } catch (SQLException e) {
+                    System.out.println("Error al insertar: " + e.getMessage());
+                } finally {
+                    try {
+                        if (preparado != null) preparado.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -331,6 +368,20 @@ public class controllerCore implements Initializable {
         });
         miStage.showAndWait();
         if ((boolean) miStage.getUserData()) {
+            try {
+                
+                String query = "DELETE FROM entrenador WHERE ID_Entrenador = ?";
+                Connection c = conexion.getConexion();
+                PreparedStatement preparado = c.prepareStatement(query);
+                preparado.setInt(1, idEntrenador);
+                if (preparado.executeUpdate() > 0) {
+                    System.out.println("Borrado");
+                } else {
+                    System.out.println("No borrado");
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al conectar con la BD: " + e.getMessage());
+            }
             cerrar();
         }
     }
@@ -409,7 +460,8 @@ public class controllerCore implements Initializable {
             SplitPane tarjetaPokemon = cargarPokemon.load();
             controllerTarjetaPokemon controlador = cargarPokemon.getController();
 
-            controlador.asignarPokemon(pokemon, a);
+            controlador.asignarPokemon(pokemon, a, conexion);
+            controlador.asignarControladorCore(this);
             utils.crearTooltip(pokemon.getEspecie(), tarjetaPokemon);
             gridPokemon.add(tarjetaPokemon, col, row);
             if(col == 2) {
@@ -430,6 +482,7 @@ public class controllerCore implements Initializable {
             controllerEquipos controladorEquipo = cargarEquipo.getController();
 
             controladorEquipo.asignarEquipo(e, conexion);
+            controladorEquipo.asignarControladorCore(this);
             utils.crearTooltip(e.getNombre(), tarjetaEquipo);
             gridEquipos.add(tarjetaEquipo, 0, row);
             row++;
@@ -440,6 +493,52 @@ public class controllerCore implements Initializable {
     
     void setControladorEnlace(controllerLogIn c) {
         cLi = c;
+    }
+    
+    void cargarGridPokemon(Boolean admin) throws SQLException {
+        this.gridPokemon.getChildren().clear();
+        String query = "SELECT * FROM pokemon";
+        Statement statement = conexion.getConexion().createStatement();
+        ResultSet result = statement.executeQuery(query);
+        while (result.next()) {                    
+            Pokemon temp = new Pokemon();
+            temp.setnPokedex(result.getString("N_Pokedex"));
+            temp.setEspecie(result.getString("Especie"));
+            temp.setDenominacion(result.getString("Denominacion"));
+            temp.setDescripcion(result.getString("Descripcion"));
+            temp.setSprite(result.getString("Sprite"));
+            temp.setTipo1(result.getString("Tipo_1"));
+            temp.setTipo2(result.getString("Tipo_2"));
+            temp.setTamaño(result.getDouble("Tamaño"));
+            temp.setPeso(result.getDouble("Peso"));
+            temp.setHabilidades(result.getString("Habilidades"));
+            temp.setEstadisticas(result.getString("Estadisticas"));
+            cargarPokemon(temp, admin);
+        }
+        row = 0;
+        col = 0;
+    }
+    
+    void cargarGridEquipo() throws SQLException {
+        this.gridEquipos.getChildren().clear();
+        String query = "SELECT DISTINCT ID_Equipo FROM equipo WHERE ID_Entrenador = " + idEntrenador;
+
+        Statement statement = conexion.getConexion().createStatement();
+        ResultSet result = statement.executeQuery(query);
+        int idEquipo = 0;
+        while (result.next()) {                
+            idEquipo = result.getInt("ID_Equipo");
+            query = "SELECT * FROM equipo WHERE ID_Equipo = " + idEquipo;
+            statement = conexion.getConexion().createStatement();
+            ResultSet resultado = statement.executeQuery(query);
+            resultado.next();
+            Equipo tempEquipo = new Equipo();
+            tempEquipo.setIdEquipo(resultado.getInt("ID_Equipo"));
+            tempEquipo.setFormato(resultado.getString("Formato"));
+            tempEquipo.setNombre(resultado.getString("Nombre_Equipo"));
+            cargarEquipo(tempEquipo);
+        }
+        row = 0;
     }
     
     void enviaLogIn(Conexion c, String user) {
@@ -466,51 +565,15 @@ public class controllerCore implements Initializable {
                     utils.crearTooltip("Género: Otro", txtGeneroEntrenador);
                 }
             }
-            int idEntrenador = result.getInt("ID_Entrenador");
+            idEntrenador = result.getInt("ID_Entrenador");
             utils.recuperarImagenBBDD(result.getString("Sprite"), imgEntrenador);
             utils.crearTooltip("Entrenador: " + user, imgEntrenador);
             btnAddPokemon.setVisible(result.getBoolean("esAdmin"));
             boolean admin = result.getBoolean("esAdmin");
-
-            query = "SELECT * FROM pokemon";
-            statement = conexion.getConexion().createStatement();
-            result = statement.executeQuery(query);
-            while (result.next()) {                    
-                Pokemon temp = new Pokemon();
-                temp.setnPokedex(result.getString("N_Pokedex"));
-                temp.setEspecie(result.getString("Especie"));
-                temp.setDenominacion(result.getString("Denominacion"));
-                temp.setDescripcion(result.getString("Descripcion"));
-                temp.setSprite(result.getString("Sprite"));
-                temp.setTipo1(result.getString("Tipo_1"));
-                temp.setTipo2(result.getString("Tipo_2"));
-                temp.setTamaño(result.getDouble("Tamaño"));
-                temp.setPeso(result.getDouble("Peso"));
-                temp.setHabilidades(result.getString("Habilidades"));
-                temp.setEstadisticas(result.getString("Estadisticas"));
-                cargarPokemon(temp, admin);
-            }
-            row = 0;
-            col = 0;
             
-            query = "SELECT DISTINCT ID_Equipo FROM equipo WHERE ID_Entrenador = " + idEntrenador;
-
-            statement = conexion.getConexion().createStatement();
-            result = statement.executeQuery(query);
-            int idEquipo = 0;
-            while (result.next()) {                
-                idEquipo = result.getInt("ID_Equipo");
-                query = "SELECT * FROM equipo WHERE ID_Equipo = " + idEquipo;
-                statement = conexion.getConexion().createStatement();
-                ResultSet resultado = statement.executeQuery(query);
-                resultado.next();
-                Equipo tempEquipo = new Equipo();
-                tempEquipo.setIdEquipo(resultado.getInt("ID_Equipo"));
-                tempEquipo.setFormato(resultado.getString("Formato"));
-                tempEquipo.setNombre(resultado.getString("Nombre_Equipo"));
-                cargarEquipo(tempEquipo);
-            }
-            row = 0;
+            cargarGridPokemon(admin);
+            
+            cargarGridEquipo();
         } catch (SQLException e) {
             System.out.println("Error al conectar con la BD: " + e.getMessage());
         }

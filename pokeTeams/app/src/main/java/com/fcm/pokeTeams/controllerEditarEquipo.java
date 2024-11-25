@@ -11,6 +11,8 @@ package com.fcm.pokeTeams;
 
 import com.fcm.pokeTeams.util.Alertas;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class controllerEditarEquipo implements Initializable{
+    List<String> datos = new ArrayList<>();
 
     @FXML
     private TextField txtNuevoFormato;
@@ -29,6 +32,7 @@ public class controllerEditarEquipo implements Initializable{
     
     @FXML
     void cancelar(ActionEvent event) {
+        ((Stage) this.txtNuevoFormato.getScene().getWindow()).setUserData(datos);
         cerrar();
     }
 
@@ -39,6 +43,10 @@ public class controllerEditarEquipo implements Initializable{
                         "Debe rellenar al menos uno de los campos.", "Intentelo de nuevo.");
                 credencialesIncorrectas.mostrarAlerta();
         } else {
+            datos = new ArrayList<>();
+            datos.add(txtNuevoNombre.getText());
+            datos.add(txtNuevoFormato.getText());
+            ((Stage) this.txtNuevoFormato.getScene().getWindow()).setUserData(datos);
             cerrar();
         }
     }

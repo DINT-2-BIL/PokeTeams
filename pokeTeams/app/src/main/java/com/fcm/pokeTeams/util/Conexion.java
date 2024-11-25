@@ -23,7 +23,7 @@ public class Conexion extends Object {
         try {
             this.conexion = bbdd.getConnection();
         } catch (SQLException ex) {
-            new Alertas(Alert.AlertType.WARNING, "COnectate mi rey", "La base de datos de virus no ha sido actualizada", "Enciende Docker mi rey").mostrarAlerta();
+            new Alertas(Alert.AlertType.WARNING, "Base de Datos no disponible", "No se ha podido conectar a la Base e Datos", "Encienda la base de datos").mostrarAlerta();
         } catch (IOException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }

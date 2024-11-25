@@ -13,6 +13,9 @@ import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -85,6 +88,21 @@ public class controllerTarjetaMiembro implements Initializable{
         });
         miStage.showAndWait();
         if ((boolean) miStage.getUserData()) {
+            try {
+                String query = "DELETE FROM equipo WHERE Mote = ?";
+                Connection c = conexion.getConexion();
+                PreparedStatement preparado = c.prepareStatement(query);
+                preparado.setString(1, miembro.getMote());
+                if (preparado.executeUpdate() > 0) {
+                    System.out.println("Borrado");
+                } else {
+                    System.out.println("No borrado");
+                }
+                ce.cargarMiembros();
+            } catch (SQLException e) {
+                System.out.println("Error al conectar con la BD: " + e.getMessage());
+            }
+            
             System.out.println(miembro.getEspecie() + " eliminado.");
         }
     }

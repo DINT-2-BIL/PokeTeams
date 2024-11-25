@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb:3306
--- Generation Time: Nov 14, 2024 at 09:31 PM
+-- Generation Time: Nov 25, 2024 at 01:02 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.25
 
@@ -57,19 +57,19 @@ INSERT INTO `entrenador` (`ID_Entrenador`, `Nombre`, `Genero`, `Sprite`, `Contra
 
 CREATE TABLE `equipo` (
   `ID_Equipo` int(10) UNSIGNED NOT NULL,
-  `Mote` varchar(50) NOT NULL,
-  `N_Pokedex` smallint(3) UNSIGNED ZEROFILL NOT NULL,
+  `Mote` varchar(50) NOT NULL DEFAULT '',
+  `N_Pokedex` smallint(3) UNSIGNED ZEROFILL DEFAULT NULL,
   `ID_Entrenador` int(10) UNSIGNED NOT NULL,
   `Nombre_Equipo` varchar(50) NOT NULL,
   `Formato` varchar(50) NOT NULL,
-  `Genero` enum('M','F','N') NOT NULL,
-  `Nivel` tinyint(3) UNSIGNED NOT NULL,
-  `Habilidad` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `Naturaleza` varchar(7) NOT NULL,
-  `Objeto` varchar(20) NOT NULL,
-  `Movimientos` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `EVs` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `IVs` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
+  `Genero` enum('M','F','N') DEFAULT NULL,
+  `Nivel` tinyint(3) UNSIGNED DEFAULT NULL,
+  `Habilidad` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `Naturaleza` varchar(7) DEFAULT NULL,
+  `Objeto` varchar(20) DEFAULT NULL,
+  `Movimientos` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `EVs` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `IVs` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
@@ -77,6 +77,7 @@ CREATE TABLE `equipo` (
 --
 
 INSERT INTO `equipo` (`ID_Equipo`, `Mote`, `N_Pokedex`, `ID_Entrenador`, `Nombre_Equipo`, `Formato`, `Genero`, `Nivel`, `Habilidad`, `Naturaleza`, `Objeto`, `Movimientos`, `EVs`, `IVs`) VALUES
+(1, '', NULL, 2, 'Piko', '1v1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1, 'Luca', 002, 2, 'Piko', '1v1', 'N', 21, 'Clorofila', 'Rara', 'Gran seta', '{\"movimientos\":[{\"nombre\":\"Látigo cepa\"},{\"nombre\":\"Desarrollo\"},{\"nombre\":\"Derribo\"}]}', '{\"evs\":[{\"estadistica\":\"HP\",\"valor\":43},{\"estadistica\":\"Atk\",\"valor\":1},{\"estadistica\":\"Def\",\"valor\":176},{\"estadistica\":\"SpA\",\"valor\":78},{\"estadistica\":\"SpD\",\"valor\":246},{\"estadistica\":\"Spe\",\"valor\":103}]}', '{\"ivs\":[{\"estadistica\":\"HP\",\"valor\":10},{\"estadistica\":\"Atk\",\"valor\":9},{\"estadistica\":\"Def\",\"valor\":8},{\"estadistica\":\"SpA\",\"valor\":19},{\"estadistica\":\"SpD\",\"valor\":16},{\"estadistica\":\"Spe\",\"valor\":26}]}'),
 (1, 'Pi', 005, 2, 'Piko', '1v1', 'F', 18, 'Mar llamas', 'Pícara', 'Pañuelo elección', '{\"movimientos\":[{\"nombre\":\"Dragoaliento\"},{\"nombre\":\"Lanzallamas\"},{\"nombre\":\"Cuchillada\"}]}', '{\"evs\":[{\"estadistica\":\"HP\",\"valor\":238},{\"estadistica\":\"Atk\",\"valor\":56},{\"estadistica\":\"Def\",\"valor\":163},{\"estadistica\":\"SpA\",\"valor\":39},{\"estadistica\":\"SpD\",\"valor\":146},{\"estadistica\":\"Spe\",\"valor\":186}]}', '{\"ivs\":[{\"estadistica\":\"HP\",\"valor\":18},{\"estadistica\":\"Atk\",\"valor\":7},{\"estadistica\":\"Def\",\"valor\":12},{\"estadistica\":\"SpA\",\"valor\":16},{\"estadistica\":\"SpD\",\"valor\":17},{\"estadistica\":\"Spe\",\"valor\":2}]}'),
 (1, 'Rubén', 009, 2, 'Piko', '1v1', 'M', 54, 'Torrente', 'Terca', 'Restos', '{\"movimientos\":[{\"nombre\":\"Pistola agua\"}]}', '{\"evs\":[{\"estadistica\":\"HP\",\"valor\":170},{\"estadistica\":\"Atk\",\"valor\":137},{\"estadistica\":\"Def\",\"valor\":138},{\"estadistica\":\"SpA\",\"valor\":153},{\"estadistica\":\"SpD\",\"valor\":144},{\"estadistica\":\"Spe\",\"valor\":135}]}', '{\"ivs\":[{\"estadistica\":\"HP\",\"valor\":22},{\"estadistica\":\"Atk\",\"valor\":6},{\"estadistica\":\"Def\",\"valor\":24},{\"estadistica\":\"SpA\",\"valor\":1},{\"estadistica\":\"SpD\",\"valor\":16},{\"estadistica\":\"Spe\",\"valor\":16}]}'),

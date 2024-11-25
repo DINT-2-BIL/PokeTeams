@@ -9,6 +9,8 @@ package com.fcm.pokeTeams;
  * @author DFran49
  */
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -25,12 +27,18 @@ public class controllerAñadirEquipo {
     @FXML
     void cancelar(ActionEvent event) {
         Stage ventana = (Stage) txtFormato.getScene().getWindow();
+        ventana.setUserData(null);
         ventana.close();
     }
 
     @FXML
     void crearEquipo(ActionEvent event) {
-
+        Stage ventana = (Stage) txtFormato.getScene().getWindow();
+        List<String> datos = new ArrayList<>();
+        datos.add(txtFormato.getText());
+        datos.add(txtNombre.getText());
+        ventana.setUserData(datos);
+        ventana.close();
     }
 
 }

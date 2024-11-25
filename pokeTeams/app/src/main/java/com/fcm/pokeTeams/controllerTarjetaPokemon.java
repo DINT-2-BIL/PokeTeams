@@ -8,10 +8,17 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +43,9 @@ public class controllerTarjetaPokemon implements Initializable {
     private controllerPokedex cp;
     private controllerAñadirPokemon cap;
     private controllerConfirmar cc;
+    private controllerCore cCore;
+    Conexion conexion = null;
+    private boolean admin;
     Stage emergente;
     Stage editar;
     Pokemon pokemon;
@@ -115,7 +125,25 @@ public class controllerTarjetaPokemon implements Initializable {
         });
         miStage.showAndWait();
         if ((boolean) miStage.getUserData()) {
+            try {
+                
+                String query = "DELETE FROM pokemon WHERE N_Pokedex = ?";
+                Connection c = conexion.getConexion();
+                PreparedStatement preparado = c.prepareStatement(query);
+                preparado.setInt(1, Integer.parseInt(pokemon.getnPokedex()));
+                if (preparado.executeUpdate() > 0) {
+                    System.out.println("Borrado");
+                } else {
+                    System.out.println("No borrado");
+                }
+                cCore.cargarGridPokemon(admin);
+                cCore.cargarGridEquipo();
+            } catch (SQLException e) {
+                System.out.println("Error al conectar con la BD: " + e.getMessage());
+            }
             System.out.println(pokemon.getEspecie() + " eliminado.");
+        } else {
+            System.out.println("Raro");
         }
     }
 
@@ -151,8 +179,13 @@ public class controllerTarjetaPokemon implements Initializable {
         editar.setResizable(false);
         editar.setScene(sceneB);
     }
+    
+    public void asignarControladorCore(controllerCore c) {
+        this.cCore = c;
+    }
 
-    public void asignarPokemon(Pokemon p, boolean admin) {
+    public void asignarPokemon(Pokemon p, boolean admin, Conexion c) {
+        this.admin = admin;
         txtEspecie.setText(p.getEspecie());
         
         txtId.setText(p.getnPokedex());
