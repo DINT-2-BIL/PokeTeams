@@ -5,6 +5,7 @@
 package com.fcm.pokeTeams.util;
 
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
+import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
 import com.fcm.pokeTeams.modelos.Habilidad;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
@@ -81,6 +82,16 @@ public class Utilidades {
     public HabilidadesEnvoltorio leerHabilidades(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, HabilidadesEnvoltorio.class);
+    }
+    
+    public String escribirStats(EstadisticasEnvoltorio e) {
+        Gson gson = new Gson();
+        return gson.toJson(e);
+    }
+    
+    public String escribirHabilidades(HabilidadesEnvoltorio h) {
+        Gson gson = new Gson();
+        return gson.toJson(h);
     }
     
     public void leerMovimientos(Miembro m, List<TextField> lt) {

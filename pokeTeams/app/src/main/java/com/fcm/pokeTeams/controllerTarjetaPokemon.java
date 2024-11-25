@@ -84,6 +84,7 @@ public class controllerTarjetaPokemon implements Initializable {
         editar.setTitle("Editar " + pokemon.getEspecie());
         editar.getIcons().add(util.getImage(pokemon.getSprite()));
         editar.setOnCloseRequest(evento -> {
+            
             evento.consume();
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
@@ -99,6 +100,7 @@ public class controllerTarjetaPokemon implements Initializable {
             miStage.setScene(inicio);
             miStage.setTitle("Confirmar");
             cc.enviaStage(editar);
+            miStage.setUserData(2);
             miStage.getIcons().add(new Image("Victini.png"));
             miStage.showAndWait();
         });

@@ -4,6 +4,7 @@
  */
 package com.fcm.pokeTeams;
 
+import com.fcm.pokeTeams.modelos.Entrenador;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Pokemon;
@@ -69,7 +70,7 @@ public class controllerCore implements Initializable {
     Conexion conexion = null;
     int col = 0;
     int row = 0;
-    private int idEntrenador;
+    private Entrenador entrenador;
     Utilidades utils = new Utilidades();
     ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
     private controllerConfirmar cc;
@@ -188,7 +189,7 @@ public class controllerCore implements Initializable {
                     result.next();
                     
                     preparado.setInt(1, result.getInt("ultimo_equipo")+1);
-                    preparado.setInt(2, idEntrenador);
+                    preparado.setInt(2, entrenador.getIdEntrenador());
                     preparado.setString(3, datos.get(0));
                     preparado.setString(4, datos.get(1));
 
@@ -320,7 +321,9 @@ public class controllerCore implements Initializable {
             miStage.setScene(inicio);
             miStage.setTitle("Cambiar nombre");
             miStage.getIcons().add(new Image("Klink.png"));
+            miStage.setUserData(entrenador.getIdEntrenador());
             miStage.showAndWait();
+            
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -373,7 +376,7 @@ public class controllerCore implements Initializable {
                 String query = "DELETE FROM entrenador WHERE ID_Entrenador = ?";
                 Connection c = conexion.getConexion();
                 PreparedStatement preparado = c.prepareStatement(query);
-                preparado.setInt(1, idEntrenador);
+                preparado.setInt(1, entrenador.getIdEntrenador());
                 if (preparado.executeUpdate() > 0) {
                     System.out.println("Borrado");
                 } else {
@@ -521,7 +524,7 @@ public class controllerCore implements Initializable {
     
     void cargarGridEquipo() throws SQLException {
         this.gridEquipos.getChildren().clear();
-        String query = "SELECT DISTINCT ID_Equipo FROM equipo WHERE ID_Entrenador = " + idEntrenador;
+        String query = "SELECT DISTINCT ID_Equipo FROM equipo WHERE ID_Entrenador = " + entrenador.getIdEntrenador();
 
         Statement statement = conexion.getConexion().createStatement();
         ResultSet result = statement.executeQuery(query);
@@ -541,10 +544,19 @@ public class controllerCore implements Initializable {
         row = 0;
     }
     
+    void refrescarUser() {
+        txtNombreEntrenador.setText(entrenador.getNombre());
+        utils.crearTooltip("Entrenador " + entrenador.getNombre(), txtNombreEntrenador);
+        utils.recuperarImagenBBDD(entrenador.getSprite(), imgEntrenador);
+        utils.crearTooltip("Entrenador: " + entrenador.getNombre(), imgEntrenador);
+        btnAddPokemon.setVisible(entrenador.isEsAdmin());
+        
+    }
+    
     void enviaLogIn(Conexion c, String user) {
         conexion = c;
-        txtNombreEntrenador.setText(user);
-        utils.crearTooltip("Entrenador " + user, txtNombreEntrenador);
+        entrenador = new Entrenador();
+        entrenador.setNombre(user);
         try {
             String query = "SELECT * FROM entrenador WHERE Nombre = '" + user +"'";
 
@@ -553,25 +565,27 @@ public class controllerCore implements Initializable {
             result.next();
             switch (result.getString("Genero")) {
                 case "F" -> {
+                    entrenador.setGenero('F');
                     txtGeneroEntrenador.setText("Mujer");
                     utils.crearTooltip("Género: Mujer", txtGeneroEntrenador);
                 }
                 case "M" -> {
+                    entrenador.setGenero('M');
                     txtGeneroEntrenador.setText("Hombre");
                     utils.crearTooltip("Género: Hombre", txtGeneroEntrenador);
                 }
                 case "0" -> {
+                    entrenador.setGenero('O');
                     txtGeneroEntrenador.setText("Otro");
                     utils.crearTooltip("Género: Otro", txtGeneroEntrenador);
                 }
             }
-            idEntrenador = result.getInt("ID_Entrenador");
-            utils.recuperarImagenBBDD(result.getString("Sprite"), imgEntrenador);
-            utils.crearTooltip("Entrenador: " + user, imgEntrenador);
-            btnAddPokemon.setVisible(result.getBoolean("esAdmin"));
-            boolean admin = result.getBoolean("esAdmin");
             
-            cargarGridPokemon(admin);
+            entrenador.setIdEntrenador(result.getInt("ID_Entrenador"));
+            entrenador.setSprite(result.getString("Sprite"));
+            entrenador.setEsAdmin(result.getBoolean("esAdmin"));
+            refrescarUser();
+            cargarGridPokemon(entrenador.isEsAdmin());
             
             cargarGridEquipo();
         } catch (SQLException e) {
