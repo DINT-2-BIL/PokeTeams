@@ -8,6 +8,7 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
@@ -42,6 +43,7 @@ public class controllerTarjetaMiembro implements Initializable{
     Stage emergenteVer;
     Miembro miembro;
     Utilidades util = new Utilidades();
+    Equipo equipo;
 
     @FXML
     private ImageView imgPokemonMiembro;
@@ -53,7 +55,7 @@ public class controllerTarjetaMiembro implements Initializable{
     void editar(ActionEvent event) {
         this.cam.enviaMiembro(miembro);
         this.emergenteEditar.setTitle(miembro.getMote());
-        cam.asignarCerrado(conexion);
+        cam.asignarCerrado(conexion, equipo, 4);
         emergenteEditar.getIcons().add(util.getImage(miembro.getSprite()));
         emergenteEditar.show();
     }
@@ -142,11 +144,12 @@ public class controllerTarjetaMiembro implements Initializable{
         emergenteVer.setTitle("Ver miembro");
     }
     
-    public void asignarMiembro(Miembro m, Conexion c) {
+    public void asignarMiembro(Miembro m, Conexion c, Equipo e) {
         txtNombreMiembro.setText(m.getMote());
         util.recuperarImagenBBDD(m.getSprite(), imgPokemonMiembro);
         miembro = m;
         conexion = c;
+        equipo = e;
     }
     
     void setControladorEnlace(controllerEquipo c) {

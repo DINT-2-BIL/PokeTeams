@@ -280,6 +280,9 @@ public class controllerCore implements Initializable {
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_cambiar_contraseña.fxml"));
             root = loader.load();
+            
+            controllerPopUpCambioContraseña ccn = loader.getController();
+            ccn.pasoVariables(conexion, entrenador);
 
             Stage miStage = new Stage();
             Scene inicio = new Scene(root);
@@ -298,6 +301,9 @@ public class controllerCore implements Initializable {
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_cambiar_genero.fxml"));
             root = loader.load();
+            
+            controllerPopUpCambioGenero ccn = loader.getController();
+            ccn.pasoVariables(conexion, entrenador, this);
 
             Stage miStage = new Stage();
             Scene inicio = new Scene(root);
@@ -316,6 +322,9 @@ public class controllerCore implements Initializable {
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_cambiar_nombre.fxml"));
             root = loader.load();
+            
+            controllerPopUpCambioNombre ccn = loader.getController();
+            ccn.pasoVariables(conexion, entrenador, this);
 
             Stage miStage = new Stage();
             Scene inicio = new Scene(root);
@@ -420,6 +429,29 @@ public class controllerCore implements Initializable {
                     if (archivoSeleccionado != null) {
                         String rutaArchivo = archivoSeleccionado.toURI().toString();
                         Image imagen = new Image(rutaArchivo);
+                        PreparedStatement preparado = null;
+                        try {
+                            String query = "UPDATE entrenador SET Sprite = ? WHERE ID_Entrenador = ?;";
+                            Connection c = conexion.getConexion();
+                            preparado = c.prepareStatement(query);
+
+                            preparado.setString(1, utils.codificarImagen(imagen));
+                            preparado.setInt(2, entrenador.getIdEntrenador());
+
+                            if (preparado.executeUpdate() > 0) {
+                                System.out.println("Inserción exitosa.");
+                            } else {
+                                System.out.println("No se insertó.");
+                            }
+                        } catch (SQLException e) {
+                            System.out.println("Error al editar: " + e.getMessage());
+                        } finally {
+                            try {
+                                if (preparado != null) preparado.close();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         imgEntrenador.setImage(imagen);
                     }
         });
@@ -540,14 +572,46 @@ public class controllerCore implements Initializable {
             tempEquipo.setIdEquipo(resultado.getInt("ID_Equipo"));
             tempEquipo.setFormato(resultado.getString("Formato"));
             tempEquipo.setNombre(resultado.getString("Nombre_Equipo"));
+            tempEquipo.setIdEntrenador(entrenador.getIdEntrenador());
             cargarEquipo(tempEquipo);
         }
         row = 0;
     }
     
-    void refrescarUser() {
+    void refrescarUser() throws SQLException {
+        String query = "SELECT * FROM entrenador WHERE ID_Entrenador = " + entrenador.getIdEntrenador();
+
+        Statement statement = conexion.getConexion().createStatement();
+        ResultSet result = statement.executeQuery(query);
+        result.next();
+
+
+        entrenador.setNombre(result.getString("Nombre"));
+        entrenador.setGenero(result.getString("Genero").charAt(0));
+        entrenador.setSprite(result.getString("Sprite"));
+        entrenador.setEsAdmin(result.getBoolean("esAdmin"));
+        
         txtNombreEntrenador.setText(entrenador.getNombre());
         utils.crearTooltip("Entrenador " + entrenador.getNombre(), txtNombreEntrenador);
+        System.out.println(entrenador.getGenero());
+        switch (entrenador.getGenero()) {
+                case 'F' -> {
+                    entrenador.setGenero('F');
+                    txtGeneroEntrenador.setText("Mujer");
+                    utils.crearTooltip("Género: Mujer", txtGeneroEntrenador);
+                }
+                case 'M' -> {
+                    entrenador.setGenero('M');
+                    txtGeneroEntrenador.setText("Hombre");
+                    utils.crearTooltip("Género: Hombre", txtGeneroEntrenador);
+                }
+                case 'O' -> {
+                    entrenador.setGenero('O');
+                    txtGeneroEntrenador.setText("Otro");
+                    utils.crearTooltip("Género: Otro", txtGeneroEntrenador);
+                }
+            }
+        
         utils.recuperarImagenBBDD(entrenador.getSprite(), imgEntrenador);
         utils.crearTooltip("Entrenador: " + entrenador.getNombre(), imgEntrenador);
         btnAddPokemon.setVisible(entrenador.isEsAdmin());
@@ -557,34 +621,14 @@ public class controllerCore implements Initializable {
     void enviaLogIn(Conexion c, String user) {
         conexion = c;
         entrenador = new Entrenador();
-        entrenador.setNombre(user);
         try {
-            String query = "SELECT * FROM entrenador WHERE Nombre = '" + user +"'";
+            String query = "SELECT ID_Entrenador FROM entrenador WHERE Nombre = '" + user +"'";
 
             Statement statement = conexion.getConexion().createStatement();
             ResultSet result = statement.executeQuery(query);
             result.next();
-            switch (result.getString("Genero")) {
-                case "F" -> {
-                    entrenador.setGenero('F');
-                    txtGeneroEntrenador.setText("Mujer");
-                    utils.crearTooltip("Género: Mujer", txtGeneroEntrenador);
-                }
-                case "M" -> {
-                    entrenador.setGenero('M');
-                    txtGeneroEntrenador.setText("Hombre");
-                    utils.crearTooltip("Género: Hombre", txtGeneroEntrenador);
-                }
-                case "0" -> {
-                    entrenador.setGenero('O');
-                    txtGeneroEntrenador.setText("Otro");
-                    utils.crearTooltip("Género: Otro", txtGeneroEntrenador);
-                }
-            }
-            
             entrenador.setIdEntrenador(result.getInt("ID_Entrenador"));
-            entrenador.setSprite(result.getString("Sprite"));
-            entrenador.setEsAdmin(result.getBoolean("esAdmin"));
+            
             refrescarUser();
             cargarGridPokemon(entrenador.isEsAdmin());
             

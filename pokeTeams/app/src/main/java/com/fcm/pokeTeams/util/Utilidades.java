@@ -94,6 +94,22 @@ public class Utilidades {
         return gson.toJson(h);
     }
     
+    public String escribirMovimientos(MovimientoEnvoltorio m) {
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(m));
+        return gson.toJson(m);
+    }
+    
+    public String escribirEVs(EVsEnvoltorio i) {
+        Gson gson = new Gson();
+        return gson.toJson(i);
+    }
+    
+    public String escribirIVs(IVsEnvoltorio e) {
+        Gson gson = new Gson();
+        return gson.toJson(e);
+    }
+    
     public void leerMovimientos(Miembro m, List<TextField> lt) {
         Gson gson = new Gson();
         MovimientoEnvoltorio listMovimientos = gson.fromJson(m.getMovimientos(), MovimientoEnvoltorio.class);

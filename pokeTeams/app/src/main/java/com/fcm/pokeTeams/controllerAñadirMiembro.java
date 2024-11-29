@@ -254,7 +254,7 @@ public class controllerAñadirMiembro implements Initializable {
         ctm = c;
     }
     
-    void asignarCerrado(Conexion c) {
+    void asignarCerrado(Conexion c, Equipo e, int i) {
         conexion = c;
         txtMote.setText("a");
         ((Stage) txtMote.getScene().getWindow()).setOnCloseRequest(evento -> {
@@ -269,15 +269,15 @@ public class controllerAñadirMiembro implements Initializable {
             cc = cargador.getController();
 
             Stage confirmar = new Stage();
+            confirmar.setUserData(i);
             Scene scene = new Scene(raiz);
+            scene.setUserData(e);
             confirmar.setScene(scene);
             confirmar.setTitle("Confirmar");
-            cc.enviaStage((Stage) txtEVsAtk.getScene().getWindow(), conexion, "a", false);
+            cc.enviaStage((Stage) txtEVsAtk.getScene().getWindow(), conexion, "a");
+            cc.enviarEditarMiembro(miembro);
             confirmar.getIcons().add(new Image("Victini.png"));
             confirmar.showAndWait();
-            if ((boolean) confirmar.getUserData()) {
-                System.out.println("ola");
-            }
         });
         txtMote.setText("");
     }

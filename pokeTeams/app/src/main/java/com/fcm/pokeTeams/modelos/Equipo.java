@@ -12,6 +12,7 @@ public class Equipo {
     private int idEquipo;
     private String nombre;
     private String formato;
+    private int idEntrenador;
 
     public Equipo() {
     }
@@ -39,4 +40,14 @@ public class Equipo {
     public void setFormato(String formato) {
         this.formato = formato;
     }
+
+    public int getIdEntrenador() {
+        return idEntrenador;
+    }
+
+    public void setIdEntrenador(int idEntrenador) {
+        this.idEntrenador = idEntrenador;
+    }
+    
+    
 }

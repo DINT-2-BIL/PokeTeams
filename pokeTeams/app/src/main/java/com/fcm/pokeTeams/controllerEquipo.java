@@ -37,7 +37,7 @@ public class controllerEquipo implements Initializable {
     private controllerTarjetaAñadirMiembro ctam;
     private List<Miembro> listaMiembros = new ArrayList<>();
     private Utilidades utils = new Utilidades();
-    private int idEquipo;
+    private Equipo equipo;
 
     @FXML
     private GridPane gridMiembros;
@@ -60,7 +60,7 @@ public class controllerEquipo implements Initializable {
                 SplitPane tarjeta = cargarTarjeta.load();
                 controllerTarjetaMiembro controladorTarjeta = cargarTarjeta.getController();
                 
-                controladorTarjeta.asignarMiembro(listaMiembros.get(i), conexion);
+                controladorTarjeta.asignarMiembro(listaMiembros.get(i), conexion, equipo);
                 ctm = cargarTarjeta.getController();
                 ctm.setControladorEnlace(this);
                 utils.crearTooltip(listaMiembros.get(i).getMote(), tarjeta);
@@ -75,7 +75,7 @@ public class controllerEquipo implements Initializable {
                 FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("fxml/tarjeta_añadir_miembro_v1.fxml"));
                 SplitPane tarjeta = cargarTarjeta.load();
                 controllerTarjetaAñadirMiembro controladorTarjeta = cargarTarjeta.getController();
-                controladorTarjeta.asignarConexion(conexion);
+                controladorTarjeta.asignarConexion(conexion, equipo);
                 utils.crearTooltip("Añadir miembro", tarjeta);
                 gridMiembros.add(tarjeta, col, row);
             }
@@ -90,7 +90,7 @@ public class controllerEquipo implements Initializable {
             listaMiembros.clear();
             String query = "SELECT Especie, N_Pokedex, Mote, Genero, Nivel, Habilidad, Naturaleza, Objeto, "
                     + "Tipo_1, Tipo_2, Habilidades, Movimientos, Estadisticas, EVs, IVs, Sprite "
-                    + "FROM equipo JOIN pokemon USING (N_Pokedex) WHERE ID_Equipo = " + idEquipo;
+                    + "FROM equipo JOIN pokemon USING (N_Pokedex) WHERE ID_Equipo = " + equipo.getIdEquipo();
             Statement statement = conexion.getConexion().createStatement();
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
@@ -122,7 +122,7 @@ public class controllerEquipo implements Initializable {
     void enviaMiembros(Equipo e, Conexion c) {
         conexion = c;
         txtNombreEquipo.setText(e.getNombre());
-        idEquipo = e.getIdEquipo();
+        equipo = e;
         utils.crearTooltip("Equipo: " + e.getNombre(), txtNombreEquipo);
         cargarMiembros();
     }

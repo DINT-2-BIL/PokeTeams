@@ -8,10 +8,16 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.modelos.EV;
+import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
+import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
 import com.fcm.pokeTeams.modelos.Habilidad;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
+import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Miembro;
+import com.fcm.pokeTeams.modelos.Movimiento;
+import com.fcm.pokeTeams.modelos.MovimientoEnvoltorio;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.modelos.Stat;
 import com.fcm.pokeTeams.util.Conexion;
@@ -25,6 +31,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +40,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -47,6 +56,8 @@ public class controllerConfirmar implements Initializable {
     private boolean admin;
     private Pokemon pokemon = new Pokemon();
     private Miembro miembro = new Miembro();
+    private Miembro oldMiembro;
+    private Equipo equipo;
     
     @FXML
     private Button btnCancelar;
@@ -82,11 +93,11 @@ public class controllerConfirmar implements Initializable {
             }
             case 3 -> {
                 cargarDatosMiembro();
-                //insertarMiembro();
+                insertarMiembro();
             }
             case 4 -> {
                 cargarDatosMiembro();
-                //editarMiembro();
+                editarMiembro();
             }
         }
         entrada.close();
@@ -113,7 +124,34 @@ public class controllerConfirmar implements Initializable {
         pokemon.setHabilidades(leerHabilidades());
     }
     
+    private void cargarDatosMiembro() {
+        miembro.setEspecie(((TextField)escena.lookup("#txtEspecie")).getText());
+        miembro.setNivel(((Spinner<Integer>)escena.lookup("#spNivel")).getValue());
+        miembro.setMote(((TextField)escena.lookup("#txtMote")).getText());
+        miembro.setHabilidad(((ComboBox<String>)escena.lookup("#cbHabilidad")).getValue());
+        miembro.setObjeto(((TextField)escena.lookup("#txtObjeto")).getText());
+        miembro.setGenero(((ComboBox<Character>)escena.lookup("#cbGenero")).getValue().toString().charAt(0));
+        miembro.setTipo1(((ComboBox<String>)escena.lookup("#cbTipo1")).getValue());
+        miembro.setTipo2(((ComboBox<String>)escena.lookup("#cbTipo2")).getValue());
+        miembro.setMovimientos(leerMovimientos());
+        miembro.setIvs(leerIVs());
+        miembro.setEvs(leerEVs());
+        
+        try {
+            String query = "SELECT N_Pokedex FROM pokemon WHERE Especie = '" + miembro.getEspecie() + "'";
+            Statement statement = conexion.getConexion().createStatement();
+            ResultSet result = statement.executeQuery(query);
+            result.next();
+            miembro.setnPokedex(result.getInt("N_Pokedex"));
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        System.out.println(miembro.getnPokedex());
+        equipo = (Equipo)btnCancelar.getScene().getUserData();
+    }
+    
     private void insertarPokemon() {
+        
         PreparedStatement preparado = null;
         try {
             String query = "INSERT INTO pokemon (Especie, Denominacion, Descripcion, Sprite, Tipo_1, Tipo_2, Tamaño, Peso, Habilidades, Estadisticas) "
@@ -186,14 +224,95 @@ public class controllerConfirmar implements Initializable {
         }
     }
     
-     private void cargarDatosMiembro() {}
-    
     private void insertarMiembro() {
-        
+        System.out.println("insertar");
+        PreparedStatement preparado = null;
+        try {
+            String query = "INSERT INTO equipo (ID_Equipo, Mote, N_Pokedex, ID_Entrenador, Nombre_Equipo, Formato, Genero, Nivel, Habilidad, "
+                    + "Objeto, Movimientos, EVs, IVs) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            Connection c = conexion.getConexion();
+            
+            Statement stmt = c.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS = 0;"); 
+            
+            
+            preparado = c.prepareStatement(query);
+
+            preparado.setString(1, equipo.getIdEquipo()+"");
+            preparado.setString(2, miembro.getMote());
+            preparado.setInt(3, miembro.getnPokedex());
+            preparado.setInt(4, equipo.getIdEntrenador());
+            preparado.setString(5, equipo.getNombre());
+            preparado.setString(6, equipo.getFormato());
+            preparado.setString(7, miembro.getGenero()+"");
+            preparado.setInt(8, miembro.getNivel());
+            preparado.setString(9, miembro.getHabilidad());
+            preparado.setString(10, miembro.getObjeto());
+            preparado.setString(11, miembro.getMovimientos());
+            preparado.setString(12, miembro.getEvs());
+            preparado.setString(13, miembro.getIvs());
+
+            if (preparado.executeUpdate() > 0) {
+                System.out.println("Inserción exitosa.");
+            } else {
+                System.out.println("No se insertó el Equipo.");
+            }
+            stmt.execute("SET FOREIGN_KEY_CHECKS = 1;");
+        } catch (SQLException e) {
+            System.out.println("Error al insertar: " + e.getMessage());
+        } finally {
+            try {
+                if (preparado != null) preparado.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     private void editarMiembro() {
-        
+        System.out.println("editar");
+        PreparedStatement preparado = null;
+        try {
+            
+            String query = "UPDATE equipo SET N_Pokedex = ?, Genero = ?, Nivel = ?, Mote = ?, Habilidad = ?, Objeto = ?, Movimientos = ?, EVs = ?, IVs = ? "
+                    + "WHERE ID_Equipo = ? AND Mote = ?;";
+            Connection c = conexion.getConexion();
+            
+            Statement stmt = c.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS = 0;");
+            
+            preparado = c.prepareStatement(query);
+
+            preparado.setInt(1, miembro.getnPokedex());
+            preparado.setString(2, miembro.getGenero()+"");
+            preparado.setInt(3, miembro.getNivel());
+            preparado.setString(4, miembro.getMote());
+            preparado.setString(5, miembro.getHabilidad());
+            //preparado.setString(5, miembro.getNaturaleza());
+            preparado.setString(6, miembro.getObjeto());
+            preparado.setString(7, miembro.getMovimientos());
+            preparado.setString(8, miembro.getEvs());
+            preparado.setString(9, miembro.getIvs());
+            preparado.setInt(10, equipo.getIdEquipo());
+            preparado.setString(11, oldMiembro.getMote());
+
+            if (preparado.executeUpdate() > 0) {
+                System.out.println("Inserción exitosa.");
+            } else {
+                System.out.println("No se insertó el Equipo.");
+            }
+            stmt.execute("SET FOREIGN_KEY_CHECKS = 1;");
+
+        } catch (SQLException e) {
+            System.out.println("Error al editar: " + e.getMessage());
+        } finally {
+            try {
+                if (preparado != null) preparado.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     private String leerStats() {
@@ -223,6 +342,46 @@ public class controllerConfirmar implements Initializable {
         }
         return utils.escribirHabilidades(new HabilidadesEnvoltorio(habilidades));
     }
+    
+    private String leerMovimientos() {
+        List<Movimiento> movimientos = new ArrayList<>();
+        for (int i = 1; i < 5; i++) {
+            String texto = ((TextField) escena.lookup("#txtMovimiento"+i)).getText();
+            if (!texto.isEmpty()) {
+                movimientos.add(new Movimiento(texto));
+                System.out.println(movimientos.get(i-1).getMovimiento());
+            }
+        }
+        
+        MovimientoEnvoltorio envoltorio = new MovimientoEnvoltorio(movimientos);
+        return utils.escribirMovimientos(envoltorio);
+    }
+    
+    private String leerIVs() {
+        List<EV> stats = new ArrayList<>();
+        stats.add(new EV("HP", (int)((Slider) escena.lookup("#sdIVsHp")).getValue()));
+        stats.add(new EV("Atk", (int)((Slider) escena.lookup("#sdIVsAtk")).getValue()));
+        stats.add(new EV("Def", (int)((Slider) escena.lookup("#sdIVsDef")).getValue()));
+        stats.add(new EV("SpA", (int)((Slider) escena.lookup("#sdIVsSpA")).getValue()));
+        stats.add(new EV("SpD", (int)((Slider) escena.lookup("#sdIVsSpD")).getValue()));
+        stats.add(new EV("SpE", (int)((Slider) escena.lookup("#sdIVsSpe")).getValue()));
+        
+        IVsEnvoltorio estadisticas = new IVsEnvoltorio(stats);
+        return utils.escribirIVs(estadisticas);
+    }
+    
+    private String leerEVs() {
+        List<EV> stats = new ArrayList<>();
+        stats.add(new EV("HP", (int)((Slider) escena.lookup("#sdEVsHp")).getValue()));
+        stats.add(new EV("Atk", (int)((Slider) escena.lookup("#sdEVsAtk")).getValue()));
+        stats.add(new EV("Def", (int)((Slider) escena.lookup("#sdEVsDef")).getValue()));
+        stats.add(new EV("SpA", (int)((Slider) escena.lookup("#sdEVsSpA")).getValue()));
+        stats.add(new EV("SpD", (int)((Slider) escena.lookup("#sdEVsSpD")).getValue()));
+        stats.add(new EV("SpE", (int)((Slider) escena.lookup("#sdEVsSpe")).getValue()));
+        
+        EVsEnvoltorio estadisticas = new EVsEnvoltorio(stats);
+        return utils.escribirEVs(estadisticas);
+    }
 
     public void enviarAPokemon(Stage s, Conexion c, controllerCore controlador, boolean admin) {
         entrada = s;
@@ -237,12 +396,15 @@ public class controllerConfirmar implements Initializable {
         this.pokemon = pokemon;
     }
     
-    public void enviaStage(Stage s, Conexion c, Object controlador, boolean admin) {
+    public void enviarEditarMiembro(Miembro m) {
+        this.oldMiembro = m;
+    }
+    
+    public void enviaStage(Stage s, Conexion c, Object controlador) {
         entrada = s;
         Stage ventana = (Stage) this.btnCancelar.getScene().getWindow();
         ventana.setOnCloseRequest(event -> event.consume());
         conexion = c;
-        this.admin = admin;
         if (controlador instanceof controllerCore) {
             cCore = (controllerCore) controlador;
         }

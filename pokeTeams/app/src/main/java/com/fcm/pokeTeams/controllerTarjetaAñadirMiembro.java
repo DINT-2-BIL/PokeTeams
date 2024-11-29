@@ -8,6 +8,7 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.util.Conexion;
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +31,7 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
     private controllerAñadirMiembro cam;
     private Conexion conexion = null;
     private Stage miStage;
+    private Equipo equipo;
 
     @FXML
     private ImageView imgPokemonMiembro;
@@ -44,7 +46,7 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_pokemon_equipo_v1.fxml"));
             root = loader.load();
             miStage.setTitle("Añadir miembro");
-            cam.asignarCerrado(conexion);
+            cam.asignarCerrado(conexion, equipo, 3);
             miStage.getIcons().add(new Image("Plusle.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
@@ -67,7 +69,8 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
         miStage.setScene(inicio);
     }
 
-    public void asignarConexion(Conexion c) {
+    public void asignarConexion(Conexion c, Equipo e) {
         conexion = c;
+        equipo = e;
     }
 }
