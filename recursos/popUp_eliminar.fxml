@@ -20,14 +20,14 @@
          <font>
             <Font size="24.0" />
          </font>
+         <tooltip>
+            <Tooltip text="Escribe &quot;ELIMINAR&quot;" />
+         </tooltip>
       </Label>
       <TextField fx:id="txtEliminar" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="ELIMINAR">
          <font>
             <Font size="24.0" />
          </font>
-         <tooltip>
-            <Tooltip text="Escribir confirmación" />
-         </tooltip>
       </TextField>
       <HBox alignment="CENTER" spacing="10.0">
          <children>

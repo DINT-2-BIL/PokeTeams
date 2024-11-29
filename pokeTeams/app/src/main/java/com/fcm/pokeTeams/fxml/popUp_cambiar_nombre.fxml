@@ -14,14 +14,14 @@
          <font>
             <Font size="24.0" />
          </font>
+         <tooltip>
+            <Tooltip text="Introduce tu nuevo nombre." />
+         </tooltip>
       </Label>
       <TextField fx:id="txtNuevoNombre" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Nombre">
          <font>
             <Font size="24.0" />
          </font>
-         <tooltip>
-            <Tooltip text="Campo nuevo nombre" />
-         </tooltip>
       </TextField>
       <HBox alignment="CENTER" spacing="10.0">
          <children>

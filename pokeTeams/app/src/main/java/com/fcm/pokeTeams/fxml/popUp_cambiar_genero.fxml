@@ -39,7 +39,7 @@
                <tooltip>
                   <Tooltip text="Masculino" />
                </tooltip></RadioButton>
-            <RadioButton fx:id="rbOtro" mnemonicParsing="false" text="Otro" toggleGroup="$genero">
+            <RadioButton fx:id="rbOtro" mnemonicParsing="false" selected="true" text="Otro" toggleGroup="$genero">
                <font>
                   <Font size="24.0" />
                </font>

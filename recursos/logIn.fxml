@@ -23,27 +23,27 @@
                <font>
                   <Font size="24.0" />
                </font>
+               <tooltip>
+                  <Tooltip text="Introduce tu usuario." />
+               </tooltip>
             </Label>
             <TextField fx:id="txtNombre" maxWidth="260.0" promptText="Nombre">
                <font>
                   <Font size="24.0" />
                </font>
-               <tooltip>
-                  <Tooltip text="Escribe tu nombre" />
-               </tooltip>
             </TextField>
             <Label layoutX="337.0" layoutY="29.0" text="Introduce tu contraseña">
                <font>
                   <Font size="24.0" />
                </font>
+               <tooltip>
+                  <Tooltip text="Introduce tu contraseña" />
+               </tooltip>
             </Label>
             <PasswordField fx:id="pwContraseña" maxWidth="260.0" promptText="Contraseña">
                <font>
                   <Font size="24.0" />
                </font>
-               <tooltip>
-                  <Tooltip text="Escribe tu contraseña" />
-               </tooltip>
             </PasswordField>
          </children>
       </VBox>

@@ -10,15 +10,22 @@ package com.fcm.pokeTeams;
  */
 import com.fcm.pokeTeams.util.Alertas;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
 public class controllerEliminar implements Initializable {
+    List<ValidationSupport> validadores;
 
     @FXML
     private TextField txtEliminar;
@@ -31,7 +38,12 @@ public class controllerEliminar implements Initializable {
     @FXML
     void eliminar(ActionEvent event) {
         Stage a = (Stage) txtEliminar.getScene().getWindow();
-        if (!txtEliminar.getText().equals("ELIMINAR")) {
+        boolean todoOK = true;
+        for (ValidationSupport validationSupport : validadores) {
+            todoOK = (todoOK && validationSupport.getValidationResult().getErrors().isEmpty());
+        }
+        
+        if (!todoOK) {
             Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "NO CONFIRMADO", 
                         "Debe escribir \"ELIMINAR\" para poder eliminar el elemento.", "Intentelo de nuevo.");
                 credencialesIncorrectas.mostrarAlerta();
@@ -45,6 +57,27 @@ public class controllerEliminar implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ValidationSupport vSNombre = new ValidationSupport();
+        vSNombre.registerValidator(txtEliminar, Validator.createPredicateValidator(
+            texto -> {
+                try {
+                    int numero = texto.toString().length();
+                    return texto.equals("ELIMINAR") ;
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            },
+            "Debe escribir esáctamente \"ELIMINAR\" para poder eliminar el elemento"
+        ));
+        
+        validadores = new ArrayList<>();
+        validadores.addAll(Arrays.asList(vSNombre));
+
+        Platform.runLater(() -> {
+            for (ValidationSupport validationSupport : validadores) {
+                validationSupport.initInitialDecoration();
+            }
+        });
     }
 
     private void cerrar() {

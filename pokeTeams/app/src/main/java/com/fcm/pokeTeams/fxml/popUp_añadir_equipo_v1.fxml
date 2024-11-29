@@ -14,22 +14,19 @@
          <font>
             <Font size="24.0" />
          </font>
+         <tooltip>
+            <Tooltip text="Introduce un nombre y un formato para el equipo" />
+         </tooltip>
       </Label>
       <TextField fx:id="txtNombre" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Nombre">
          <font>
             <Font size="24.0" />
          </font>
-         <tooltip>
-            <Tooltip text="Insertar nombre equipo" />
-         </tooltip>
       </TextField>
       <TextField fx:id="txtFormato" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Formato">
          <font>
             <Font size="24.0" />
          </font>
-         <tooltip>
-            <Tooltip text="Insertar formato equipo" />
-         </tooltip>
       </TextField>
       <HBox alignment="CENTER" prefHeight="24.0" prefWidth="400.0" spacing="10.0">
          <children>

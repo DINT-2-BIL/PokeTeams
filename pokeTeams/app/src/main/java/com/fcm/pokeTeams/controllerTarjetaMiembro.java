@@ -53,9 +53,10 @@ public class controllerTarjetaMiembro implements Initializable{
     
     @FXML
     void editar(ActionEvent event) {
+        cam.asignarCerrado(conexion, equipo, 4);
         this.cam.enviaMiembro(miembro);
         this.emergenteEditar.setTitle(miembro.getMote());
-        cam.asignarCerrado(conexion, equipo, 4);
+        
         emergenteEditar.getIcons().add(util.getImage(miembro.getSprite()));
         emergenteEditar.show();
     }

@@ -36,6 +36,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
+import org.controlsfx.validation.ValidationSupport;
 
 /**
  *
@@ -136,4 +137,6 @@ public class Utilidades {
         EVsEnvoltorio listEVs = gson.fromJson(m.getEvs(), EVsEnvoltorio.class);
         return listEVs;
     }
+    
+    //public ValidationSupport crearValidacion() {}
 }

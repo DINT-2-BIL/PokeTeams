@@ -241,8 +241,13 @@ public class controllerAñadirMiembro implements Initializable {
                 ResultSet result = statement.executeQuery(query);
                 result.next();
                 HabilidadesEnvoltorio listaHabilidades = util.leerHabilidades(result.getString("Habilidades"));
+                cbHabilidad.getItems().clear();
+                listaHabilidades.getHabilidades().forEach(action -> {
+                    cbHabilidad.getItems().add(action.getNombre());
+                });
                 cbTipo1.setValue(result.getString("Tipo_1"));
                 cbTipo2.setValue(result.getString("Tipo_2"));
+                util.recuperarImagenBBDD(result.getString("Sprite"), imgPokemon);
             } catch (SQLException e) {
                 System.out.println("Error al conectar con la BD: " + e.getMessage());
             }
@@ -256,7 +261,6 @@ public class controllerAñadirMiembro implements Initializable {
     
     void asignarCerrado(Conexion c, Equipo e, int i) {
         conexion = c;
-        txtMote.setText("a");
         ((Stage) txtMote.getScene().getWindow()).setOnCloseRequest(evento -> {
             evento.consume();
             Parent raiz = null;

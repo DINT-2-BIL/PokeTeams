@@ -14,27 +14,27 @@
          <font>
             <Font size="24.0" />
          </font>
+         <tooltip>
+            <Tooltip text="Introduce la nueva contraseña." />
+         </tooltip>
       </Label>
       <TextField fx:id="txtContraseña" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Contraseña">
          <font>
             <Font size="24.0" />
          </font>
-         <tooltip>
-            <Tooltip text="Campo nueva contraseña" />
-         </tooltip>
       </TextField>
       <Label text="Confirme su contraseña">
          <font>
             <Font size="24.0" />
          </font>
+         <tooltip>
+            <Tooltip text="Repite la nueva contraseña." />
+         </tooltip>
       </Label>
       <TextField fx:id="txtConfContraseña" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Confirmar Contraseña">
          <font>
             <Font size="24.0" />
          </font>
-         <tooltip>
-            <Tooltip text="Campo confirmar nueva contraseña" />
-         </tooltip>
       </TextField>
       <HBox alignment="CENTER" spacing="10.0">
          <children>
