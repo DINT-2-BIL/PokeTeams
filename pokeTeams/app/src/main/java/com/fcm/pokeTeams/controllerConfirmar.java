@@ -125,14 +125,12 @@ public class controllerConfirmar implements Initializable {
     }
     
     private void cargarDatosMiembro() {
-        miembro.setEspecie(((TextField)escena.lookup("#txtEspecie")).getText());
+        miembro.setEspecie(((ComboBox<String>)escena.lookup("#cbEspecie")).getValue());
         miembro.setNivel(((Spinner<Integer>)escena.lookup("#spNivel")).getValue());
         miembro.setMote(((TextField)escena.lookup("#txtMote")).getText());
         miembro.setHabilidad(((ComboBox<String>)escena.lookup("#cbHabilidad")).getValue());
         miembro.setObjeto(((TextField)escena.lookup("#txtObjeto")).getText());
         miembro.setGenero(((ComboBox<Character>)escena.lookup("#cbGenero")).getValue().toString().charAt(0));
-        miembro.setTipo1(((ComboBox<String>)escena.lookup("#cbTipo1")).getValue());
-        miembro.setTipo2(((ComboBox<String>)escena.lookup("#cbTipo2")).getValue());
         miembro.setMovimientos(leerMovimientos());
         miembro.setIvs(leerIVs());
         miembro.setEvs(leerEVs());

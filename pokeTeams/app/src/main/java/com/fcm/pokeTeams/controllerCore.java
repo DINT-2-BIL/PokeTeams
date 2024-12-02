@@ -39,6 +39,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.SplitPane;
@@ -500,6 +501,10 @@ public class controllerCore implements Initializable {
             controlador.asignarControladorCore(this);
             utils.crearTooltip(pokemon.getEspecie(), tarjetaPokemon);
             gridPokemon.add(tarjetaPokemon, col, row);
+            /*tarjetaPokemon.boundsInParentProperty().addListener((obs, oldBounds, newBounds) -> {
+                    boolean isVisible = isNodeVisible((ScrollPane)gridPokemon.getParent(), tarjetaPokemon);
+                    System.out.println("Tarjeta en [" + i + ", " + j + "] visible: " + isVisible);
+                });*/
             if(col == 2) {
                 col = 0;
                 row++;

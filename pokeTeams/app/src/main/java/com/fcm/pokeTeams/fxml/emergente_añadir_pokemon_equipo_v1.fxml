@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
@@ -16,69 +17,114 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerAñadirMiembro">
    <children>
-      <TextField fx:id="txtEspecie" editable="false" focusTraversable="false" promptText="Seleccione una especie">
-         <font>
-            <Font size="24.0" />
-         </font>
+      <HBox spacing="20.0">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
-         <tooltip>
-            <Tooltip text="Especie" />
-         </tooltip>
-      </TextField>
+         <children>
+            <ComboBox fx:id="cbEspecie" editable="true" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="690.0" promptText="Especie">
+               <tooltip>
+                  <Tooltip text="Selector especie" />
+               </tooltip>
+            </ComboBox>
+            <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizar" prefHeight="50.0" text="Finalizar">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
       <HBox prefWidth="600.0" spacing="20.0">
          <children>
             <VBox prefHeight="350.0" prefWidth="400.0" spacing="10.0">
                <children>
-                  <HBox spacing="10.0">
+                  <HBox spacing="10.0" />
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="46.0" spacing="30.0">
                      <children>
-                        <ComboBox fx:id="cbEspecie" editable="true" focusTraversable="false" prefHeight="25.0" prefWidth="270.0" promptText="Especie">
-                           <tooltip>
-                              <Tooltip text="Selector especie" />
-                           </tooltip>
-                        </ComboBox>
-                        <Spinner fx:id="spNivel" prefWidth="120.0">
+                        <Label minWidth="-Infinity" prefWidth="130.0" text="Nivel:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Spinner fx:id="spNivel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0">
                            <tooltip>
                               <Tooltip text="Selector nivel" />
                            </tooltip>
                         </Spinner>
                      </children>
                   </HBox>
-                  <TextField fx:id="txtMote" promptText="Mote">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <tooltip>
-                        <Tooltip text="Mote" />
-                     </tooltip>
-                  </TextField>
-                  <ComboBox fx:id="cbHabilidad" editable="true" focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" promptText="Habilidad">
-                     <tooltip>
-                        <Tooltip text="Selector habilidad" />
-                     </tooltip></ComboBox>
-                  <TextField fx:id="txtObjeto" promptText="Objeto">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <tooltip>
-                        <Tooltip text="Objeto" />
-                     </tooltip>
-                  </TextField>
-                  <ComboBox fx:id="cbGenero" editable="true" focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" promptText="Género">
-                     <tooltip>
-                        <Tooltip text="Selector género" />
-                     </tooltip></ComboBox>
-                  <HBox spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" spacing="30.0">
                      <children>
-                        <ComboBox fx:id="cbTipo1" editable="true" focusTraversable="false" prefWidth="195.0" promptText="Tipo 1">
+                        <Label minWidth="-Infinity" prefWidth="130.0" text="Mote:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtMote" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Mote">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
                            <tooltip>
-                              <Tooltip text="Selector tipo 1" />
+                              <Tooltip text="Mote" />
+                           </tooltip>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="46.0" spacing="30.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Habilidad:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbHabilidad" focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" promptText="Habilidad">
+                           <tooltip>
+                              <Tooltip text="Selector habilidad" />
                            </tooltip>
                         </ComboBox>
-                        <ComboBox fx:id="cbTipo2" editable="true" focusTraversable="false" prefWidth="195.0" promptText="Tipo 2">
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="205.0" spacing="30.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Objeto:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtObjeto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Objeto">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
                            <tooltip>
-                              <Tooltip text="Selector tipo 2" />
+                              <Tooltip text="Objeto" />
+                           </tooltip>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="189.0" spacing="30.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Género:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbGenero" editable="true" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Género">
+                           <tooltip>
+                              <Tooltip text="Selector género" />
+                           </tooltip>
+                        </ComboBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="199.0" spacing="30.0">
+                     <children>
+                        <Label minWidth="-Infinity" prefWidth="130.0" text="Naturaleza:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbNaturaleza" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Naturaleza">
+                           <tooltip>
+                              <Tooltip text="Selector habilidad" />
                            </tooltip>
                         </ComboBox>
                      </children>

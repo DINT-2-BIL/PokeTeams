@@ -84,11 +84,9 @@ public class controllerLogIn implements Initializable {
                 this.cc.enviaLogIn(this.conexion, txtNombre.getText());
 
                 Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
-                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-                miStage.setX((screenBounds.getWidth() - miStage.getWidth()) / 2 - miStage.getWidth() / 4);
-                miStage.setY((screenBounds.getHeight() - miStage.getHeight()) / 2 - miStage.getHeight() / 2.3);
                 miStage.setTitle("PokeTeams");
                 miStage.setScene(inicio);
+                miStage.centerOnScreen();
             } catch (IOException ex) {
                 Logger.getLogger(controllerLogIn.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {

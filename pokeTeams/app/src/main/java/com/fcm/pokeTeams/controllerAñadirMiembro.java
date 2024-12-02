@@ -32,11 +32,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -50,6 +52,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class controllerAñadirMiembro implements Initializable {
     private controllerTarjetaMiembro ctm;
@@ -57,6 +60,9 @@ public class controllerAñadirMiembro implements Initializable {
     Utilidades util = new Utilidades();
     private Conexion conexion = null;
     private Miembro miembro;
+    
+    @FXML
+    private Button btnFinalizar;
 
     @FXML
     private ComboBox<String> cbEspecie;
@@ -68,10 +74,7 @@ public class controllerAñadirMiembro implements Initializable {
     private ComboBox<String> cbHabilidad;
 
     @FXML
-    private ComboBox<String> cbTipo1;
-
-    @FXML
-    private ComboBox<String> cbTipo2;
+    private ComboBox<String> cbNaturaleza;
 
     @FXML
     private ImageView imgPokemon;
@@ -111,7 +114,7 @@ public class controllerAñadirMiembro implements Initializable {
 
     @FXML
     private Slider sdIVsSpe;
-    
+
     @FXML
     private Spinner<Integer> spNivel;
 
@@ -132,9 +135,6 @@ public class controllerAñadirMiembro implements Initializable {
 
     @FXML
     private Label txtEVsSpe;
-
-    @FXML
-    private TextField txtEspecie;
 
     @FXML
     private Label txtIVsAtk;
@@ -181,23 +181,21 @@ public class controllerAñadirMiembro implements Initializable {
     void actualizarIVs(MouseEvent event) {
 
     }
+    
+    @FXML
+    void finalizar(ActionEvent event) {
+        Stage ventana = (Stage) txtEVsAtk.getScene().getWindow();
+        ventana.fireEvent(new WindowEvent(ventana, WindowEvent.WINDOW_CLOSE_REQUEST));
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbTipo1.getItems().addAll("Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
-                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
-                "Roca","Siniestro","Tierra","Veneno","Volador");
-        cbTipo2.getItems().addAll("Ninguno","Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
-                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
-                "Roca","Siniestro","Tierra","Veneno","Volador");
         cbGenero.getItems().addAll('M','F','N');
         spNivel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1));
         spNivel.setStyle("-fx-font-size: 24px;");
         cbEspecie.setStyle("-fx-font-size: 24px;");
         cbGenero.setStyle("-fx-font-size: 24px;");
         cbHabilidad.setStyle("-fx-font-size: 24px;");
-        cbTipo1.setStyle("-fx-font-size: 24px;");
-        cbTipo2.setStyle("-fx-font-size: 24px;");
         List<Slider> barras = new ArrayList<>();
         this.sdEVsAtk.getParent().getParent().getChildrenUnmodifiable().forEach(elemento -> {
             if (elemento instanceof HBox) {
@@ -234,7 +232,6 @@ public class controllerAñadirMiembro implements Initializable {
         
         cbEspecie.valueProperty().addListener((observable, valViejo, valNuevo) -> {
             String especie = valNuevo;
-            txtEspecie.setText(especie);
             try {
                 String query = "SELECT * FROM pokemon WHERE Especie = '" + especie + "'";
                 Statement statement = conexion.getConexion().createStatement();
@@ -245,8 +242,6 @@ public class controllerAñadirMiembro implements Initializable {
                 listaHabilidades.getHabilidades().forEach(action -> {
                     cbHabilidad.getItems().add(action.getNombre());
                 });
-                cbTipo1.setValue(result.getString("Tipo_1"));
-                cbTipo2.setValue(result.getString("Tipo_2"));
                 util.recuperarImagenBBDD(result.getString("Sprite"), imgPokemon);
             } catch (SQLException e) {
                 System.out.println("Error al conectar con la BD: " + e.getMessage());
@@ -288,10 +283,7 @@ public class controllerAñadirMiembro implements Initializable {
     
     void enviaMiembro(Miembro m) {
         miembro = m;
-        txtEspecie.setText(m.getEspecie());
-        cbEspecie.getItems().clear();
-        cbEspecie.getItems().add(m.getEspecie());
-        cbEspecie.getSelectionModel().select(0);
+        cbEspecie.getSelectionModel().select(m.getEspecie());
         spNivel.getValueFactory().setValue(m.getNivel());
         txtMote.setText(m.getMote());
         cbHabilidad.getItems().clear();
@@ -299,8 +291,6 @@ public class controllerAñadirMiembro implements Initializable {
         cbHabilidad.getSelectionModel().select(0);
         txtObjeto.setText(m.getObjeto());
         cbGenero.getSelectionModel().select(Character.valueOf(m.getGenero()));
-        cbTipo1.getSelectionModel().select(m.getTipo1());
-        cbTipo2.getSelectionModel().select(m.getTipo2());
         
         util.recuperarImagenBBDD(m.getSprite(), imgPokemon);
         List<TextField> listText = new ArrayList<>();
