@@ -1,7 +1,7 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Cherry" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - PokeTeams"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50.0" bold="false"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18.0" bold="false"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14.0" bold="true"/>
@@ -11,7 +11,7 @@
 			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
 		</conditionalStyle>
 	</style>
-	<query language="SQL"><![CDATA[SELECT * FROM pokemon]]></query>
+	<query language="SQL"><![CDATA[select * from pokemon]]></query>
 	<field name="N_Pokedex" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="N_Pokedex"/>
 		<property name="com.jaspersoft.studio.field.label" value="N_Pokedex"/>
@@ -25,11 +25,6 @@
 	<field name="Denominacion" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Denominacion"/>
 		<property name="com.jaspersoft.studio.field.label" value="Denominacion"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
-	</field>
-	<field name="Descripcion" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Descripcion"/>
-		<property name="com.jaspersoft.studio.field.label" value="Descripcion"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
 	</field>
 	<field name="Tipo_1" class="java.lang.String">
@@ -57,7 +52,7 @@
 		<groupHeader>
 			<band height="37">
 				<element kind="frame" uuid="0a5fc4ac-2e39-4b7a-8f96-59f8eb2df66d" mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#000000">
-					<element kind="textField" uuid="4fbebfd3-a184-45af-b7d9-5c3faaf087b5" x="2" y="0" width="479" height="24" forecolor="#FFFFFF" textAdjust="StretchHeight" printRepeatedValues="false" bold="false" style="SubTitle">
+					<element kind="textField" uuid="4fbebfd3-a184-45af-b7d9-5c3faaf087b5" x="2" y="0" width="479" height="24" forecolor="#FFFFFF" markup="styled" textAdjust="StretchHeight" printRepeatedValues="false" bold="false" style="SubTitle">
 						<expression><![CDATA[$F{Tipo_1}]]></expression>
 					</element>
 				</element>
@@ -88,65 +83,57 @@
 	</title>
 	<pageHeader splitType="Stretch"/>
 	<columnHeader height="26" splitType="Stretch">
-		<element kind="staticText" uuid="4019db1d-d1b1-4262-91d1-7b6cb6919279" x="0" y="7" width="79" height="18" forecolor="#000000" bold="false" style="Column header">
+		<element kind="staticText" uuid="ba9415bf-63be-419d-83eb-9b36d20bca56" x="0" y="7" width="92" height="18" forecolor="#000000" bold="false" style="Column header">
 			<text><![CDATA[N_Pokedex]]></text>
-			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5b55d674-1c82-4a15-a846-6f5bfc13536b"/>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48a5d914-63e8-4ed1-a557-a9ef3dc2170d"/>
 		</element>
-		<element kind="staticText" uuid="ff0ea90d-683c-4905-a810-05ae418f5af3" x="79" y="7" width="79" height="18" forecolor="#000000" bold="false" style="Column header">
+		<element kind="staticText" uuid="55f937fb-30c4-41a6-b1a1-fe6eaf1f9564" x="92" y="7" width="92" height="18" forecolor="#000000" bold="false" style="Column header">
 			<text><![CDATA[Especie]]></text>
-			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d9dbac3-4aa4-42cc-ab68-a2f5bdc68f3c"/>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27cc3e4b-94fa-4745-8abd-5a4c0e50fffd"/>
 		</element>
-		<element kind="staticText" uuid="4b7be814-fccd-4e1b-8799-e41fb3c9a859" x="158" y="7" width="79" height="18" forecolor="#000000" bold="false" style="Column header">
+		<element kind="staticText" uuid="b4bfd2a5-d530-43a8-8c1d-7f91d8c27ac9" x="184" y="7" width="92" height="18" forecolor="#000000" bold="false" style="Column header">
 			<text><![CDATA[Denominacion]]></text>
-			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6de0c484-f1d8-422a-9081-45226831625b"/>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b85931cb-ea33-4237-aa5c-8cf87fb6ecc3"/>
 		</element>
-		<element kind="staticText" uuid="8d75a073-5f54-4cc5-8226-dcb09a878458" x="237" y="7" width="79" height="18" forecolor="#000000" bold="false" style="Column header">
-			<text><![CDATA[Descripcion]]></text>
-			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="186fac70-1f56-488a-87c2-ba207199ec4b"/>
-		</element>
-		<element kind="staticText" uuid="d0ef22dd-48aa-4ccc-9533-0c48158287e5" x="316" y="7" width="79" height="18" forecolor="#000000" bold="false" style="Column header">
+		<element kind="staticText" uuid="672a8971-62c3-4958-8939-378c4743a0a3" x="276" y="7" width="92" height="18" forecolor="#000000" bold="false" style="Column header">
 			<text><![CDATA[Tipo_2]]></text>
-			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dda67130-e598-4b2b-8299-0dadcdcdf5b5"/>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="76924945-8228-4527-bfaf-a05be577d652"/>
 		</element>
-		<element kind="staticText" uuid="1ae8f8be-bdea-43f0-9675-cb6ed3404972" x="395" y="7" width="79" height="18" forecolor="#000000" bold="false" style="Column header">
+		<element kind="staticText" uuid="b9e6e25e-e60f-43d8-9f58-e569618d69de" x="368" y="7" width="92" height="18" forecolor="#000000" bold="false" style="Column header">
 			<text><![CDATA[Tamaño]]></text>
-			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="abbb390c-b468-4810-bfa9-566173647580"/>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d32c039d-1ff4-4860-b3b1-7ec76a5b8369"/>
 		</element>
-		<element kind="staticText" uuid="3acf3388-d17c-4e42-9563-b6be9d42fcdf" x="474" y="7" width="79" height="18" forecolor="#000000" bold="false" style="Column header">
+		<element kind="staticText" uuid="4aa8cc5c-1c00-40dd-9684-95d04295567b" x="460" y="7" width="92" height="18" forecolor="#000000" bold="false" style="Column header">
 			<text><![CDATA[Peso]]></text>
-			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d58d84-717f-43f0-9dd8-1aed6a151a38"/>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ed31efb-a8e5-48d7-a148-d1398a489bd2"/>
 		</element>
 	</columnHeader>
 	<detail>
 		<band height="18" splitType="Stretch">
 			<element kind="frame" uuid="b50221b5-8254-440b-8c6f-1f0b138c9259" mode="Opaque" x="0" y="0" width="555" height="18" style="Row">
-				<element kind="textField" uuid="af47caa5-9009-4a87-8aad-32c5afd480e6" positionType="Float" x="0" y="0" width="79" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
+				<element kind="textField" uuid="6570764a-9f73-41ea-b8a0-11f2e1b734ad" positionType="Float" x="0" y="0" width="92" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{N_Pokedex}]]></expression>
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5b55d674-1c82-4a15-a846-6f5bfc13536b"/>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48a5d914-63e8-4ed1-a557-a9ef3dc2170d"/>
 				</element>
-				<element kind="textField" uuid="8e1a8cc1-8375-4b51-a668-4b6b2bad3bab" positionType="Float" x="79" y="0" width="79" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
+				<element kind="textField" uuid="85e8bd93-c12c-43fb-9931-f64a8030fec7" positionType="Float" x="92" y="0" width="92" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{Especie}]]></expression>
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d9dbac3-4aa4-42cc-ab68-a2f5bdc68f3c"/>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27cc3e4b-94fa-4745-8abd-5a4c0e50fffd"/>
 				</element>
-				<element kind="textField" uuid="7786f3ed-36c5-4870-af02-46529e5f8a31" positionType="Float" x="158" y="0" width="79" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
+				<element kind="textField" uuid="cbd43c1a-72e1-44f8-b1e5-33204607373c" positionType="Float" x="184" y="0" width="92" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{Denominacion}]]></expression>
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6de0c484-f1d8-422a-9081-45226831625b"/>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b85931cb-ea33-4237-aa5c-8cf87fb6ecc3"/>
 				</element>
-				<element kind="textField" uuid="8d7d9218-ee9c-49bb-9b04-8d91cae08ac8" positionType="Float" x="237" y="0" width="79" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
-					<expression><![CDATA[$F{Descripcion}]]></expression>
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="186fac70-1f56-488a-87c2-ba207199ec4b"/>
-				</element>
-				<element kind="textField" uuid="6f44533c-bd30-41cb-a824-8764120f04bb" positionType="Float" x="316" y="0" width="79" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
+				<element kind="textField" uuid="a6dc9d22-8daf-4630-9f20-ae290eaa3e2b" positionType="Float" x="276" y="0" width="92" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{Tipo_2}]]></expression>
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dda67130-e598-4b2b-8299-0dadcdcdf5b5"/>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="76924945-8228-4527-bfaf-a05be577d652"/>
 				</element>
-				<element kind="textField" uuid="a75aaae0-bd60-409c-968e-e89326fb63c7" positionType="Float" x="395" y="0" width="79" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
+				<element kind="textField" uuid="8372ca30-e5f9-48d7-a220-2aede6e67f8a" positionType="Float" x="368" y="0" width="92" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{Tamaño}]]></expression>
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="abbb390c-b468-4810-bfa9-566173647580"/>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d32c039d-1ff4-4860-b3b1-7ec76a5b8369"/>
 				</element>
-				<element kind="textField" uuid="95c87101-37a6-4a17-948f-38664e2a3324" positionType="Float" x="474" y="0" width="79" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
+				<element kind="textField" uuid="8f43aa94-ca51-4bbc-816b-d7d1327460ce" positionType="Float" x="460" y="0" width="92" height="18" fontSize="14.0" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{Peso}]]></expression>
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4d58d84-717f-43f0-9dd8-1aed6a151a38"/>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ed31efb-a8e5-48d7-a148-d1398a489bd2"/>
 				</element>
 			</element>
 		</band>

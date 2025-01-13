@@ -1,0 +1,115 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="pokemon" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d268c1c6-7d01-4f0d-a308-bebd20635abc">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - PokeTeams"/>
+	<query language="SQL"><![CDATA[select * from pokemon]]></query>
+	<field name="N_Pokedex" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="N_Pokedex"/>
+		<property name="com.jaspersoft.studio.field.label" value="N_Pokedex"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Especie" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Especie"/>
+		<property name="com.jaspersoft.studio.field.label" value="Especie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Denominacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Denominacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Denominacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Sprite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Sprite"/>
+		<property name="com.jaspersoft.studio.field.label" value="Sprite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Tipo_1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Tipo_1"/>
+		<property name="com.jaspersoft.studio.field.label" value="Tipo_1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Tipo_2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Tipo_2"/>
+		<property name="com.jaspersoft.studio.field.label" value="Tipo_2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Tamaño" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Tamaño"/>
+		<property name="com.jaspersoft.studio.field.label" value="Tamaño"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Peso" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Peso"/>
+		<property name="com.jaspersoft.studio.field.label" value="Peso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Habilidades" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Habilidades"/>
+		<property name="com.jaspersoft.studio.field.label" value="Habilidades"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Estadisticas" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Estadisticas"/>
+		<property name="com.jaspersoft.studio.field.label" value="Estadisticas"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<group name="Especie">
+		<expression><![CDATA[$F{Especie}]]></expression>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="173" splitType="Stretch">
+		<element kind="staticText" uuid="f92c94e3-8500-4ec5-be50-d7d348a9cd11" x="0" y="0" width="410" height="90" rotation="None" fontName="Gabriola" fontSize="47.0" italic="true" bold="true" vTextAlign="Top">
+			<text><![CDATA[INFORME POKEMON]]></text>
+		</element>
+		<element kind="image" uuid="956cc5a5-4ffb-4110-a1eb-54fdbdba2857" x="380" y="0" width="175" height="154" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
+			<expression><![CDATA["https://imgs.search.brave.com/icZg6ZO6wVQH9AIA-aFLZopLpM4MHXIivczUTmLg4nw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9Qb2tl/YmFsbC1QTkcucG5n"]]></expression>
+		</element>
+		<element kind="staticText" uuid="1e53213c-67a9-4c7b-ae84-c948720d4357" x="1" y="94" width="289" height="30" fontName="Ink Free" fontSize="19.0" hTextAlign="Left">
+			<text><![CDATA[Informe de los pokemon existentes]]></text>
+		</element>
+		<element kind="textField" uuid="5624e281-ba65-4a36-a47b-ba36a0c78885" x="0" y="130" width="340" height="24" markup="styled" fontName="NSimSun" fontSize="19.0" italic="true">
+			<expression><![CDATA["Creado a día: " + new java.util.Date()]]></expression>
+		</element>
+	</title>
+	<detail>
+		<band height="106" splitType="Stretch">
+			<element kind="frame" uuid="454b4f8f-8006-4a70-92bd-e337584010fb" mode="Opaque" x="-1" y="0" width="555" height="24" forecolor="#B89F7D" backcolor="#000000">
+				<element kind="textField" uuid="47cd1b31-ac28-4ed0-8c72-5b7a5a939b61" x="1" y="0" width="553" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{Especie}]]></expression>
+				</element>
+				<element kind="textField" uuid="49326331-9309-4a0b-98b5-bd7c9be96ba9" x="395" y="0" width="150" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Right" vTextAlign="Middle">
+					<expression><![CDATA["Número - " + $F{N_Pokedex}]]></expression>
+				</element>
+			</element>
+			<element kind="textField" uuid="88d41817-38b0-484c-992b-3fc5b729515f" x="179" y="40" width="90" height="30">
+				<expression><![CDATA["Tipo 1 - " + $F{Tipo_1}]]></expression>
+			</element>
+			<element kind="textField" uuid="8ae99fcc-7e78-4b34-882d-b1c6674f10c6" x="269" y="40" width="90" height="30">
+				<expression><![CDATA["Tipo 2 - " + $F{Tipo_2}]]></expression>
+			</element>
+			<element kind="textField" uuid="03f84cfd-5ce1-4784-9e11-a36bd73251b3" x="89" y="40" width="90" height="30">
+				<expression><![CDATA["Tamaño - " + $F{Tamaño} + "m"]]></expression>
+			</element>
+			<element kind="textField" uuid="c90cdd2f-d729-4656-b9f4-2a8f10601e75" x="-1" y="40" width="90" height="30">
+				<expression><![CDATA["Peso - " + $F{Peso} + "kg"]]></expression>
+			</element>
+			<element kind="image" uuid="eefb3288-cd1b-4104-b1fa-48c8a1ecb146" x="480" y="40" width="64" height="60">
+				<expression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{Sprite}.getBytes()))]]></expression>
+			</element>
+			<element kind="textField" uuid="b6b98755-06d9-4c6a-9d2a-50ff47516bce" x="359" y="40" width="120" height="30">
+				<expression><![CDATA["Denominación - " + $F{Denominacion}]]></expression>
+			</element>
+			<element kind="textField" uuid="b8584072-a8b2-463b-a7a8-cdd60b6c2b72" x="-1" y="70" width="480" height="30">
+				<expression><![CDATA[$F{Descripcion}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
