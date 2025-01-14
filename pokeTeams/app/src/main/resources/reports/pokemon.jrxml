@@ -1,7 +1,27 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="pokemon" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d268c1c6-7d01-4f0d-a308-bebd20635abc">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - PokeTeams"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
+	<dataset name="PokemonPorTipo" uuid="674735f9-f241-4cc6-9022-1c5d0c6b68a3">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
+		<query language="SQL"><![CDATA[SELECT Tipo_1, COUNT(*) AS cantidad
+FROM pokemon
+GROUP BY Tipo_1
+ORDER BY cantidad DESC]]></query>
+		<field name="Tipo_1" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="Tipo_1"/>
+			<property name="com.jaspersoft.studio.field.label" value="Tipo_1"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+		</field>
+		<field name="cantidad" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="cantidad"/>
+			<property name="com.jaspersoft.studio.field.label" value="cantidad"/>
+		</field>
+		<group name="Tipo_1">
+			<expression><![CDATA[$F{Tipo_1}]]></expression>
+		</group>
+	</dataset>
 	<query language="SQL"><![CDATA[select * from pokemon]]></query>
 	<field name="N_Pokedex" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="N_Pokedex"/>
@@ -61,55 +81,117 @@
 	<group name="Especie">
 		<expression><![CDATA[$F{Especie}]]></expression>
 	</group>
-	<background splitType="Stretch"/>
-	<title height="173" splitType="Stretch">
-		<element kind="staticText" uuid="f92c94e3-8500-4ec5-be50-d7d348a9cd11" x="0" y="0" width="410" height="90" rotation="None" fontName="Gabriola" fontSize="47.0" italic="true" bold="true" vTextAlign="Top">
+	<title height="171" splitType="Stretch">
+		<element kind="rectangle" uuid="5f3b4bb8-a4df-4eca-b034-ded958ebc707" x="0" y="0" width="555" height="171" backcolor="#9C0E09" radius="10"/>
+		<element kind="staticText" uuid="f92c94e3-8500-4ec5-be50-d7d348a9cd11" x="11" y="0" width="398" height="90" forecolor="#FFFFFF" rotation="None" fontName="Gabriola" fontSize="47.0" bold="true" italic="true" vTextAlign="Top">
 			<text><![CDATA[INFORME POKEMON]]></text>
 		</element>
 		<element kind="image" uuid="956cc5a5-4ffb-4110-a1eb-54fdbdba2857" x="380" y="0" width="175" height="154" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
 			<expression><![CDATA["https://imgs.search.brave.com/icZg6ZO6wVQH9AIA-aFLZopLpM4MHXIivczUTmLg4nw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9Qb2tl/YmFsbC1QTkcucG5n"]]></expression>
 		</element>
-		<element kind="staticText" uuid="1e53213c-67a9-4c7b-ae84-c948720d4357" x="1" y="94" width="289" height="30" fontName="Ink Free" fontSize="19.0" hTextAlign="Left">
+		<element kind="staticText" uuid="1e53213c-67a9-4c7b-ae84-c948720d4357" x="11" y="94" width="287" height="30" forecolor="#FFFFFF" fontName="Ink Free" fontSize="19.0" bold="true" hTextAlign="Left">
 			<text><![CDATA[Informe de los pokemon existentes]]></text>
 		</element>
-		<element kind="textField" uuid="5624e281-ba65-4a36-a47b-ba36a0c78885" x="0" y="130" width="340" height="24" markup="styled" fontName="NSimSun" fontSize="19.0" italic="true">
-			<expression><![CDATA["Creado a día: " + new java.util.Date()]]></expression>
+		<element kind="staticText" uuid="89b7500d-5caf-4b2a-a219-a6f9003ef9bd" x="10" y="130" width="140" height="30" forecolor="#FFFFFF" fontName="NSimSun" fontSize="19.0" bold="true" italic="true">
+			<text><![CDATA[Creado a día: ]]></text>
 		</element>
+		<element kind="textField" uuid="d7f85bae-13c6-427a-bed5-038d371ae684" x="150" y="130" width="232" height="30" forecolor="#FFFFFF" fontName="NSimSun" fontSize="19.0" pattern="EEEEE dd MMMMM yyyy" bold="true" italic="true" vTextAlign="Top">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</title>
 	<detail>
-		<band height="106" splitType="Stretch">
-			<element kind="frame" uuid="454b4f8f-8006-4a70-92bd-e337584010fb" mode="Opaque" x="-1" y="0" width="555" height="24" forecolor="#B89F7D" backcolor="#000000">
-				<element kind="textField" uuid="47cd1b31-ac28-4ed0-8c72-5b7a5a939b61" x="1" y="0" width="553" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
+		<band height="100" splitType="Stretch">
+			<element kind="rectangle" uuid="0fab6b3e-d52b-4caf-9568-591e01ca9e38" x="0" y="0" width="555" height="100" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="#9C0E09" radius="10">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<pen lineWidth="1.0"/>
+			</element>
+			<element kind="rectangle" uuid="bf23cdfb-02c6-46f3-b1bf-3238fc963489" x="11" y="25" width="530" height="70" backcolor="#ABABAB" radius="10"/>
+			<element kind="frame" uuid="454b4f8f-8006-4a70-92bd-e337584010fb" mode="Opaque" x="10" y="1" width="533" height="24" forecolor="#B89F7D" backcolor="rgba(0, 0, 0, 0.0)">
+				<element kind="rectangle" uuid="c20ee660-e11d-4eaa-820f-f2b8e893d1cb" x="0" y="-1" width="533" height="24" backcolor="#030000" radius="10"/>
+				<element kind="textField" uuid="47cd1b31-ac28-4ed0-8c72-5b7a5a939b61" x="1" y="1" width="531" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
 					<expression><![CDATA[$F{Especie}]]></expression>
 				</element>
-				<element kind="textField" uuid="49326331-9309-4a0b-98b5-bd7c9be96ba9" x="395" y="0" width="150" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Right" vTextAlign="Middle">
+				<element kind="textField" uuid="49326331-9309-4a0b-98b5-bd7c9be96ba9" x="370" y="1" width="150" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Right" vTextAlign="Middle">
 					<expression><![CDATA["Número - " + $F{N_Pokedex}]]></expression>
 				</element>
+				<element kind="image" uuid="09633cbf-4006-4709-8ae2-64c7dfa366a2" x="10" y="1" width="20" height="20">
+					<expression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{Sprite}.getBytes()))]]></expression>
+				</element>
 			</element>
-			<element kind="textField" uuid="88d41817-38b0-484c-992b-3fc5b729515f" x="179" y="40" width="90" height="30">
+			<element kind="textField" uuid="88d41817-38b0-484c-992b-3fc5b729515f" x="177" y="35" width="73" height="30">
 				<expression><![CDATA["Tipo 1 - " + $F{Tipo_1}]]></expression>
 			</element>
-			<element kind="textField" uuid="8ae99fcc-7e78-4b34-882d-b1c6674f10c6" x="269" y="40" width="90" height="30">
+			<element kind="textField" uuid="8ae99fcc-7e78-4b34-882d-b1c6674f10c6" x="250" y="35" width="80" height="30">
 				<expression><![CDATA["Tipo 2 - " + $F{Tipo_2}]]></expression>
 			</element>
-			<element kind="textField" uuid="03f84cfd-5ce1-4784-9e11-a36bd73251b3" x="89" y="40" width="90" height="30">
+			<element kind="textField" uuid="03f84cfd-5ce1-4784-9e11-a36bd73251b3" x="90" y="35" width="70" height="30">
 				<expression><![CDATA["Tamaño - " + $F{Tamaño} + "m"]]></expression>
 			</element>
-			<element kind="textField" uuid="c90cdd2f-d729-4656-b9f4-2a8f10601e75" x="-1" y="40" width="90" height="30">
+			<element kind="textField" uuid="c90cdd2f-d729-4656-b9f4-2a8f10601e75" x="20" y="35" width="70" height="30">
 				<expression><![CDATA["Peso - " + $F{Peso} + "kg"]]></expression>
 			</element>
-			<element kind="image" uuid="eefb3288-cd1b-4104-b1fa-48c8a1ecb146" x="480" y="40" width="64" height="60">
+			<element kind="image" uuid="eefb3288-cd1b-4104-b1fa-48c8a1ecb146" x="465" y="35" width="64" height="60">
 				<expression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{Sprite}.getBytes()))]]></expression>
 			</element>
-			<element kind="textField" uuid="b6b98755-06d9-4c6a-9d2a-50ff47516bce" x="359" y="40" width="120" height="30">
+			<element kind="textField" uuid="b6b98755-06d9-4c6a-9d2a-50ff47516bce" x="340" y="35" width="120" height="30">
 				<expression><![CDATA["Denominación - " + $F{Denominacion}]]></expression>
 			</element>
-			<element kind="textField" uuid="b8584072-a8b2-463b-a7a8-cdd60b6c2b72" x="-1" y="70" width="480" height="30">
+			<element kind="textField" uuid="b8584072-a8b2-463b-a7a8-cdd60b6c2b72" x="20" y="65" width="444" height="30">
 				<expression><![CDATA[$F{Descripcion}]]></expression>
 			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout"/>
 		</band>
 	</detail>
-	<columnFooter height="45" splitType="Stretch"/>
-	<pageFooter height="54" splitType="Stretch"/>
-	<summary height="42" splitType="Stretch"/>
+	<pageFooter height="25" splitType="Stretch">
+		<element kind="rectangle" uuid="a665946c-9312-4821-a52e-75da06f5b7a8" x="0" y="0" width="555" height="25" backcolor="#9C0E09" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="13355d8a-48aa-411a-aab0-abfbc8637b46" x="380" y="2" width="133" height="20" forecolor="#FFFFFF" fontSize="14.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></expression>
+		</element>
+		<element kind="textField" uuid="90e4d542-3078-4994-bc20-a40e4a6a2443" x="9" y="2" width="197" height="20" forecolor="#FFFFFF" fontSize="14.0" pattern="EEEEE dd MMMMM yyyy" bold="true" vTextAlign="Middle">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="3891dc14-0985-4c76-b04c-6a7265cd488d" x="518" y="2" width="34" height="20" forecolor="#FFFFFF" fontSize="14.0" evaluationTime="Report" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="image" uuid="0622bd4d-bfb2-49a0-a857-17f166d0ef93" x="268" y="0" width="30" height="24" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
+			<expression><![CDATA["https://imgs.search.brave.com/icZg6ZO6wVQH9AIA-aFLZopLpM4MHXIivczUTmLg4nw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9Qb2tl/YmFsbC1QTkcucG5n"]]></expression>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</pageFooter>
+	<summary height="303" splitType="Stretch">
+		<element kind="rectangle" uuid="c0606693-ee16-4908-82a6-76d96a83b98b" x="0" y="0" width="555" height="303" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="#9C0E09" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+			<pen lineWidth="1.0"/>
+		</element>
+		<element kind="rectangle" uuid="2f999859-1c20-48d7-adc3-6ad0b44ca3fc" x="9" y="7" width="533" height="24" backcolor="#030303" radius="10">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="rectangle" uuid="eb17cce4-c8b6-492b-90b9-411d65b672b0" x="10" y="31" width="531" height="263" backcolor="#ABABAB" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+		</element>
+		<element kind="chart" chartType="pie" uuid="464da85e-ea4b-480b-afad-f077651f133d" x="0" y="23" width="555" height="273" evaluationTime="Report">
+			<dataset kind="pie">
+				<datasetRun uuid="eee97168-da1c-434b-a850-2519911bc4fe" subDataset="PokemonPorTipo"/>
+				<series>
+					<keyExpression><![CDATA[$F{Tipo_1}]]></keyExpression>
+					<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+					<labelExpression><![CDATA[$F{Tipo_1}]]></labelExpression>
+				</series>
+			</dataset>
+			<plot>
+				<itemLabel/>
+			</plot>
+		</element>
+		<element kind="staticText" uuid="fc68ff65-945f-4f26-8bbb-f91fa7157add" x="9" y="7" width="531" height="23" forecolor="#FFFFFF" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Cantidad de pokemon por tipo]]></text>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</summary>
 </jasperReport>
