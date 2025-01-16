@@ -1,0 +1,187 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="entrenadores" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7d49159f-952d-48fa-ad7c-4b8e728346cd">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
+	<query language="SQL"><![CDATA[SELECT ID_Entrenador, Nombre, Genero, Sprite, Contraseña, esAdmin, NVL(equipos, 0)
+FROM entrenador LEFT JOIN (
+	SELECT ID_Entrenador, COUNT(DISTINCT ID_Equipo) AS equipos
+	FROM equipo
+	GROUP BY ID_Entrenador
+) AS cuenta USING (ID_Entrenador)]]></query>
+	<field name="ID_Entrenador" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="ID_Entrenador"/>
+		<property name="com.jaspersoft.studio.field.label" value="ID_Entrenador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="Nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="Genero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Genero"/>
+		<property name="com.jaspersoft.studio.field.label" value="Genero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="Sprite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Sprite"/>
+		<property name="com.jaspersoft.studio.field.label" value="Sprite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="Contraseña" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Contraseña"/>
+		<property name="com.jaspersoft.studio.field.label" value="Contraseña"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="esAdmin" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="esAdmin"/>
+		<property name="com.jaspersoft.studio.field.label" value="esAdmin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="NVL(equipos, 0)" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="NVL(equipos, 0)"/>
+		<property name="com.jaspersoft.studio.field.label" value="NVL(equipos, 0)"/>
+	</field>
+	<group name="ID_Entrenador">
+		<expression><![CDATA[$F{ID_Entrenador}]]></expression>
+	</group>
+	<background height="802" splitType="Stretch">
+		<element kind="rectangle" uuid="093b6366-ccbf-4616-9d18-7ab46dd98559" x="0" y="0" width="555" height="802" backcolor="rgba(13, 121, 184, 0.7764706)" radius="10"/>
+	</background>
+	<title height="172" splitType="Stretch">
+		<element kind="rectangle" uuid="d60bd3ab-ddff-4b14-88b3-5cee8437a820" x="0" y="0" width="555" height="172" backcolor="#9C0E09" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="99c31470-1406-41c6-ac7e-1b9358d9fc58" x="11" y="0" width="469" height="90" forecolor="#FFFFFF" rotation="None" fontName="Gabriola" fontSize="47.0" bold="true" italic="true" vTextAlign="Top">
+			<text><![CDATA[INF. ENTRENADORES]]></text>
+		</element>
+		<element kind="image" uuid="d73f9893-f1cf-474f-b41c-540444516bee" x="380" y="0" width="175" height="154" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
+			<expression><![CDATA["https://imgs.search.brave.com/icZg6ZO6wVQH9AIA-aFLZopLpM4MHXIivczUTmLg4nw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9Qb2tl/YmFsbC1QTkcucG5n"]]></expression>
+		</element>
+		<element kind="staticText" uuid="f4355931-b16d-48f8-af21-c75699f8e751" x="11" y="94" width="371" height="30" forecolor="#FFFFFF" fontName="Ink Free" fontSize="19.0" bold="true" hTextAlign="Left">
+			<text><![CDATA[Informe de los entrenadores existentes]]></text>
+		</element>
+		<element kind="staticText" uuid="39251137-3c11-4780-9481-d88815ae0999" x="10" y="130" width="140" height="30" forecolor="#FFFFFF" fontName="NSimSun" fontSize="19.0" bold="true" italic="true">
+			<text><![CDATA[Creado a día: ]]></text>
+		</element>
+		<element kind="textField" uuid="4b3f8141-3591-4e29-919a-dac5cda43a73" x="150" y="130" width="232" height="30" forecolor="#FFFFFF" fontName="NSimSun" fontSize="19.0" pattern="EEEEE dd MMMMM yyyy" bold="true" italic="true" vTextAlign="Top">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</title>
+	<detail>
+		<band height="117" splitType="Stretch">
+			<element kind="rectangle" uuid="6755f35f-d02f-4cf5-a01f-59177a27bc70" x="6" y="0" width="543" height="117" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="#9C0E09" radius="10">
+				<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<pen lineWidth="1.0"/>
+			</element>
+			<element kind="rectangle" uuid="6eb598df-b8f9-4950-81d6-037f52034621" x="6" y="0" width="543" height="117" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="rgba(168, 159, 76, 0.9098039)" radius="10">
+				<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<pen lineWidth="1.0"/>
+			</element>
+			<element kind="frame" uuid="3c0f988a-c794-4699-a804-fc9a5b731770" mode="Opaque" x="14" y="7" width="527" height="24" forecolor="#B89F7D" backcolor="rgba(0, 0, 0, 0.0)">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<element kind="rectangle" uuid="7d47f95e-73b6-416d-a990-1550af2b68a9" x="0" y="0" width="527" height="24" backcolor="#030000" radius="10">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="textField" uuid="7710bfad-1c4a-40f9-b33e-311c8a952fee" x="0" y="0" width="527" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{Nombre}]]></expression>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</element>
+			</element>
+			<element kind="frame" uuid="458c0522-28e8-4a5c-8e03-bd0411cf9542" x="14" y="35" width="527" height="70">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<element kind="rectangle" uuid="e636aa83-a208-4161-9cfe-835651745792" x="0" y="0" width="527" height="70" backcolor="#ABABAB" radius="10">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="image" uuid="4e95da2f-f913-4ae7-9168-89749026ebb9" x="463" y="5" width="64" height="60">
+					<expression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{Sprite}.getBytes()))]]></expression>
+				</element>
+				<element kind="textField" uuid="f6f2616d-c14b-4da3-8010-68444673a4e4" x="12" y="3" width="153" height="30" fontName="DialogInput" fontSize="16.0" hTextAlign="Left">
+					<expression><![CDATA["Género - " + ($F{Genero}.equals("O") ? "Otro" :
+$F{Genero}.equals("M") ? "Hombre" :
+$F{Genero}.equals("F") ? "Mujer" : "Desconocido")]]></expression>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</element>
+				<element kind="textField" uuid="7b961118-7592-49a0-84e8-ef26062e8563" x="310" y="4" width="145" height="30" fontName="DialogInput" fontSize="16.0" hTextAlign="Right">
+					<expression><![CDATA["ID - " + $F{ID_Entrenador}]]></expression>
+				</element>
+				<element kind="textField" uuid="d50201ef-ccbb-4dca-8ee7-c06383912db3" x="12" y="37" width="204" height="30" fontName="DialogInput" fontSize="16.0" hTextAlign="Left">
+					<expression><![CDATA[$F{esAdmin} ? "Es admin" : "No es admin"]]></expression>
+				</element>
+				<element kind="textField" uuid="8ea258f6-9d5c-44e6-85c7-51e9910506d9" x="216" y="38" width="239" height="30" fontName="DialogInput" fontSize="16.0" hTextAlign="Right">
+					<expression><![CDATA["Equipos - " + $F{NVL(equipos, 0)}]]></expression>
+				</element>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<pageFooter height="25" splitType="Stretch">
+		<element kind="rectangle" uuid="a0569a28-9397-498a-9449-8d5c299ed929" x="0" y="0" width="555" height="25" backcolor="#9C0E09" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+		</element>
+		<element kind="textField" uuid="dc79518a-af9e-4cdb-86cf-b2a95cca2603" x="380" y="2" width="133" height="20" forecolor="#FFFFFF" fontSize="14.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></expression>
+		</element>
+		<element kind="textField" uuid="159293fa-7880-45db-90c8-6622db341bef" x="9" y="2" width="197" height="20" forecolor="#FFFFFF" fontSize="14.0" pattern="EEEEE dd MMMMM yyyy" bold="true" vTextAlign="Middle">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="98e03b2e-cd9a-4124-87dd-99d798f709eb" x="518" y="2" width="34" height="20" forecolor="#FFFFFF" fontSize="14.0" evaluationTime="Report" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="image" uuid="a2e14bc0-6da3-4de1-a577-e71532746669" x="268" y="0" width="30" height="24" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
+			<expression><![CDATA["https://imgs.search.brave.com/icZg6ZO6wVQH9AIA-aFLZopLpM4MHXIivczUTmLg4nw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9Qb2tl/YmFsbC1QTkcucG5n"]]></expression>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</pageFooter>
+	<summary height="303" splitType="Stretch">
+		<element kind="rectangle" uuid="8185570d-bb79-4a18-b828-bd6841d1bb4c" x="6" y="0" width="543" height="303" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="#9C0E09" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<pen lineWidth="1.0"/>
+		</element>
+		<element kind="rectangle" uuid="3b697ab2-7664-46ac-80f1-e32eae9a52a7" x="6" y="0" width="543" height="303" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="#A89F4C" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="1.0"/>
+		</element>
+		<element kind="rectangle" uuid="724633fd-4365-4713-b14c-af749dacdb86" x="9" y="7" width="533" height="24" backcolor="#030303" radius="10">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="rectangle" uuid="44bdd3fb-9cb4-46e9-8a2e-5ce51e89fd8a" x="10" y="31" width="531" height="263" backcolor="#ABABAB" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+		</element>
+		<element kind="chart" chartType="pie" uuid="9b000f6d-137b-4cde-9f6e-dad17986e284" x="0" y="23" width="555" height="273" evaluationTime="Report" renderType="svg">
+			<dataset kind="pie" minPercentage="1.0">
+				<series>
+					<keyExpression><![CDATA[$F{Nombre}]]></keyExpression>
+					<valueExpression><![CDATA[$F{NVL(equipos, 0)}]]></valueExpression>
+					<labelExpression><![CDATA[$F{Nombre}]]></labelExpression>
+				</series>
+			</dataset>
+			<plot>
+				<itemLabel/>
+			</plot>
+		</element>
+		<element kind="staticText" uuid="36f13584-7d0f-46e0-84a8-1a7fd647ce9b" x="9" y="7" width="531" height="23" forecolor="#FFFFFF" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Cantidad de equipos por entrenador]]></text>
+		</element>
+	</summary>
+</jasperReport>

@@ -1,0 +1,367 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="equipos" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ef6e7c52-04b9-45f1-8552-89b3c9645aef">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
+	<dataset name="NivelPromedio" uuid="d596514c-38fe-420a-b688-8fd6e52cc3f4">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
+		<query language="SQL"><![CDATA[SELECT 
+    equipo.ID_Equipo,
+    equipo.Nombre_Equipo,
+    AVG(equipo.Nivel) AS Nivel_Promedio
+FROM equipo
+GROUP BY equipo.ID_Equipo, equipo.Nombre_Equipo
+ORDER BY equipo.ID_Equipo]]></query>
+		<field name="ID_Equipo" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="ID_Equipo"/>
+			<property name="com.jaspersoft.studio.field.label" value="ID_Equipo"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+		</field>
+		<field name="Nombre_Equipo" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="Nombre_Equipo"/>
+			<property name="com.jaspersoft.studio.field.label" value="Nombre_Equipo"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+		</field>
+		<field name="Nivel_Promedio" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="Nivel_Promedio"/>
+			<property name="com.jaspersoft.studio.field.label" value="Nivel_Promedio"/>
+		</field>
+		<group name="Nombre_Equipo">
+			<expression><![CDATA[$F{Nombre_Equipo}]]></expression>
+		</group>
+	</dataset>
+	<query language="SQL"><![CDATA[SELECT *
+FROM equipo 
+			INNER JOIN pokemon USING (N_Pokedex) 
+			INNER JOIN entrenador USING (ID_Entrenador)]]></query>
+	<field name="ID_Entrenador" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="ID_Entrenador"/>
+		<property name="com.jaspersoft.studio.field.label" value="ID_Entrenador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="N_Pokedex" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="N_Pokedex"/>
+		<property name="com.jaspersoft.studio.field.label" value="N_Pokedex"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="ID_Equipo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="ID_Equipo"/>
+		<property name="com.jaspersoft.studio.field.label" value="ID_Equipo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Mote" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Mote"/>
+		<property name="com.jaspersoft.studio.field.label" value="Mote"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Nombre_Equipo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Nombre_Equipo"/>
+		<property name="com.jaspersoft.studio.field.label" value="Nombre_Equipo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Formato" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Formato"/>
+		<property name="com.jaspersoft.studio.field.label" value="Formato"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Genero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Genero"/>
+		<property name="com.jaspersoft.studio.field.label" value="Genero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Nivel" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Nivel"/>
+		<property name="com.jaspersoft.studio.field.label" value="Nivel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Habilidad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Habilidad"/>
+		<property name="com.jaspersoft.studio.field.label" value="Habilidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Naturaleza" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Naturaleza"/>
+		<property name="com.jaspersoft.studio.field.label" value="Naturaleza"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Objeto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Objeto"/>
+		<property name="com.jaspersoft.studio.field.label" value="Objeto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Movimientos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Movimientos"/>
+		<property name="com.jaspersoft.studio.field.label" value="Movimientos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="EVs" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EVs"/>
+		<property name="com.jaspersoft.studio.field.label" value="EVs"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="IVs" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="IVs"/>
+		<property name="com.jaspersoft.studio.field.label" value="IVs"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="equipo"/>
+	</field>
+	<field name="Especie" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Especie"/>
+		<property name="com.jaspersoft.studio.field.label" value="Especie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Denominacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Denominacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Denominacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="Descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Sprite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Sprite"/>
+		<property name="com.jaspersoft.studio.field.label" value="Sprite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Tipo_1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Tipo_1"/>
+		<property name="com.jaspersoft.studio.field.label" value="Tipo_1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Tipo_2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Tipo_2"/>
+		<property name="com.jaspersoft.studio.field.label" value="Tipo_2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Tamaño" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Tamaño"/>
+		<property name="com.jaspersoft.studio.field.label" value="Tamaño"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Peso" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Peso"/>
+		<property name="com.jaspersoft.studio.field.label" value="Peso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Habilidades" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Habilidades"/>
+		<property name="com.jaspersoft.studio.field.label" value="Habilidades"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Estadisticas" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Estadisticas"/>
+		<property name="com.jaspersoft.studio.field.label" value="Estadisticas"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pokemon"/>
+	</field>
+	<field name="Nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="COLUMN_26" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Genero"/>
+		<property name="com.jaspersoft.studio.field.label" value="Genero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="COLUMN_27" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Sprite"/>
+		<property name="com.jaspersoft.studio.field.label" value="Sprite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="Contraseña" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Contraseña"/>
+		<property name="com.jaspersoft.studio.field.label" value="Contraseña"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<field name="esAdmin" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="esAdmin"/>
+		<property name="com.jaspersoft.studio.field.label" value="esAdmin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrenador"/>
+	</field>
+	<group name="ID_Entrenador">
+		<expression><![CDATA[$F{ID_Entrenador}]]></expression>
+	</group>
+	<group name="ID_Equipo">
+		<expression><![CDATA[$F{ID_Equipo}]]></expression>
+		<groupHeader>
+			<band height="32">
+				<element kind="rectangle" uuid="1d39fb53-7768-4fc2-b5e9-0f06c6561c9f" x="6" y="0" width="543" height="32" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="#9C0E09" radius="10">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<pen lineWidth="1.0"/>
+				</element>
+				<element kind="frame" uuid="649a8126-31fc-4132-af16-acdd043ab65c" mode="Opaque" x="14" y="4" width="527" height="24" forecolor="#B89F7D" backcolor="rgba(0, 0, 0, 0.0)">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<element kind="rectangle" uuid="80ec8262-cdda-4783-930f-d5ef739130ac" x="0" y="0" width="527" height="24" backcolor="#030000" radius="10">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</element>
+					<element kind="textField" uuid="13de85bb-b00f-4c9c-8791-688a132a4f93" x="0" y="0" width="527" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA["Equipo - " + $F{Nombre_Equipo}]]></expression>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</element>
+				</element>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="1">
+				<element kind="break" uuid="59db9134-c6ba-43f2-8987-f265ce1e0a44" x="0" y="0" width="100" height="1"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupFooter>
+	</group>
+	<background height="802">
+		<element kind="rectangle" uuid="25ab8d59-01d4-4daf-ab16-11db4513408a" x="0" y="0" width="555" height="802" backcolor="rgba(13, 121, 184, 0.7764706)" radius="10"/>
+	</background>
+	<title height="171" splitType="Stretch">
+		<element kind="rectangle" uuid="4982a9b6-fd3f-496d-8b8e-bfa5fd316c7e" x="0" y="0" width="555" height="171" backcolor="#9C0E09" radius="10"/>
+		<element kind="staticText" uuid="b37ca7f0-5ff6-4c5f-9631-bd0488fdfdc6" x="11" y="0" width="398" height="90" forecolor="#FFFFFF" rotation="None" fontName="Gabriola" fontSize="47.0" bold="true" italic="true" vTextAlign="Top">
+			<text><![CDATA[INFORME EQUIPOS]]></text>
+		</element>
+		<element kind="image" uuid="16211f01-2272-4bbf-9f4c-38fc2f9ff970" x="380" y="0" width="175" height="154" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
+			<expression><![CDATA["https://imgs.search.brave.com/icZg6ZO6wVQH9AIA-aFLZopLpM4MHXIivczUTmLg4nw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9Qb2tl/YmFsbC1QTkcucG5n"]]></expression>
+		</element>
+		<element kind="staticText" uuid="1dbd8df3-9c40-4d6a-9f2e-22b6776f6eed" x="11" y="94" width="371" height="30" forecolor="#FFFFFF" fontName="Ink Free" fontSize="19.0" bold="true" hTextAlign="Left">
+			<text><![CDATA[Informe de los equipos existentes]]></text>
+		</element>
+		<element kind="staticText" uuid="71dd44e2-3026-42ce-9e6d-7abd88b70afa" x="10" y="130" width="140" height="30" forecolor="#FFFFFF" fontName="NSimSun" fontSize="19.0" bold="true" italic="true">
+			<text><![CDATA[Creado a día: ]]></text>
+		</element>
+		<element kind="textField" uuid="2473f054-b66a-484a-b6cf-b6c1801f2530" x="150" y="130" width="232" height="30" forecolor="#FFFFFF" fontName="NSimSun" fontSize="19.0" pattern="EEEEE dd MMMMM yyyy" bold="true" italic="true" vTextAlign="Top">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</title>
+	<detail>
+		<band height="117" splitType="Stretch">
+			<element kind="rectangle" uuid="aab910df-6665-4e92-88dd-ec1b7f82a7ac" x="6" y="0" width="543" height="117" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="#9C0E09" radius="10">
+				<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<pen lineWidth="1.0"/>
+			</element>
+			<element kind="rectangle" uuid="6ed3e6ed-7c34-436f-ab37-0c4b4f2aff3c" x="6" y="0" width="543" height="117" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="rgba(168, 159, 76, 0.9098039)" radius="10">
+				<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<pen lineWidth="1.0"/>
+			</element>
+			<element kind="frame" uuid="e1423023-15a4-4048-bed0-001ed34d5398" mode="Opaque" x="14" y="7" width="527" height="24" forecolor="#B89F7D" backcolor="rgba(0, 0, 0, 0.0)">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<element kind="rectangle" uuid="3b0337f0-511c-41fd-b3f5-3bfb0c7c6a49" x="0" y="0" width="527" height="24" backcolor="#030000" radius="10">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="textField" uuid="975893de-065b-4da9-a7dd-7b559c9df78a" x="0" y="0" width="527" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{Mote}]]></expression>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</element>
+				<element kind="textField" uuid="5394c823-b95a-4c86-853a-6d9347efaded" x="5" y="0" width="150" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA["Especie - " + $F{Especie}]]></expression>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</element>
+				<element kind="textField" uuid="27df0e0a-319a-48b9-a62c-9861d9d2279f" x="372" y="0" width="150" height="24" forecolor="#FFFFFF" markup="styled" fontSize="14.0" textAdjust="StretchHeight" printRepeatedValues="false" bold="true" hTextAlign="Right" vTextAlign="Middle">
+					<expression><![CDATA["Nivel - " + $F{Nivel}]]></expression>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</element>
+			</element>
+			<element kind="frame" uuid="a0512472-260e-4ee1-a1ee-fcc5b9e2397f" x="14" y="35" width="527" height="70">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<element kind="rectangle" uuid="7472b5b5-5c34-495b-992c-ae5ff354ce7d" x="0" y="0" width="527" height="70" backcolor="#ABABAB" radius="10">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="image" uuid="5f595829-51e2-4a50-bd31-9866fd888d93" x="463" y="5" width="64" height="60">
+					<expression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{Sprite}.getBytes()))]]></expression>
+				</element>
+				<element kind="textField" uuid="23e35c7d-012d-419a-8793-038e03d22599" x="300" y="3" width="153" height="30" fontName="DialogInput" fontSize="16.0" hTextAlign="Right">
+					<expression><![CDATA["Género - " + ($F{Genero}.equals("N") ? "Nada" :
+$F{Genero}.equals("M") ? "Macho" :
+$F{Genero}.equals("F") ? "Hembra" : "Desconocido")]]></expression>
+				</element>
+				<element kind="textField" uuid="b9998352-5a37-4d53-83bb-52f8d0f2c3ba" x="7" y="3" width="293" height="30" fontName="DialogInput" fontSize="16.0">
+					<expression><![CDATA["Habilidad - " + $F{Habilidad}]]></expression>
+				</element>
+				<element kind="textField" uuid="03b04671-192f-4d35-89f0-703fb61233e4" x="7" y="37" width="243" height="30" fontName="DialogInput" fontSize="16.0">
+					<expression><![CDATA["Naturaleza - " + $F{Naturaleza}]]></expression>
+				</element>
+				<element kind="textField" uuid="deea4869-6167-4bc6-9653-dcbc50461803" x="249" y="37" width="204" height="30" fontName="DialogInput" fontSize="16.0" hTextAlign="Right">
+					<expression><![CDATA["Objeto - " + $F{Objeto}]]></expression>
+				</element>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<pageFooter height="25" splitType="Stretch">
+		<element kind="rectangle" uuid="f089f9c0-64ac-4b2a-97ba-6fd795b0d679" x="0" y="0" width="555" height="25" backcolor="#9C0E09" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="b6d64c77-5346-4c22-8e1a-4c64acdc98f6" x="380" y="2" width="133" height="20" forecolor="#FFFFFF" fontSize="14.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></expression>
+		</element>
+		<element kind="textField" uuid="687fdbf3-11b1-4f28-b796-a2a13e941405" x="9" y="2" width="197" height="20" forecolor="#FFFFFF" fontSize="14.0" pattern="EEEEE dd MMMMM yyyy" bold="true" vTextAlign="Middle">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="7f2df7fe-f1d0-46ca-aa62-fe4986e70b6a" x="518" y="2" width="34" height="20" forecolor="#FFFFFF" fontSize="14.0" evaluationTime="Report" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="image" uuid="9e301dfa-0525-418a-b7ba-d2d488e31dfd" x="268" y="0" width="30" height="24" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
+			<expression><![CDATA["https://imgs.search.brave.com/icZg6ZO6wVQH9AIA-aFLZopLpM4MHXIivczUTmLg4nw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9Qb2tl/YmFsbC1QTkcucG5n"]]></expression>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</pageFooter>
+	<summary height="303" splitType="Stretch">
+		<element kind="rectangle" uuid="7ed5eba0-383c-4b69-8d40-d89dd84534b7" x="6" y="0" width="543" height="303" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="#9C0E09" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<pen lineWidth="1.0"/>
+		</element>
+		<element kind="rectangle" uuid="4974cbfd-68b2-4123-8ee4-72249b13c67b" x="6" y="0" width="543" height="303" forecolor="rgba(3, 0, 0, 0.98039216)" backcolor="#A89F4C" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="1.0"/>
+		</element>
+		<element kind="rectangle" uuid="450de77b-76c3-418c-8527-96c569022263" x="9" y="7" width="533" height="24" backcolor="#030303" radius="10">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="rectangle" uuid="7ef2b678-9afd-4053-9803-d10cf59244ea" x="10" y="31" width="531" height="263" backcolor="#ABABAB" radius="10">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+		</element>
+		<element kind="staticText" uuid="203519de-ce26-42c5-b52a-27426d82a0e3" x="9" y="7" width="531" height="23" forecolor="#FFFFFF" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Media de niveles por equipo]]></text>
+		</element>
+		<element kind="chart" chartType="stackedBar" uuid="ec599a71-90f1-457b-99e8-0674364258a8" x="15" y="36" width="522" height="253" evaluationTime="Report" linkType="None" linkTarget="Self" renderType="svg" theme="generic">
+			<dataset kind="category">
+				<datasetRun uuid="fcb29560-6fef-4f92-a2cc-a0fcc43470cb" subDataset="NivelPromedio"/>
+				<series>
+					<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+					<categoryExpression><![CDATA[$F{Nombre_Equipo}]]></categoryExpression>
+					<valueExpression><![CDATA[$F{Nivel_Promedio}]]></valueExpression>
+				</series>
+			</dataset>
+			<plot backgroundAlpha="0.0" foregroundAlpha="1.0" categoryAxisLabelColor="#000000" categoryAxisTickLabelColor="#000000" categoryAxisLineColor="#000000" valueAxisLabelColor="#000000" valueAxisTickLabelColor="#000000" valueAxisLineColor="#000000">
+				<itemLabel/>
+			</plot>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</summary>
+</jasperReport>
