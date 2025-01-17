@@ -1,13 +1,20 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="entrenadores" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7d49159f-952d-48fa-ad7c-4b8e728346cd">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - PokeTeams"/>
+	<parameter name="admin" forPrompting="false" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
+	</parameter>
 	<query language="SQL"><![CDATA[SELECT ID_Entrenador, Nombre, Genero, Sprite, Contraseña, esAdmin, NVL(equipos, 0)
 FROM entrenador LEFT JOIN (
 	SELECT ID_Entrenador, COUNT(DISTINCT ID_Equipo) AS equipos
 	FROM equipo
 	GROUP BY ID_Entrenador
-) AS cuenta USING (ID_Entrenador)]]></query>
+) AS cuenta USING (ID_Entrenador)
+WHERE 
+    ($P{admin} = 1 AND esAdmin = TRUE)
+    OR ($P{admin} = 0 AND esAdmin = FALSE)
+    OR ($P{admin} NOT IN (0, 1));]]></query>
 	<field name="ID_Entrenador" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="ID_Entrenador"/>
 		<property name="com.jaspersoft.studio.field.label" value="ID_Entrenador"/>

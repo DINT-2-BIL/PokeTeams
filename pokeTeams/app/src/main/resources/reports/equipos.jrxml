@@ -1,7 +1,7 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="equipos" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ef6e7c52-04b9-45f1-8552-89b3c9645aef">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - PokeTeams"/>
 	<dataset name="NivelPromedio" uuid="d596514c-38fe-420a-b688-8fd6e52cc3f4">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
@@ -30,10 +30,13 @@ ORDER BY equipo.ID_Equipo]]></query>
 			<expression><![CDATA[$F{Nombre_Equipo}]]></expression>
 		</group>
 	</dataset>
+	<parameter name="idEnt" forPrompting="false" class="java.lang.Integer"/>
 	<query language="SQL"><![CDATA[SELECT *
 FROM equipo 
 			INNER JOIN pokemon USING (N_Pokedex) 
-			INNER JOIN entrenador USING (ID_Entrenador)]]></query>
+			INNER JOIN entrenador USING (ID_Entrenador)
+WHERE ID_Entrenador = $P{idEnt} 
+			OR $P{idEnt}  = 0]]></query>
 	<field name="ID_Entrenador" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="ID_Entrenador"/>
 		<property name="com.jaspersoft.studio.field.label" value="ID_Entrenador"/>
