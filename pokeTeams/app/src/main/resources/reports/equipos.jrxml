@@ -30,7 +30,7 @@ ORDER BY equipo.ID_Equipo]]></query>
 			<expression><![CDATA[$F{Nombre_Equipo}]]></expression>
 		</group>
 	</dataset>
-	<parameter name="idEnt" forPrompting="false" class="java.lang.Integer"/>
+	<parameter name="idEnt" class="java.lang.Integer"/>
 	<query language="SQL"><![CDATA[SELECT *
 FROM equipo 
 			INNER JOIN pokemon USING (N_Pokedex) 
@@ -285,7 +285,9 @@ WHERE ID_Entrenador = $P{idEnt}
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</element>
 				<element kind="image" uuid="5f595829-51e2-4a50-bd31-9866fd888d93" x="463" y="5" width="64" height="60">
-					<expression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{Sprite}.getBytes()))]]></expression>
+					<expression><![CDATA[new java.io.ByteArrayInputStream(
+java.util.Base64.getDecoder().decode(
+$F{Sprite}.getBytes()))]]></expression>
 				</element>
 				<element kind="textField" uuid="23e35c7d-012d-419a-8793-038e03d22599" x="300" y="3" width="153" height="30" fontName="DialogInput" fontSize="16.0" hTextAlign="Right">
 					<expression><![CDATA["Género - " + ($F{Genero}.equals("N") ? "Nada" :

@@ -27,6 +27,10 @@ dependencies {
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.2'
     implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'org.controlsfx:controlsfx:11.1.2'
+
+    implementation 'net.sf.jasperreports:jasperreports:7.0.1'
+    implementation 'net.sf.jasperreports:jasperreports-pdf:7.0.0' //Exportar PDF
+    implementation 'net.sf.jasperreports:jasperreports-charts:7.0.1' //Charts
 }
 
 mainClassName = 'com.fcm.pokeTeams.Main'
@@ -35,7 +39,7 @@ sourceSets {
   main {
     resources {
         srcDirs = ["src/main/java","src/main/resources"]
-        includes = ["**/*.fxml","**/*.jpg","**/*.png","**/*.properties"]  //Importante para poder abrir una extensión no reconocida
+        includes = ["**/*.fxml","**/*.jpg","**/*.png","**/*.properties","**/*.jasper","**/*.html","**/*.pdf"]  //Importante para poder abrir una extensión no reconocida
     }
   }
 }

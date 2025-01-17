@@ -19,7 +19,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +37,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -43,6 +48,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
@@ -55,11 +61,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -75,6 +91,7 @@ public class controllerCore implements Initializable {
     Utilidades utils = new Utilidades();
     ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
     private controllerConfirmar cc;
+    Map parametros = new HashMap();
 
     @FXML
     private ImageView btnAddEquipo;
@@ -90,18 +107,36 @@ public class controllerCore implements Initializable {
 
     @FXML
     private ImageView btnFiltrarPokemon;
+    
+    @FXML
+    private Button btnInformeMostrar;
 
     @FXML
     private ComboBox<String> cbEstadistica;
 
     @FXML
     private ComboBox<String> cbEstadisticaOrden;
+    
+    @FXML
+    private ComboBox<String> cbInforme;
+
+    @FXML
+    private ComboBox<String> cbInformeTipo1;
+
+    @FXML
+    private ComboBox<String> cbInformeTipo2;
 
     @FXML
     private ComboBox<String> cbTipo1;
 
     @FXML
     private ComboBox<String> cbTipo2;
+    
+    @FXML
+    private CheckBox ckbInformeAdmin;
+
+    @FXML
+    private CheckBox ckbInformeInc;
 
     @FXML
     private ToggleGroup especie;
@@ -123,6 +158,9 @@ public class controllerCore implements Initializable {
 
     @FXML
     private Spinner<Integer> spEstadistica;
+    
+    @FXML
+    private Spinner<Integer> spInformeIDEnt;
 
     @FXML
     private Spinner<Double> spPesoMax;
@@ -135,6 +173,9 @@ public class controllerCore implements Initializable {
 
     @FXML
     private Spinner<Double> spTamañoMin;
+    
+    @FXML
+    private Tab tabInformes;
 
     @FXML
     private ToggleGroup tamaño;
@@ -162,6 +203,9 @@ public class controllerCore implements Initializable {
     
     @FXML
     private VBox vbFiltro;
+    
+    @FXML
+    private WebView wbInforme;
 
     @FXML
     void añadirEquipo(MouseEvent event) {
@@ -413,6 +457,11 @@ public class controllerCore implements Initializable {
     void logOut(ActionEvent event) {
         cerrar();
     }
+    
+    @FXML
+    void mostrarInforme(ActionEvent event) {
+        selInforme();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -472,6 +521,7 @@ public class controllerCore implements Initializable {
         cbEstadistica.getItems().addAll("HP","Atk","Def","SpA","SpD","SpE");
         cbEstadisticaOrden.getItems().addAll(cbEstadistica.getItems());
         inicializarSpinners();
+        prepararInformes();
         
         utils.crearTooltip("Añadir equipo", btnAddEquipo);
         utils.crearTooltip("Añadir pokemon", btnAddPokemon);
@@ -659,5 +709,137 @@ public class controllerCore implements Initializable {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    private void prepararInformes() {
+        cbInforme.getItems().addAll("Pokemon","Equipos","Entrenadores");
+        
+        cbInforme.setOnAction((event) -> {
+            int selectedIndex=cbInforme.getSelectionModel().getSelectedIndex();
+            Object selectedItem=cbInforme.getSelectionModel().getSelectedItem();
+            
+            if (btnInformeMostrar.isDisabled()) btnInformeMostrar.setDisable(false);
+            
+            if (selectedIndex == 0) {
+                cbInformeTipo1.setDisable(false);
+                cbInformeTipo2.setDisable(false);
+                ckbInformeAdmin.setDisable(true);
+                spInformeIDEnt.setDisable(true);
+            } else if (selectedIndex == 1) {
+                cbInformeTipo1.setDisable(true);
+                cbInformeTipo2.setDisable(true);
+                ckbInformeAdmin.setDisable(true);
+                spInformeIDEnt.setDisable(false);
+            } else {
+                cbInformeTipo1.setDisable(true);
+                cbInformeTipo2.setDisable(true);
+                ckbInformeAdmin.setDisable(false);
+                spInformeIDEnt.setDisable(true);
+            }
+        });
+        
+        cbInformeTipo1.getItems().add("");
+        cbInformeTipo1.getItems().addAll(cbTipo1.getItems());
+        cbInformeTipo2.getItems().add("");
+        cbInformeTipo2.getItems().addAll(cbTipo2.getItems());
+    }
+    
+    private void selInforme() {
+        int tipo = ckbInformeInc.isSelected() ? 0:1;
+        String ruta = "/reports/";
+        System.out.println(spInformeIDEnt.getChildrenUnmodifiable());
+        parametros.clear();
+        switch (cbInforme.getValue()) {
+            case "Pokemon" -> {
+                ruta = ruta + "pokemon";
+                parametros.put("Tipo1", cbInformeTipo1.getValue());
+                parametros.put("Tipo2", cbInformeTipo2.getValue());
+            }
+            case "Equipos" -> {
+                ruta = ruta + "equipos";
+                
+                if (spInformeIDEnt.getValue() > 0 || spInformeIDEnt.getValue() < 100000) {
+                    parametros.put("idEnt", spInformeIDEnt.getValue());
+                } else {
+                    parametros.put("idEnt", 0);
+                }
+                
+            }
+            case "Entrenadores" -> {
+                ruta = ruta + "entrenadores";
+                int temp = -1;
+                if (ckbInformeAdmin.isIndeterminate()) {
+                    temp = 2;
+                }
+                if (ckbInformeAdmin.isSelected() && !ckbInformeAdmin.isIndeterminate()) {
+                    temp = 1;
+                } 
+                if (!ckbInformeAdmin.isSelected() && !ckbInformeAdmin.isIndeterminate()) {
+                    temp = 0;
+                }
+                parametros.put("admin", temp);
+            }
+        }
+        ruta = ruta + ".jasper";
+        System.out.println("a "+spInformeIDEnt.getValue());
+        System.out.println("idEnt" + parametros.get("admin"));
+        System.out.println(ruta);
+        System.out.println(tipo);
+        
+        lanzaInforme(ruta, parametros, tipo);
+    }
+    
+    private void lanzaInforme(String rutaInf, Map<String, Object> param, int tipo) {
+        System.out.println(conexion.getConexion());
+        wbInforme = new WebView();
+        try {
+            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResourceAsStream(rutaInf));
+            try {
+                // Llena el informe con los datos de la conexión
+                System.out.println(this.conexion);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(report, param, conexion.getConexion());
+
+                if (!jasperPrint.getPages().isEmpty()) {
+
+                    //Exporta el informe a un archivo PDF (necesita librería)
+                    String pdfOutputPath = "informe.pdf";
+                    JasperExportManager.exportReportToPdfFile(jasperPrint, pdfOutputPath);
+
+                    //Exporta el informe a un archivo HTML
+                    String outputHtmlFile = "informeHTML.html";
+                    JasperExportManager.exportReportToHtmlFile(jasperPrint, outputHtmlFile);
+
+                    //Crea un WebView para mostrar la versión HTML del informe
+                    if (tipo == 0) {
+                        System.out.println("Incrustado");
+                        wbInforme.getEngine().load(new File(outputHtmlFile).toURI().toString());
+                    } else { //tipo==1
+                        System.out.println("no Incrustado");
+                        WebView wvnuevo = new WebView();
+                        wvnuevo.getEngine().load(new File(outputHtmlFile).toURI().toString());
+                        StackPane stackPane = new StackPane(wvnuevo);
+                        Scene scene = new Scene(stackPane, 600, 500);
+                        Stage stage = new Stage();
+                        stage.setTitle("Informe en HTML");
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.setResizable(true);
+                        stage.setScene(scene);
+                        stage.show();
+                    }
+                } else {
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Información");
+                    alert.setHeaderText("Alerta de Informe");
+                    //alert.setContentText("La búsqueda " + mititulo.getText() + " no generó páginas");
+                    alert.showAndWait();
+                }
+
+            } catch (JRException e) {
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Error al generar el informe: " + e.getMessage());
+            }
+        } catch (JRException ex) {
+            System.out.println("ultimo: " + ex.getMessage());
+        }
     }
 }

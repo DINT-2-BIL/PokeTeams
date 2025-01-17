@@ -29,6 +29,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="731.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
    <children>
@@ -561,6 +562,145 @@
                      <tooltip>
                         <Tooltip text="Perfil" />
                      </tooltip>
+                  </Tab>
+                  <Tab fx:id="tabInformes" text="INFORMES">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="657.0" prefWidth="634.0" spacing="40.0">
+                                 <children>
+                                    <Label text="INFORMES">
+                                       <font>
+                                          <Font name="System Bold Italic" size="36.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER" spacing="92.0">
+                                       <children>
+                                          <Label prefWidth="290.0" text="Seleccione el informe:">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cbInforme" prefHeight="51.0" prefWidth="250.0" promptText="Informe">
+                                             <tooltip>
+                                                <Tooltip text="Informe a mostrar">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip></ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="92.0">
+                                       <children>
+                                          <Label prefWidth="290.0" text="Seleccione el primer tipo:">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cbInformeTipo1" disable="true" prefHeight="51.0" prefWidth="250.0" promptText="Tipo 1">
+                                             <tooltip>
+                                                <Tooltip text="Se filtra por tipo seleccionado (Si no se selecciona ninguno se muestran todos)">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip></ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" spacing="92.0">
+                                       <children>
+                                          <Label prefWidth="290.0" text="Seleccione el segundo tipo:">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cbInformeTipo2" disable="true" prefHeight="51.0" prefWidth="250.0" promptText="Tipo 2">
+                                             <tooltip>
+                                                <Tooltip text="Se filtra por tipo seleccionado (Si no se selecciona ninguno se muestran todos)">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip></ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="50.0">
+                                       <children>
+                                          <Label text="Seleccione si quiere administradores:">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox fx:id="ckbInformeAdmin" allowIndeterminate="true" disable="true" indeterminate="true" mnemonicParsing="false" text="Administrador">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <tooltip>
+                                                <Tooltip text="Si se muestran todos (-), los que son administradores (V) o los que no (Vacío)">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip>
+                                          </CheckBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="45.0">
+                                       <children>
+                                          <Label text="Escriba el ID del entrenador que quiere:">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Spinner fx:id="spInformeIDEnt" disable="true" editable="true" prefHeight="51.0" prefWidth="170.0">
+                                             <tooltip>
+                                                <Tooltip text="Se muestran los equipos del entrenador con el ID seleccionado (Si no existe o se pone otra cosa se ponen todos)">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip></Spinner>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="70.0">
+                                       <children>
+                                          <Label text="Seleccione si el informe es incrustado: ">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox fx:id="ckbInformeInc" mnemonicParsing="false" selected="true" text="Incrustado">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <tooltip>
+                                                <Tooltip text="Si está marcado se muestra a la derecha, si no, se muestra en una ventana emergente">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip>
+                                          </CheckBox>
+                                       </children>
+                                    </HBox>
+                                    <Button fx:id="btnInformeMostrar" disable="true" mnemonicParsing="false" onAction="#mostrarInforme" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefHeight="51.0" prefWidth="306.0" text="MOSTRAR">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                       <tooltip>
+                                          <Tooltip text="Mostrar el informe seleccionado con los parámetros indicados">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font></Tooltip>
+                                       </tooltip>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                              <WebView fx:id="wbInforme" layoutX="674.0" layoutY="15.0" prefHeight="656.0" prefWidth="595.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
                   </Tab>
                </tabs>
             </TabPane>
