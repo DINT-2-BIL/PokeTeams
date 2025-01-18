@@ -59,6 +59,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -205,7 +206,7 @@ public class controllerCore implements Initializable {
     private VBox vbFiltro;
     
     @FXML
-    private WebView wbInforme;
+    private WebView wvInforme;
 
     @FXML
     void añadirEquipo(MouseEvent event) {
@@ -539,6 +540,7 @@ public class controllerCore implements Initializable {
         double peso = 999.99;
         spPesoMin.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, peso, 0.0, 0.1));
         spPesoMax.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, peso, 0.0, 0.1));
+        spInformeIDEnt.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1));
     }
     
     private void cargarPokemon(Pokemon pokemon, boolean a) {
@@ -752,8 +754,18 @@ public class controllerCore implements Initializable {
         switch (cbInforme.getValue()) {
             case "Pokemon" -> {
                 ruta = ruta + "pokemon";
-                parametros.put("Tipo1", cbInformeTipo1.getValue());
-                parametros.put("Tipo2", cbInformeTipo2.getValue());
+                if (cbInformeTipo1.getValue() == null) {
+                    parametros.put("Tipo1", "");
+                } else {
+                    System.out.println("Tipo " + cbInformeTipo1.getValue());
+                    parametros.put("Tipo1", cbInformeTipo1.getValue());
+                }
+                if (cbInformeTipo2.getValue() == null) {
+                    parametros.put("Tipo2", "");
+                } else {
+                    System.out.println("Tipo " + cbInformeTipo2.getValue());
+                    parametros.put("Tipo2", cbInformeTipo2.getValue());
+                }
             }
             case "Equipos" -> {
                 ruta = ruta + "equipos";
@@ -781,42 +793,43 @@ public class controllerCore implements Initializable {
             }
         }
         ruta = ruta + ".jasper";
-        System.out.println("a "+spInformeIDEnt.getValue());
-        System.out.println("idEnt" + parametros.get("admin"));
-        System.out.println(ruta);
-        System.out.println(tipo);
         
+        eliminarCarpeta(new File("informeHTML.html_files"));
+        wvInforme.getEngine().load(null);
         lanzaInforme(ruta, parametros, tipo);
+    }
+    
+    public static void eliminarCarpeta(File carpeta) {
+        if (carpeta.isDirectory()) {
+            for (File archivo : carpeta.listFiles()) {
+                if (archivo.isDirectory()) {
+                    eliminarCarpeta(archivo);
+                }
+                archivo.delete();
+            }
+        }
     }
     
     private void lanzaInforme(String rutaInf, Map<String, Object> param, int tipo) {
         System.out.println(conexion.getConexion());
-        wbInforme = new WebView();
         try {
             JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResourceAsStream(rutaInf));
             try {
-                // Llena el informe con los datos de la conexión
                 System.out.println(this.conexion);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, param, conexion.getConexion());
 
                 if (!jasperPrint.getPages().isEmpty()) {
-
-                    //Exporta el informe a un archivo PDF (necesita librería)
                     String pdfOutputPath = "informe.pdf";
                     JasperExportManager.exportReportToPdfFile(jasperPrint, pdfOutputPath);
 
-                    //Exporta el informe a un archivo HTML
                     String outputHtmlFile = "informeHTML.html";
                     JasperExportManager.exportReportToHtmlFile(jasperPrint, outputHtmlFile);
 
-                    //Crea un WebView para mostrar la versión HTML del informe
                     if (tipo == 0) {
-                        System.out.println("Incrustado");
-                        wbInforme.getEngine().load(new File(outputHtmlFile).toURI().toString());
-                    } else { //tipo==1
-                        System.out.println("no Incrustado");
+                        wvInforme.getEngine().load(new File(outputHtmlFile).toURI().toString());
+                    } else {
                         WebView wvnuevo = new WebView();
-                        wvnuevo.getEngine().load(new File(outputHtmlFile).toURI().toString());
+                        wvInforme.getEngine().load(new File(outputHtmlFile).toURI().toString());
                         StackPane stackPane = new StackPane(wvnuevo);
                         Scene scene = new Scene(stackPane, 600, 500);
                         Stage stage = new Stage();
@@ -830,7 +843,6 @@ public class controllerCore implements Initializable {
                     Alert alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Información");
                     alert.setHeaderText("Alerta de Informe");
-                    //alert.setContentText("La búsqueda " + mititulo.getText() + " no generó páginas");
                     alert.showAndWait();
                 }
 

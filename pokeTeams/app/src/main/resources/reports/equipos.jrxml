@@ -350,7 +350,7 @@ $F{Genero}.equals("F") ? "Hembra" : "Desconocido")]]></expression>
 		<element kind="staticText" uuid="203519de-ce26-42c5-b52a-27426d82a0e3" x="9" y="7" width="531" height="23" forecolor="#FFFFFF" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Media de niveles por equipo]]></text>
 		</element>
-		<element kind="chart" chartType="stackedBar" uuid="ec599a71-90f1-457b-99e8-0674364258a8" x="15" y="36" width="522" height="253" evaluationTime="Report" linkType="None" linkTarget="Self" renderType="svg" theme="generic">
+		<element kind="chart" chartType="stackedBar" uuid="ec599a71-90f1-457b-99e8-0674364258a8" x="15" y="36" width="522" height="253" evaluationTime="Report" linkType="None" linkTarget="Self" renderType="svg">
 			<dataset kind="category">
 				<datasetRun uuid="fcb29560-6fef-4f92-a2cc-a0fcc43470cb" subDataset="NivelPromedio"/>
 				<series>

@@ -1,7 +1,7 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="pokemon" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d268c1c6-7d01-4f0d-a308-bebd20635abc">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - PokeTeams"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
 	<dataset name="PokemonPorTipo" uuid="674735f9-f241-4cc6-9022-1c5d0c6b68a3">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MariaDB - Docker - Pokemon"/>
@@ -27,7 +27,7 @@ ORDER BY cantidad DESC]]></query>
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<query language="SQL"><![CDATA[SELECT * FROM pokemon
-WHERE Tipo_1 LIKE $P{Tipo1}
+WHERE ($P{Tipo1} LIKE "" OR Tipo_1 LIKE $P{Tipo1})
 AND ($P{Tipo2} LIKE "" OR Tipo_2 LIKE $P{Tipo2})]]></query>
 	<field name="N_Pokedex" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="N_Pokedex"/>

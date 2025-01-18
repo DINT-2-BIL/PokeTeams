@@ -697,7 +697,7 @@
                                     </Button>
                                  </children>
                               </VBox>
-                              <WebView fx:id="wbInforme" layoutX="674.0" layoutY="15.0" prefHeight="656.0" prefWidth="595.0" />
+                              <WebView fx:id="wvInforme" layoutX="674.0" layoutY="15.0" prefHeight="656.0" prefWidth="595.0" />
                            </children>
                         </AnchorPane>
                      </content>
