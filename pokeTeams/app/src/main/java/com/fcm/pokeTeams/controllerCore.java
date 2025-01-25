@@ -6,6 +6,7 @@ package com.fcm.pokeTeams;
 
 import com.fcm.pokeTeams.modelos.Entrenador;
 import com.fcm.pokeTeams.modelos.Equipo;
+import com.fcm.pokeTeams.modelos.Generos;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Conexion;
@@ -650,25 +651,8 @@ public class controllerCore implements Initializable {
         
         txtNombreEntrenador.setText(entrenador.getNombre());
         utils.crearTooltip("Entrenador " + entrenador.getNombre(), txtNombreEntrenador);
-        System.out.println(entrenador.getGenero());
-        switch (entrenador.getGenero()) {
-                case 'F' -> {
-                    entrenador.setGenero('F');
-                    txtGeneroEntrenador.setText("Mujer");
-                    utils.crearTooltip("Género: Mujer", txtGeneroEntrenador);
-                }
-                case 'M' -> {
-                    entrenador.setGenero('M');
-                    txtGeneroEntrenador.setText("Hombre");
-                    utils.crearTooltip("Género: Hombre", txtGeneroEntrenador);
-                }
-                case 'O' -> {
-                    entrenador.setGenero('O');
-                    txtGeneroEntrenador.setText("Otro");
-                    utils.crearTooltip("Género: Otro", txtGeneroEntrenador);
-                }
-            }
-        
+        txtGeneroEntrenador.setText(Generos.fromSigla(entrenador.getGenero()).getEntrenador());
+        utils.crearTooltip("Género: "+Generos.fromSigla(entrenador.getGenero()).getEntrenador(), txtGeneroEntrenador);
         utils.recuperarImagenBBDD(entrenador.getSprite(), imgEntrenador);
         utils.crearTooltip("Entrenador: " + entrenador.getNombre(), imgEntrenador);
         btnAddPokemon.setVisible(entrenador.isEsAdmin());

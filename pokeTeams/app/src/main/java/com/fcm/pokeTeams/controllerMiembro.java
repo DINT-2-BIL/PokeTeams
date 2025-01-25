@@ -10,8 +10,10 @@ package com.fcm.pokeTeams;
  */
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
+import com.fcm.pokeTeams.modelos.Generos;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Miembro;
+import com.fcm.pokeTeams.modelos.Naturalezas;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Utilidades;
 import com.google.gson.Gson;
@@ -32,6 +34,7 @@ public class controllerMiembro implements Initializable{
     private EVsEnvoltorio evs;
     private IVsEnvoltorio ivs;
     private EstadisticasEnvoltorio estadisticas;
+    private ArrayList<String> etiquetasStats = new ArrayList<>(List.of("Hp","Atk","Def","SpA","SpD","Spe"));
     Utilidades util = new Utilidades();
 
     @FXML
@@ -121,18 +124,12 @@ public class controllerMiembro implements Initializable{
 
     void enviaMiembro(Miembro m) {
         miembro = m;
-        txtNivel.setText("Nivel: " + m.getNivel());
+        txtNivel.setText(m.getNivel()+"");
         txtMote.setText(m.getMote());
         txtEspecie.setText(m.getEspecie());
         txtHabilidad.setText(m.getHabilidad());
         txtObjeto.setText(m.getObjeto());
-        String genero = "Género: ";
-        switch (m.getGenero()) {
-            case 'M' -> genero += "Masculino";
-            case 'F' -> genero += "Femenino"; 
-            case 'N' -> genero = "Sin género"; 
-        }
-        txtGenero.setText(genero);
+        txtGenero.setText(Generos.fromSigla(miembro.getGenero()).getPokemon());
         txtTipo1.setText(m.getTipo1());
         txtTipo2.setText(m.getTipo2());
         util.recuperarImagenBBDD(m.getSprite(), imgPokemon);
@@ -220,11 +217,12 @@ public class controllerMiembro implements Initializable{
         
         for (int i = 0; i < 6; i++) {
             if (i == 0) {
-                calculo = ((((2 * estadisticas.getEstadistica(i).getValor()) + ivs.getEV(i).getValor() + (evs.getEV(i).getValor() / 4)) * 
-                        miembro.getNivel())/100) + miembro.getNivel() + 10;
+                calculo = Math.floor(((((2 * estadisticas.getEstadistica(i).getValor()) + ivs.getEV(i).getValor() + (evs.getEV(i).getValor() / 4)) * 
+                        miembro.getNivel())/100) + miembro.getNivel() + 10);
             } else {
                 calculo = Math.floor( (((((2 * estadisticas.getEstadistica(i).getValor()) + ivs.getEV(i).getValor() + (evs.getEV(i).getValor() / 4)) * 
-                        miembro.getNivel()) / 100) + 5) * 1.1);
+                        miembro.getNivel()) / 100) + 5) * 
+                        Naturalezas.fromName(miembro.getNaturaleza()).getValores().get(etiquetasStats.get(i)));
             }
             stats.add((int) calculo);
         }

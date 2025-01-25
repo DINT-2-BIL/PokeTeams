@@ -23,7 +23,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -31,680 +30,680 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="731.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
-   <children>
-      <Pane prefHeight="200.0" prefWidth="823.0">
-         <children>
-            <TabPane layoutX="8.0" layoutY="7.0" prefHeight="716.0" prefWidth="1284.0" tabClosingPolicy="UNAVAILABLE">
-               <tabs>
-                  <Tab text="INICIO">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+
+<TabPane prefHeight="731.0" prefWidth="1300.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
+   <tabs>
+      <Tab text="INICIO">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitPane dividerPositions="0.1610738255033557" layoutX="18.0" layoutY="14.0" orientation="VERTICAL" prefHeight="300.0" prefWidth="1249.0">
+                    <items>
+                      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="45.6" prefWidth="1247.0">
                            <children>
-                              <SplitPane dividerPositions="0.1610738255033557" layoutX="18.0" layoutY="14.0" orientation="VERTICAL" prefHeight="300.0" prefWidth="1249.0">
-                                <items>
-                                  <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="45.6" prefWidth="1247.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="NOVEDADES">
-                                             <font>
-                                                <Font name="System Bold" size="24.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </AnchorPane>
-                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
-                                       <content>
-                                          <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="249.6" prefWidth="1248.0">
-                                             <children>
-                                                <Text layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Text>
-                                                <Text layoutX="14.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Text>
-                                                <Text layoutX="14.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Text>
-                                             </children>
-                                          </AnchorPane>
-                                       </content>
-                                    </ScrollPane>
-                                </items>
-                              </SplitPane>
-                              <SplitPane dividerPositions="0.1610738255033557" layoutX="18.0" layoutY="373.0" orientation="VERTICAL" prefHeight="300.0" prefWidth="1249.0">
-                                 <items>
-                                    <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="45.6" prefWidth="1247.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="PRÓXIMAMENTE">
-                                             <font>
-                                                <Font name="System Bold" size="24.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </AnchorPane>
-                                    <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
-                                      <content>
-                                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="249.6" prefWidth="1248.0">
-                                             <children>
-                                                <Text layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Text>
-                                                <Text layoutX="14.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Text>
-                                                <Text layoutX="14.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Text>
-                                             </children>
-                                          </AnchorPane>
-                                      </content>
-                                    </ScrollPane>
-                                 </items>
-                              </SplitPane>
-                           </children></AnchorPane>
-                     </content>
-                     <tooltip>
-                        <Tooltip text="Inicio" />
-                     </tooltip>
-                  </Tab>
-                  <Tab text="POKEMON">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <HBox layoutX="304.0" layoutY="14.0">
-                                 <children>
-                                    <ImageView fx:id="btnBuscarPokemon" fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@/lupa.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField fx:id="txtBusquedaPokemon" onKeyTyped="#busquedaDinamicaPokemon" prefHeight="42.0" prefWidth="524.0" promptText="Búsqueda">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Buscar Pokemon" />
-                                       </tooltip>
-                                    </TextField>
-                                    <ImageView fx:id="btnFiltrarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#filtrarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@/Leafeon.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="btnAddPokemon" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@/Plusle.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </HBox>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="83.0" prefHeight="590.0" prefWidth="1256.0" vbarPolicy="ALWAYS">
-                                 <content>
-                                    <GridPane fx:id="gridPokemon" hgap="10.0" prefHeight="566.0" prefWidth="1256.0" vgap="10.0">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints maxHeight="350.0" minHeight="350.0" prefHeight="350.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </GridPane>
-                                 </content>
-                              </ScrollPane>
-                              <VBox fx:id="vbFiltro" layoutX="679.0" layoutY="83.0" prefHeight="340.0" prefWidth="590.0" visible="false">
-                                 <children>
-                                    <Accordion>
-                                       <panes>
-                                          <TitledPane fx:id="tpFiltro" animated="false" expanded="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="590.0" text="Filtrar por:">
-                                             <content>
-                                                <AnchorPane maxHeight="259.0" minHeight="0.0" minWidth="0.0">
-                                                   <children>
-                                                      <VBox prefHeight="150.0" spacing="10.0">
-                                                         <children>
-                                                            <HBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="10.0">
-                                                               <children>
-                                                                  <Label text="Tipo principal:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <ComboBox fx:id="cbTipo1" editable="true" prefWidth="150.0" />
-                                                                  <Label text="Tipo secundario:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <HBox.margin>
-                                                                        <Insets left="10.0" />
-                                                                     </HBox.margin>
-                                                                  </Label>
-                                                                  <ComboBox fx:id="cbTipo2" editable="true" prefWidth="150.0" />
-                                                               </children>
-                                                            </HBox>
-                                                            <Separator prefWidth="200.0" />
-                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="10.0">
-                                                               <children>
-                                                                  <Label text="Tamaño">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <HBox.margin>
-                                                                        <Insets />
-                                                                     </HBox.margin>
-                                                                  </Label>
-                                                                  <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                                  <Label layoutX="10.0" layoutY="16.0" text="Mínimo:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Spinner fx:id="spTamañoMin" editable="true" />
-                                                                  <Label text="Máximo:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <HBox.margin>
-                                                                        <Insets left="10.0" />
-                                                                     </HBox.margin>
-                                                                  </Label>
-                                                                  <Spinner fx:id="spTamañoMax" editable="true" layoutX="177.0" layoutY="15.0" />
-                                                               </children>
-                                                            </HBox>
-                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="61.0" minWidth="-Infinity" spacing="10.0">
-                                                               <children>
-                                                                  <Label prefWidth="64.0" text="Peso">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <HBox.margin>
-                                                                        <Insets />
-                                                                     </HBox.margin>
-                                                                  </Label>
-                                                                  <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                                                  <Label layoutX="10.0" layoutY="16.0" text="Mínimo:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Spinner fx:id="spPesoMin" editable="true" />
-                                                                  <Label text="Máximo:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <HBox.margin>
-                                                                        <Insets left="10.0" />
-                                                                     </HBox.margin>
-                                                                  </Label>
-                                                                  <Spinner fx:id="spPesoMax" editable="true" layoutX="177.0" layoutY="15.0" />
-                                                               </children>
-                                                            </HBox>
-                                                            <Separator prefWidth="200.0" />
-                                                            <HBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="55.0">
-                                                               <children>
-                                                                  <Label text="Habilidad:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <TextField fx:id="txtHabilidad">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </TextField>
-                                                               </children>
-                                                            </HBox>
-                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="10.0">
-                                                               <children>
-                                                                  <Label text="Estadística:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <ComboBox fx:id="cbEstadistica" editable="true" prefWidth="150.0" />
-                                                                  <Label text="Valor:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <HBox.margin>
-                                                                        <Insets left="10.0" />
-                                                                     </HBox.margin>
-                                                                  </Label>
-                                                                  <Spinner fx:id="spEstadistica" editable="true" />
-                                                               </children>
-                                                            </HBox>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets top="10.0" />
-                                                         </padding>
-                                                      </VBox>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </TitledPane>
-                                          <TitledPane fx:id="tpOrdenar" animated="false" expanded="false" layoutX="10.0" layoutY="10.0" maxHeight="240.0" text="Ordenar por:">
-                                             <content>
-                                                <AnchorPane maxHeight="190.0" minHeight="0.0" minWidth="0.0">
-                                                   <children>
-                                                      <VBox prefHeight="150.0" prefWidth="527.0" spacing="10.0">
-                                                         <children>
-                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
-                                                               <children>
-                                                                  <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Especie">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <Separator orientation="VERTICAL" />
-                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <toggleGroup>
-                                                                        <ToggleGroup fx:id="especie" />
-                                                                     </toggleGroup>
-                                                                  </RadioButton>
-                                                                  <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$especie">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </RadioButton>
-                                                               </children>
-                                                            </HBox>
-                                                            <Separator prefWidth="200.0" />
-                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
-                                                               <children>
-                                                                  <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Tamaño">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <Separator orientation="VERTICAL" />
-                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <toggleGroup>
-                                                                        <ToggleGroup fx:id="tamaño" />
-                                                                     </toggleGroup>
-                                                                  </RadioButton>
-                                                                  <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$tamaño">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </RadioButton>
-                                                               </children>
-                                                            </HBox>
-                                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="61.0" minWidth="-Infinity" spacing="20.0">
-                                                               <children>
-                                                                  <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Peso">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <Separator orientation="VERTICAL" />
-                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <toggleGroup>
-                                                                        <ToggleGroup fx:id="peso" />
-                                                                     </toggleGroup>
-                                                                  </RadioButton>
-                                                                  <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$peso">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </RadioButton>
-                                                               </children>
-                                                            </HBox>
-                                                            <Separator prefWidth="200.0" />
-                                                            <HBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="10.0">
-                                                               <children>
-                                                                  <Label text="Estadística:">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <ComboBox fx:id="cbEstadisticaOrden" editable="true" prefWidth="150.0" />
-                                                                  <Separator orientation="VERTICAL" />
-                                                                  <RadioButton mnemonicParsing="false" text="Ascendente">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                     <toggleGroup>
-                                                                        <ToggleGroup fx:id="estadistica" />
-                                                                     </toggleGroup>
-                                                                  </RadioButton>
-                                                                  <RadioButton mnemonicParsing="false" text="Descendente" toggleGroup="$estadistica">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </RadioButton>
-                                                               </children>
-                                                            </HBox>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets top="10.0" />
-                                                         </padding>
-                                                      </VBox>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </TitledPane>
-                                       </panes>
-                                    </Accordion>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                     <tooltip>
-                        <Tooltip text="Pokemon" />
-                     </tooltip>
-                  </Tab>
-                  <Tab text="EQUIPOS">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <HBox layoutX="304.0" layoutY="14.0">
-                                 <children>
-                                    <ImageView fx:id="btnBuscarEquipo" fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@/lupa.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField fx:id="txtBusquedaEquipos" onKeyTyped="#busquedaDinamicaEquipos" prefHeight="42.0" prefWidth="524.0" promptText="Búsqueda">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Buscar Equipo" />
-                                       </tooltip>
-                                    </TextField>
-                                    <ImageView fx:id="btnAddEquipo" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@/Plusle.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </HBox>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="83.0" prefHeight="590.0" prefWidth="1256.0" vbarPolicy="ALWAYS">
-                                 <content>
-                                    <GridPane fx:id="gridEquipos" hgap="10.0" prefHeight="171.0" prefWidth="1256.0" vgap="10.0">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints maxHeight="164.0" minHeight="164.0" prefHeight="164.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                    </GridPane>
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                     <tooltip>
-                        <Tooltip text="Equipos" />
-                     </tooltip>
-                  </Tab>
-                  <Tab text="PERFIL">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <VBox layoutX="96.0" layoutY="67.0" spacing="30.0">
-                                 <children>
-                                    <VBox>
-                                       <children>
-                                          <Label text="Nombre">
-                                             <font>
-                                                <Font name="System Bold" size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField fx:id="txtNombreEntrenador" editable="false">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </TextField>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <Label text="Género">
-                                             <font>
-                                                <Font name="System Bold" size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField fx:id="txtGeneroEntrenador" editable="false">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </TextField>
-                                       </children>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </VBox>
-                                    <Button mnemonicParsing="false" onAction="#cambiarNombre" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefHeight="51.0" prefWidth="298.4" text="CAMBIAR NOMBRE">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Cambiar Nombre" />
-                                       </tooltip>
-                                    </Button>
-                                    <Button mnemonicParsing="false" onAction="#cambiarGenero" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CAMBIAR GÉNERO">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Cambiar Género" />
-                                       </tooltip>
-                                    </Button>
-                                    <Button mnemonicParsing="false" onAction="#cambiarContraseña" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CAMBIAR CONTRASEÑA">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Cambiar Contraseña" />
-                                       </tooltip>
-                                    </Button>
-                                    <Button mnemonicParsing="false" onAction="#logOut" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CERRAR SESIÓN">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Cerrar Sesión" />
-                                       </tooltip>
-                                    </Button>
-                                    <Button mnemonicParsing="false" onAction="#eliminarCuenta" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="ELIMINAR CUENTA" textFill="RED">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Eliminar Cuenta" />
-                                       </tooltip>
-                                    </Button>
-                                 </children>
-                              </VBox>
-                              <StackPane layoutX="590.0" layoutY="4.0" prefHeight="680.0" prefWidth="680.0">
-                                 <children>
-                                    <ImageView fx:id="imgEntrenador" fitHeight="600.0" fitWidth="443.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </StackPane>
-                              <Label layoutX="93.0" layoutY="14.0" text="Perfil de:">
+                              <Label layoutX="14.0" layoutY="6.0" text="NOVEDADES">
                                  <font>
-                                    <Font name="System Bold Italic" size="36.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                           </children></AnchorPane>
-                     </content>
-                     <tooltip>
-                        <Tooltip text="Perfil" />
-                     </tooltip>
-                  </Tab>
-                  <Tab fx:id="tabInformes" text="INFORMES">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <VBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="657.0" prefWidth="634.0" spacing="40.0">
+                           </children>
+                        </AnchorPane>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="249.6" prefWidth="1248.0">
                                  <children>
-                                    <Label text="INFORMES">
-                                       <font>
-                                          <Font name="System Bold Italic" size="36.0" />
-                                       </font>
-                                    </Label>
-                                    <HBox alignment="CENTER" spacing="92.0">
-                                       <children>
-                                          <Label prefWidth="290.0" text="Seleccione el informe:">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="cbInforme" prefHeight="51.0" prefWidth="250.0" promptText="Informe">
-                                             <tooltip>
-                                                <Tooltip text="Informe a mostrar">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Tooltip>
-                                             </tooltip></ComboBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" spacing="92.0">
-                                       <children>
-                                          <Label prefWidth="290.0" text="Seleccione el primer tipo:">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="cbInformeTipo1" disable="true" prefHeight="51.0" prefWidth="250.0" promptText="Tipo 1">
-                                             <tooltip>
-                                                <Tooltip text="Se filtra por tipo seleccionado (Si no se selecciona ninguno se muestran todos)">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Tooltip>
-                                             </tooltip></ComboBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" spacing="92.0">
-                                       <children>
-                                          <Label prefWidth="290.0" text="Seleccione el segundo tipo:">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="cbInformeTipo2" disable="true" prefHeight="51.0" prefWidth="250.0" promptText="Tipo 2">
-                                             <tooltip>
-                                                <Tooltip text="Se filtra por tipo seleccionado (Si no se selecciona ninguno se muestran todos)">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Tooltip>
-                                             </tooltip></ComboBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" spacing="50.0">
-                                       <children>
-                                          <Label text="Seleccione si quiere administradores:">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <CheckBox fx:id="ckbInformeAdmin" allowIndeterminate="true" disable="true" indeterminate="true" mnemonicParsing="false" text="Administrador">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                             <tooltip>
-                                                <Tooltip text="Si se muestran todos (-), los que son administradores (V) o los que no (Vacío)">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Tooltip>
-                                             </tooltip>
-                                          </CheckBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" spacing="45.0">
-                                       <children>
-                                          <Label text="Escriba el ID del entrenador que quiere:">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <Spinner fx:id="spInformeIDEnt" disable="true" editable="true" prefHeight="51.0" prefWidth="170.0">
-                                             <tooltip>
-                                                <Tooltip text="Se muestran los equipos del entrenador con el ID seleccionado (Si no existe o se pone otra cosa se ponen todos)">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Tooltip>
-                                             </tooltip></Spinner>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" spacing="70.0">
-                                       <children>
-                                          <Label text="Seleccione si el informe es incrustado: ">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <CheckBox fx:id="ckbInformeInc" mnemonicParsing="false" selected="true" text="Incrustado">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                             <tooltip>
-                                                <Tooltip text="Si está marcado se muestra a la derecha, si no, se muestra en una ventana emergente">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Tooltip>
-                                             </tooltip>
-                                          </CheckBox>
-                                       </children>
-                                    </HBox>
-                                    <Button fx:id="btnInformeMostrar" disable="true" mnemonicParsing="false" onAction="#mostrarInforme" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefHeight="51.0" prefWidth="306.0" text="MOSTRAR">
+                                    <Text layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
-                                       <tooltip>
-                                          <Tooltip text="Mostrar el informe seleccionado con los parámetros indicados">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font></Tooltip>
-                                       </tooltip>
-                                    </Button>
+                                    </Text>
+                                    <Text layoutX="14.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="14.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
                                  </children>
-                              </VBox>
-                              <WebView fx:id="wvInforme" layoutX="674.0" layoutY="15.0" prefHeight="656.0" prefWidth="595.0" />
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                    </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.1610738255033557" layoutX="18.0" layoutY="373.0" orientation="VERTICAL" prefHeight="300.0" prefWidth="1249.0">
+                     <items>
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="45.6" prefWidth="1247.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="6.0" text="PRÓXIMAMENTE">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                          <content>
+                            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="249.6" prefWidth="1248.0">
+                                 <children>
+                                    <Text layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="14.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="14.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius, neque a fermentum fringilla, erat ipsum maximus nunc, nec sodales eros ipsum quis orci." wrappingWidth="1107.91650390625">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+         </content>
+         <tooltip>
+            <Tooltip text="Inicio" />
+         </tooltip>
+      </Tab>
+      <Tab text="POKEMON">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="AnchorPane">
+               <children>
+                  <HBox alignment="CENTER" layoutX="304.0" layoutY="14.0">
+                     <children>
+                        <ImageView fx:id="btnBuscarPokemon" fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/lupa.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="txtBusquedaPokemon" onKeyTyped="#busquedaDinamicaPokemon" prefHeight="42.0" prefWidth="524.0" promptText="Búsqueda">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Buscar Pokemon" />
+                           </tooltip>
+                        </TextField>
+                        <ImageView fx:id="btnFiltrarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#filtrarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/Leafeon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="btnAddPokemon" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/Plusle.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="83.0" prefHeight="580.0" prefWidth="1256.0" vbarPolicy="ALWAYS">
+                     <content>
+                        <GridPane fx:id="gridPokemon" hgap="10.0" prefHeight="566.0" prefWidth="1256.0" vgap="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="350.0" minHeight="350.0" prefHeight="350.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </GridPane>
                      </content>
-                  </Tab>
-               </tabs>
-            </TabPane>
-         </children>
-      </Pane>
-   </children>
-</StackPane>
+                  </ScrollPane>
+                  <VBox fx:id="vbFiltro" layoutX="679.0" layoutY="83.0" prefHeight="340.0" prefWidth="590.0" visible="false">
+                     <children>
+                        <Accordion>
+                           <panes>
+                              <TitledPane fx:id="tpFiltro" animated="false" expanded="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="590.0" text="Filtrar por:">
+                                 <content>
+                                    <AnchorPane maxHeight="259.0" minHeight="0.0" minWidth="0.0">
+                                       <children>
+                                          <VBox prefHeight="150.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="10.0">
+                                                   <children>
+                                                      <Label text="Tipo principal:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <ComboBox fx:id="cbTipo1" editable="true" prefWidth="150.0" />
+                                                      <Label text="Tipo secundario:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <ComboBox fx:id="cbTipo2" editable="true" prefWidth="150.0" />
+                                                   </children>
+                                                </HBox>
+                                                <Separator prefWidth="200.0" />
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="10.0">
+                                                   <children>
+                                                      <Label text="Tamaño">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                      <Label layoutX="10.0" layoutY="16.0" text="Mínimo:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Spinner fx:id="spTamañoMin" editable="true" />
+                                                      <Label text="Máximo:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Spinner fx:id="spTamañoMax" editable="true" layoutX="177.0" layoutY="15.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="61.0" minWidth="-Infinity" spacing="10.0">
+                                                   <children>
+                                                      <Label prefWidth="64.0" text="Peso">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                                      <Label layoutX="10.0" layoutY="16.0" text="Mínimo:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Spinner fx:id="spPesoMin" editable="true" />
+                                                      <Label text="Máximo:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Spinner fx:id="spPesoMax" editable="true" layoutX="177.0" layoutY="15.0" />
+                                                   </children>
+                                                </HBox>
+                                                <Separator prefWidth="200.0" />
+                                                <HBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="55.0">
+                                                   <children>
+                                                      <Label text="Habilidad:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="txtHabilidad">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </TextField>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="10.0">
+                                                   <children>
+                                                      <Label text="Estadística:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <ComboBox fx:id="cbEstadistica" editable="true" prefWidth="150.0" />
+                                                      <Label text="Valor:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Spinner fx:id="spEstadistica" editable="true" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets top="10.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </TitledPane>
+                              <TitledPane fx:id="tpOrdenar" animated="false" expanded="false" layoutX="10.0" layoutY="10.0" maxHeight="240.0" text="Ordenar por:">
+                                 <content>
+                                    <AnchorPane maxHeight="190.0" minHeight="0.0" minWidth="0.0">
+                                       <children>
+                                          <VBox prefHeight="150.0" prefWidth="527.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
+                                                   <children>
+                                                      <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Especie">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                      <Separator orientation="VERTICAL" />
+                                                      <RadioButton mnemonicParsing="false" text="Ascendente">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="especie" />
+                                                         </toggleGroup>
+                                                      </RadioButton>
+                                                      <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$especie">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </RadioButton>
+                                                   </children>
+                                                </HBox>
+                                                <Separator prefWidth="200.0" />
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
+                                                   <children>
+                                                      <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Tamaño">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                      <Separator orientation="VERTICAL" />
+                                                      <RadioButton mnemonicParsing="false" text="Ascendente">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="tamaño" />
+                                                         </toggleGroup>
+                                                      </RadioButton>
+                                                      <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$tamaño">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </RadioButton>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="61.0" minWidth="-Infinity" spacing="20.0">
+                                                   <children>
+                                                      <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Peso">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                      <Separator orientation="VERTICAL" />
+                                                      <RadioButton mnemonicParsing="false" text="Ascendente">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="peso" />
+                                                         </toggleGroup>
+                                                      </RadioButton>
+                                                      <RadioButton layoutX="268.0" layoutY="12.0" mnemonicParsing="false" text="Descendente" toggleGroup="$peso">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </RadioButton>
+                                                   </children>
+                                                </HBox>
+                                                <Separator prefWidth="200.0" />
+                                                <HBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="10.0">
+                                                   <children>
+                                                      <Label text="Estadística:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <ComboBox fx:id="cbEstadisticaOrden" editable="true" prefWidth="150.0" />
+                                                      <Separator orientation="VERTICAL" />
+                                                      <RadioButton mnemonicParsing="false" text="Ascendente">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="estadistica" />
+                                                         </toggleGroup>
+                                                      </RadioButton>
+                                                      <RadioButton mnemonicParsing="false" text="Descendente" toggleGroup="$estadistica">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </RadioButton>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets top="10.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </TitledPane>
+                           </panes>
+                        </Accordion>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+         <tooltip>
+            <Tooltip text="Pokemon" />
+         </tooltip>
+      </Tab>
+      <Tab text="EQUIPOS">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <HBox layoutX="304.0" layoutY="14.0">
+                     <children>
+                        <ImageView fx:id="btnBuscarEquipo" fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/lupa.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="txtBusquedaEquipos" onKeyTyped="#busquedaDinamicaEquipos" prefHeight="42.0" prefWidth="524.0" promptText="Búsqueda">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Buscar Equipo" />
+                           </tooltip>
+                        </TextField>
+                        <ImageView fx:id="btnAddEquipo" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/Plusle.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="83.0" prefHeight="590.0" prefWidth="1256.0" vbarPolicy="ALWAYS">
+                     <content>
+                        <GridPane fx:id="gridEquipos" hgap="10.0" prefHeight="171.0" prefWidth="1256.0" vgap="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="164.0" minHeight="164.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </content>
+         <tooltip>
+            <Tooltip text="Equipos" />
+         </tooltip>
+      </Tab>
+      <Tab text="PERFIL">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="96.0" layoutY="67.0" spacing="30.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="Nombre">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtNombreEntrenador" editable="false">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Género">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtGeneroEntrenador" editable="false">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#cambiarNombre" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefHeight="51.0" prefWidth="298.4" text="CAMBIAR NOMBRE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Cambiar Nombre" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#cambiarGenero" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CAMBIAR GÉNERO">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Cambiar Género" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#cambiarContraseña" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CAMBIAR CONTRASEÑA">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Cambiar Contraseña" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#logOut" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CERRAR SESIÓN">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Cerrar Sesión" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#eliminarCuenta" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="ELIMINAR CUENTA" textFill="RED">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Eliminar Cuenta" />
+                           </tooltip>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <StackPane layoutX="590.0" layoutY="4.0" prefHeight="680.0" prefWidth="680.0">
+                     <children>
+                        <ImageView fx:id="imgEntrenador" fitHeight="600.0" fitWidth="443.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </StackPane>
+                  <Label layoutX="93.0" layoutY="14.0" text="Perfil de:">
+                     <font>
+                        <Font name="System Bold Italic" size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </content>
+         <tooltip>
+            <Tooltip text="Perfil" />
+         </tooltip>
+      </Tab>
+      <Tab fx:id="tabInformes" text="INFORMES">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="657.0" prefWidth="634.0" spacing="40.0">
+                     <children>
+                        <Label text="INFORMES">
+                           <font>
+                              <Font name="System Bold Italic" size="36.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" spacing="92.0">
+                           <children>
+                              <Label prefWidth="290.0" text="Seleccione el informe:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cbInforme" prefHeight="51.0" prefWidth="250.0" promptText="Informe">
+                                 <tooltip>
+                                    <Tooltip text="Informe a mostrar">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Tooltip>
+                                 </tooltip>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="92.0">
+                           <children>
+                              <Label prefWidth="290.0" text="Seleccione el primer tipo:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cbInformeTipo1" disable="true" prefHeight="51.0" prefWidth="250.0" promptText="Tipo 1">
+                                 <tooltip>
+                                    <Tooltip text="Se filtra por tipo seleccionado (Si no se selecciona ninguno se muestran todos)">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Tooltip>
+                                 </tooltip>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="102.0" spacing="92.0">
+                           <children>
+                              <Label prefWidth="290.0" text="Seleccione el segundo tipo:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cbInformeTipo2" disable="true" prefHeight="51.0" prefWidth="250.0" promptText="Tipo 2">
+                                 <tooltip>
+                                    <Tooltip text="Se filtra por tipo seleccionado (Si no se selecciona ninguno se muestran todos)">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Tooltip>
+                                 </tooltip>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="50.0">
+                           <children>
+                              <Label text="Seleccione si quiere administradores:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="ckbInformeAdmin" allowIndeterminate="true" disable="true" indeterminate="true" mnemonicParsing="false" text="Administrador">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <tooltip>
+                                    <Tooltip text="Si se muestran todos (-), los que son administradores (V) o los que no (Vacío)">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Tooltip>
+                                 </tooltip>
+                              </CheckBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="45.0">
+                           <children>
+                              <Label text="Escriba el ID del entrenador que quiere:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Spinner fx:id="spInformeIDEnt" disable="true" editable="true" prefHeight="51.0" prefWidth="170.0">
+                                 <tooltip>
+                                    <Tooltip text="Se muestran los equipos del entrenador con el ID seleccionado (Si no existe o se pone otra cosa se ponen todos)">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Tooltip>
+                                 </tooltip>
+                              </Spinner>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="70.0">
+                           <children>
+                              <Label text="Seleccione si el informe es incrustado: ">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="ckbInformeInc" mnemonicParsing="false" selected="true" text="Incrustado">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <tooltip>
+                                    <Tooltip text="Si está marcado se muestra a la derecha, si no, se muestra en una ventana emergente">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Tooltip>
+                                 </tooltip>
+                              </CheckBox>
+                           </children>
+                        </HBox>
+                        <Button fx:id="btnInformeMostrar" disable="true" mnemonicParsing="false" onAction="#mostrarInforme" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefHeight="51.0" prefWidth="306.0" text="MOSTRAR">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="Mostrar el informe seleccionado con los parámetros indicados">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Tooltip>
+                           </tooltip>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <WebView fx:id="wvInforme" layoutX="674.0" layoutY="15.0" prefHeight="656.0" prefWidth="595.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+   </tabs>
+</TabPane>

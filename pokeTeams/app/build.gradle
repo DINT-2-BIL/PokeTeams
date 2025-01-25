@@ -39,7 +39,7 @@ sourceSets {
   main {
     resources {
         srcDirs = ["src/main/java","src/main/resources"]
-        includes = ["**/*.fxml","**/*.jpg","**/*.png","**/*.properties","**/*.jasper","**/*.html","**/*.pdf"]  //Importante para poder abrir una extensión no reconocida
+        includes = ["**/*.fxml","**/*.jpg","**/*.png","**/*.properties","**/*.jasper","**/*.html","**/*.pdf","**/*.css"]  //Importante para poder abrir una extensión no reconocida
     }
   }
 }
