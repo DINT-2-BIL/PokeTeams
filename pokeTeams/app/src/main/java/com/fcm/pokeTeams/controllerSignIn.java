@@ -95,7 +95,7 @@ public class controllerSignIn implements Initializable {
             if (!imgRegistro.getImage().getUrl().equals("file:/D:/Repositorios/DINT/PokeTeams/pokeTeams/app/build/resources/main/add.png")) {
                 try {
                     Parent root = null;
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/core_v1.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/core_v1.fxml"));
                     root = loader.load();
                     insertar();
                     controllerCore cc = loader.getController();
@@ -122,7 +122,7 @@ public class controllerSignIn implements Initializable {
     @FXML
     void inicio() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/logIn.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/logIn.fxml"));
             Scene scene=new Scene(root);
             Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();

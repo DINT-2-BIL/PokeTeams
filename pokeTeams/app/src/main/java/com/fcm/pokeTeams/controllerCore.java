@@ -215,7 +215,7 @@ public class controllerCore implements Initializable {
     void añadirEquipo(MouseEvent event) {
         try {
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_añadir_equipo_v1.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_añadir_equipo_v1.fxml"));
             root = loader.load();
 
             Stage miStage = new Stage();
@@ -267,7 +267,7 @@ public class controllerCore implements Initializable {
     void añadirPokemon(MouseEvent event) {
         try {
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_pokemon_v1.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/emergente_añadir_pokemon_v1.fxml"));
             root = loader.load();
 
             Stage miStage = new Stage();
@@ -277,7 +277,7 @@ public class controllerCore implements Initializable {
             miStage.setOnCloseRequest(evento -> {
                 evento.consume();
                 Parent raiz = null;
-                FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+                FXMLLoader cargador = new FXMLLoader(getClass().getResource("/fxml/popUp_confirmar_cambios.fxml"));
                 try {
                     raiz = cargador.load();
                 } catch (IOException ex) {
@@ -327,7 +327,7 @@ public class controllerCore implements Initializable {
     void cambiarContraseña(ActionEvent event) {
         try {
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_cambiar_contraseña.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_cambiar_contraseña.fxml"));
             root = loader.load();
             
             controllerPopUpCambioContraseña ccn = loader.getController();
@@ -348,7 +348,7 @@ public class controllerCore implements Initializable {
     void cambiarGenero(ActionEvent event) {
         try {
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_cambiar_genero.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_cambiar_genero.fxml"));
             root = loader.load();
             
             controllerPopUpCambioGenero ccn = loader.getController();
@@ -369,7 +369,7 @@ public class controllerCore implements Initializable {
     void cambiarNombre(ActionEvent event) {
         try {
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_cambiar_nombre.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_cambiar_nombre.fxml"));
             root = loader.load();
             
             controllerPopUpCambioNombre ccn = loader.getController();
@@ -413,7 +413,7 @@ public class controllerCore implements Initializable {
     @FXML
     void eliminarCuenta(ActionEvent event) {
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_eliminar.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_eliminar.fxml"));
         try {
             root = loader.load();
         } catch (IOException ex) {
@@ -548,7 +548,7 @@ public class controllerCore implements Initializable {
     
     private void cargarPokemon(Pokemon pokemon, boolean a) {
         try {
-            FXMLLoader cargarPokemon = new FXMLLoader(getClass().getResource("fxml/tarjeta_pokemon_v1.fxml"));
+            FXMLLoader cargarPokemon = new FXMLLoader(getClass().getResource("/fxml/tarjeta_pokemon_v1.fxml"));
             SplitPane tarjetaPokemon = cargarPokemon.load();
             controllerTarjetaPokemon controlador = cargarPokemon.getController();
 
@@ -573,7 +573,7 @@ public class controllerCore implements Initializable {
     
     private void cargarEquipo(Equipo e) {
         try {
-            FXMLLoader cargarEquipo = new FXMLLoader(getClass().getResource("fxml/tarjeta_equipo_v1.fxml"));
+            FXMLLoader cargarEquipo = new FXMLLoader(getClass().getResource("/fxml/tarjeta_equipo_v1.fxml"));
             SplitPane tarjetaEquipo = cargarEquipo.load();
             controllerEquipos controladorEquipo = cargarEquipo.getController();
 
@@ -684,7 +684,7 @@ public class controllerCore implements Initializable {
     private void cerrar() {
         try {
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/logIn.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"));
             root = loader.load();
 
             Stage miStage = (Stage) this.txtBusquedaEquipos.getScene().getWindow();

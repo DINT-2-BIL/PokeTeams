@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerEditarEquipo">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="/com.fcm.pokeTeams.controllerPopUpCambioNombre">
    <children>
-      <Label prefWidth="300.0" text="Escriba el nuevo nombre o formato" textAlignment="CENTER" wrapText="true">
+      <Label text="Escriba su nuevo nombre">
          <font>
             <Font size="24.0" />
          </font>
          <tooltip>
-            <Tooltip text="Intrpduce el nuevo nombre y/o formato para el equipo." />
+            <Tooltip text="Introduce tu nuevo nombre." />
          </tooltip>
       </Label>
       <TextField fx:id="txtNuevoNombre" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Nombre">
@@ -23,19 +23,14 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtNuevoFormato" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Formato">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </TextField>
       <HBox alignment="CENTER" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#editarEquipo" text="Confirmar">
+            <Button mnemonicParsing="false" onAction="#cambiarNombre" text="Confirmar">
                <font>
                   <Font size="24.0" />
                </font>
                <tooltip>
-                  <Tooltip text="Confirmar edición de equipo" />
+                  <Tooltip text="Confirmar cambio de nombre" />
                </tooltip>
             </Button>
             <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
@@ -43,7 +38,7 @@
                   <Font size="24.0" />
                </font>
                <tooltip>
-                  <Tooltip text="Cancelar edición" />
+                  <Tooltip text="Cancelar cambio de nombre" />
                </tooltip>
             </Button>
          </children>

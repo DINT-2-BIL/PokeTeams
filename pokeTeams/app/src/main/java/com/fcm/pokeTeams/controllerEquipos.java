@@ -94,7 +94,7 @@ public class controllerEquipos implements Initializable {
     @FXML
     void editar(ActionEvent event) {
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_editar_equipo.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_editar_equipo.fxml"));
         try {
             root = loader.load();
         } catch (IOException ex) {
@@ -151,7 +151,7 @@ public class controllerEquipos implements Initializable {
     @FXML
     void eliminar(ActionEvent event) {
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_eliminar.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_eliminar.fxml"));
         try {
             root = loader.load();
         } catch (IOException ex) {
@@ -190,7 +190,7 @@ public class controllerEquipos implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Parent rootEquipo = null;
-        FXMLLoader loaderEquipo = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_equipo_v1.fxml"));
+        FXMLLoader loaderEquipo = new FXMLLoader(getClass().getResource("/fxml/emergente_añadir_equipo_v1.fxml"));
         try {
             rootEquipo = loaderEquipo.load();
         } catch (IOException ex) {

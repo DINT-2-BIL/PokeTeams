@@ -44,7 +44,7 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
     void añadirMiembro(MouseEvent event) {
         try {
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_pokemon_equipo_v1.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/emergente_añadir_pokemon_equipo_v1.fxml"));
             root = loader.load();
             miStage.setTitle("Añadir miembro");
             cam.asignarCerrado(conexion, equipo, 3);
@@ -58,7 +58,7 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_pokemon_equipo_v1.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/emergente_añadir_pokemon_equipo_v1.fxml"));
         try {
             root = loader.load();
         } catch (IOException ex) {

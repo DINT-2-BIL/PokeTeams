@@ -80,7 +80,7 @@ public class controllerLogIn implements Initializable {
                 result.next();
                 result.getString("Nombre");
 
-                Parent root = FXMLLoader.load(getClass().getResource("fxml/core_v1.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/core_v1.fxml"));
                 this.cc.enviaLogIn(this.conexion, txtNombre.getText());
 
                 Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
@@ -104,7 +104,7 @@ public class controllerLogIn implements Initializable {
     void registro() {
         try {
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/signIn.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/signIn.fxml"));
             root = loader.load();
             controllerSignIn csi = loader.getController();
             csi.asignarConexion(conexion);
@@ -124,7 +124,7 @@ public class controllerLogIn implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         conexion = new Conexion();
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/core_v1.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/core_v1.fxml"));
         try {
             root = loader.load();
         } catch (IOException ex) {

@@ -2,60 +2,44 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerAñadirPokemon">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="/com.fcm.pokeTeams.controllerPokedex">
    <children>
-      <HBox spacing="20.0">
-         <children>
-            <TextField fx:id="txtEspecie" focusTraversable="false" prefHeight="50.0" prefWidth="680.0" promptText="Especie">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <tooltip>
-                  <Tooltip text="Especie" />
-               </tooltip>
-            </TextField>
-            <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizar" prefHeight="50.0" text="Finalizar">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
+      <TextField fx:id="txtEspecie" editable="false" focusTraversable="false">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <tooltip>
+            <Tooltip text="Escribir especie" />
+         </tooltip>
+      </TextField>
       <HBox prefWidth="600.0" spacing="20.0">
          <children>
             <StackPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0">
                <children>
-                  <ImageView fx:id="imgPokemon" fitHeight="300.0" fitWidth="300.0" onMouseClicked="#subirImagen" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/add.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="imgPokemon" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <VBox prefHeight="290.0" prefWidth="400.0" spacing="20.0">
                <children>
                   <Accordion>
-                     <panes>
+                    <panes>
                         <TitledPane animated="false" expanded="false" text="Denominación" underline="true" wrapText="true">
                            <content>
                               <VBox>
                                  <children>
-                                    <TextArea fx:id="txtDenominacion" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
+                                    <TextArea fx:id="txtDenominacion" editable="false" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -73,14 +57,14 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <tooltip>
-                              <Tooltip text="Apartado denominación" />
+                              <Tooltip text="Desplegable denominación" />
                            </tooltip>
                         </TitledPane>
                         <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="10.0" text="Descripción" underline="true" wrapText="true">
                            <content>
                               <VBox>
                                  <children>
-                                    <TextArea fx:id="txtDescripcion" prefHeight="125.0" prefWidth="200.0" wrapText="true">
+                                    <TextArea fx:id="txtDescripcion" editable="false" prefHeight="125.0" prefWidth="200.0" wrapText="true">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -98,14 +82,14 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <tooltip>
-                              <Tooltip text="Apartado descripción" />
+                              <Tooltip text="Desplegable descripción" />
                            </tooltip>
                         </TitledPane>
                         <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="61.0" text="Tamaño" underline="true" wrapText="true">
                            <content>
                               <VBox>
                                  <children>
-                                    <TextArea fx:id="txtTamaño" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
+                                    <TextArea fx:id="txtTamaño" editable="false" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -123,14 +107,14 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <tooltip>
-                              <Tooltip text="Apartado tamaño" />
+                              <Tooltip text="Desplegable tamaño" />
                            </tooltip>
                         </TitledPane>
                         <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="112.0" text="Peso" underline="true" wrapText="true">
                            <content>
                               <VBox>
                                  <children>
-                                    <TextArea fx:id="txtPeso" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
+                                    <TextArea fx:id="txtPeso" editable="false" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -148,52 +132,60 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <tooltip>
-                              <Tooltip text="Apartado peso" />
+                              <Tooltip text="Desplegable peso" />
                            </tooltip>
                         </TitledPane>
                         <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="164.0" text="Tipo 1" underline="true" wrapText="true">
                            <content>
                               <VBox>
+                                 <children>
+                                    <TextArea fx:id="txtTipo1" editable="false" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                       <tooltip>
+                                          <Tooltip text="Tipo 1" />
+                                       </tooltip>
+                                    </TextArea>
+                                 </children>
                                  <padding>
                                     <Insets top="-1.0" />
                                  </padding>
-                                 <children>
-                                    <ComboBox fx:id="cbTipo1" editable="true" prefWidth="350.0">
-                                       <tooltip>
-                                          <Tooltip text="Tipo 1" />
-                                       </tooltip></ComboBox>
-                                 </children>
                               </VBox>
                            </content>
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <tooltip>
-                              <Tooltip text="Apartado tipo 1" />
+                              <Tooltip text="Desplegable tipo 1" />
                            </tooltip>
                         </TitledPane>
                         <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="215.0" text="Tipo 2" underline="true" wrapText="true">
                            <content>
                               <VBox>
+                                 <children>
+                                    <TextArea fx:id="txtTipo2" editable="false" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                       <tooltip>
+                                          <Tooltip text="Tipo 2" />
+                                       </tooltip>
+                                    </TextArea>
+                                 </children>
                                  <padding>
                                     <Insets top="-1.0" />
                                  </padding>
-                                 <children>
-                                    <ComboBox fx:id="cbTipo2" editable="true" prefWidth="350.0">
-                                       <tooltip>
-                                          <Tooltip text="Tipo 2" />
-                                       </tooltip></ComboBox>
-                                 </children>
                               </VBox>
                            </content>
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <tooltip>
-                              <Tooltip text="Apartado tipo 2" />
+                              <Tooltip text="Desplegable tipo 2" />
                            </tooltip>
                         </TitledPane>
-                     </panes>
+                    </panes>
                   </Accordion>
                </children>
             </VBox>
@@ -201,13 +193,8 @@
       </HBox>
       <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
          <children>
-            <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.2" prefWidth="400.0" spacing="5.0">
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="10.0">
                <children>
-                  <Label text="Estadísticas">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
                   <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                      <children>
                         <Label prefWidth="50.0" text="HP">
@@ -215,11 +202,11 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdHp" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
+                        <ProgressBar fx:id="barHp" prefWidth="200.0" progress="0.62">
                            <tooltip>
                               <Tooltip text="Barra Salud" />
-                           </tooltip></Slider>
-                        <Label fx:id="txtHp" prefWidth="90.0" text="1/255">
+                           </tooltip></ProgressBar>
+                        <Label fx:id="txtHp" prefWidth="40.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -229,18 +216,18 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="20.0" layoutY="20.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                      <children>
                         <Label prefWidth="50.0" text="Atk">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdAtk" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
+                        <ProgressBar fx:id="barAtk" prefWidth="200.0" progress="0.62">
                            <tooltip>
                               <Tooltip text="Barra Ataque" />
-                           </tooltip></Slider>
-                        <Label fx:id="txtAtk" prefWidth="90.0" text="1/255">
+                           </tooltip></ProgressBar>
+                        <Label fx:id="txtAtk" prefWidth="40.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -250,18 +237,18 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="20.0" layoutY="95.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                      <children>
                         <Label prefWidth="50.0" text="Def">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdDef" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
+                        <ProgressBar fx:id="barDef" prefWidth="200.0" progress="0.62">
                            <tooltip>
                               <Tooltip text="Barra Defensa" />
-                           </tooltip></Slider>
-                        <Label fx:id="txtDef" prefWidth="90.0" text="1/255">
+                           </tooltip></ProgressBar>
+                        <Label fx:id="txtDef" prefWidth="40.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -271,18 +258,18 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="20.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                      <children>
                         <Label prefWidth="50.0" text="SpA">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdSpA" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
+                        <ProgressBar fx:id="barSpA" prefWidth="200.0" progress="0.62">
                            <tooltip>
                               <Tooltip text="Barra Ataque Especial" />
-                           </tooltip></Slider>
-                        <Label fx:id="txtSpA" prefWidth="90.0" text="1/255">
+                           </tooltip></ProgressBar>
+                        <Label fx:id="txtSpA" prefWidth="40.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -292,18 +279,18 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="20.0" layoutY="245.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                      <children>
                         <Label prefWidth="50.0" text="SpD">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdSpD" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
+                        <ProgressBar fx:id="BarSpD" prefWidth="200.0" progress="0.62">
                            <tooltip>
                               <Tooltip text="Barra Defensa Especial" />
-                           </tooltip></Slider>
-                        <Label fx:id="txtSpD" prefWidth="90.0" text="1/255">
+                           </tooltip></ProgressBar>
+                        <Label fx:id="txtSpD" prefWidth="40.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -313,18 +300,18 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="20.0" layoutY="320.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                      <children>
                         <Label prefWidth="50.0" text="Spe">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdSpe" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
+                        <ProgressBar fx:id="barSpe" prefWidth="200.0" progress="0.62">
                            <tooltip>
                               <Tooltip text="Barra Velocidad" />
-                           </tooltip></Slider>
-                        <Label fx:id="txtSpe" prefWidth="90.0" text="1/255">
+                           </tooltip></ProgressBar>
+                        <Label fx:id="txtSpe" prefWidth="40.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -343,89 +330,41 @@
                <children>
                   <Accordion>
                      <panes>
-                        <TitledPane animated="false" expanded="false" underline="true" wrapText="true">
+                        <TitledPane fx:id="tpaneHabilidad1" animated="false" expanded="false" underline="true" wrapText="true">
                            <content>
-                              <TextArea fx:id="txtHabilidad1" maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" promptText="Descripción 1" wrapText="true">
+                              <TextArea fx:id="txtHabilidad1" editable="false" prefHeight="125.0" prefWidth="200.0" wrapText="true">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
-                                 <tooltip>
-                                    <Tooltip text="Descripción Habilidad 1" />
-                                 </tooltip>
                               </TextArea>
                            </content>
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
-                           <graphic>
-                              <TextField fx:id="txtNombreHabilidad1" promptText="Habilidad 1">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <tooltip>
-                                    <Tooltip text="Nombre Habilidad 1" />
-                                 </tooltip>
-                              </TextField>
-                           </graphic>
-                           <tooltip>
-                              <Tooltip text="Habilidad 1" />
-                           </tooltip>
                         </TitledPane>
-                        <TitledPane animated="false" expanded="false" underline="true" wrapText="true">
+                        <TitledPane fx:id="tpaneHabilidad2" animated="false" expanded="false" underline="true" wrapText="true">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <content>
-                              <TextArea fx:id="txtHabilidad2" maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" promptText="Descripción 2" wrapText="true">
+                              <TextArea fx:id="txtHabilidad2" editable="false" prefHeight="125.0" prefWidth="200.0" wrapText="true">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
-                                 <tooltip>
-                                    <Tooltip text="Descripción Habilidad 2" />
-                                 </tooltip>
                               </TextArea>
                            </content>
-                           <graphic>
-                              <TextField fx:id="txtNombreHabilidad2" promptText="Habilidad 2">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <tooltip>
-                                    <Tooltip text="Nombre Habilidad 2" />
-                                 </tooltip>
-                              </TextField>
-                           </graphic>
-                           <tooltip>
-                              <Tooltip text="Habilidad 2" />
-                           </tooltip>
                         </TitledPane>
-                        <TitledPane animated="false" expanded="false" underline="true" wrapText="true">
+                        <TitledPane fx:id="tpaneHabilidad3" animated="false" expanded="false" underline="true" wrapText="true">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <content>
-                              <TextArea fx:id="txtHabilidad3" maxHeight="-Infinity" prefHeight="100.0" prefWidth="361.0" promptText="Descripción 3" wrapText="true">
+                              <TextArea fx:id="txtHabilidad3" editable="false" prefHeight="125.0" prefWidth="361.0" wrapText="true">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
-                                 <tooltip>
-                                    <Tooltip text="Descripción Habilidad 3" />
-                                 </tooltip>
                               </TextArea>
                            </content>
-                           <graphic>
-                              <TextField fx:id="txtNombreHabilidad3" promptText="Habilidad 3">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <tooltip>
-                                    <Tooltip text="Nombre Habilidad 3" />
-                                 </tooltip>
-                              </TextField>
-                           </graphic>
-                           <tooltip>
-                              <Tooltip text="Habilidad 3" />
-                           </tooltip>
                         </TitledPane>
                      </panes>
                   </Accordion>

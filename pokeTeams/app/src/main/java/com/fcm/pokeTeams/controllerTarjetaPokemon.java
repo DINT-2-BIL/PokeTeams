@@ -87,7 +87,7 @@ public class controllerTarjetaPokemon implements Initializable {
             
             evento.consume();
             Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_confirmar_cambios.fxml"));
             try {
                 root = loader.load();
             } catch (IOException ex) {
@@ -111,7 +111,7 @@ public class controllerTarjetaPokemon implements Initializable {
     @FXML
     void eliminar(ActionEvent event) {
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/popUp_eliminar.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_eliminar.fxml"));
         try {
             root = loader.load();
         } catch (IOException ex) {
@@ -153,7 +153,7 @@ public class controllerTarjetaPokemon implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/emergente_pokemon_v1.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/emergente_pokemon_v1.fxml"));
         try {
             root = loader.load();
         } catch (IOException ex) {
@@ -168,7 +168,7 @@ public class controllerTarjetaPokemon implements Initializable {
         emergente.setResizable(false);
         emergente.setScene(sceneB);
         
-        loader = new FXMLLoader(getClass().getResource("fxml/emergente_añadir_pokemon_v1.fxml"));
+        loader = new FXMLLoader(getClass().getResource("/fxml/emergente_añadir_pokemon_v1.fxml"));
         try {
             root = loader.load();
         } catch (IOException ex) {

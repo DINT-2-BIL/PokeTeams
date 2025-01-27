@@ -35,6 +35,13 @@ dependencies {
 
 mainClassName = 'com.fcm.pokeTeams.Main'
 
+jar {
+   duplicatesStrategy 'exclude' //excluye duplicados en ficheros de configuracion
+    manifest{ //Genera el fichero MANIFEST.MF que hay dentro del jar
+        attributes 'Main-Class': mainClassName //Clase principal del proyecto
+    }
+}
+
 sourceSets {
   main {
     resources {

@@ -16,15 +16,15 @@ import java.sql.SQLException;
  */
 public abstract class BaseDAO {
     public boolean existeRegistro(String columna, String tabla, String campo) throws SQLException, IOException {
-        int conteo;
+        int conteo = 0;
         String sql = "SELECT COUNT(*) FROM " + tabla + " WHERE " + campo + " = ?";
 
-        try (PreparedStatement ps = DbConnection.getConnection().prepareStatement(sql)) {
+        /*try (PreparedStatement ps = DbConnection.getConnection().prepareStatement(sql)) {
             ps.setString(1, columna);
             ResultSet rs = ps.executeQuery();
             rs.next();
             conteo = rs.getInt(1);
-        }
+        }*/
 
         return conteo>0;
     }

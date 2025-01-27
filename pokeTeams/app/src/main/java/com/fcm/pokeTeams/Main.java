@@ -27,7 +27,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Naturalezas.fromName(miembro.getNaturaleza()).getValores()
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/logIn.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/logIn.fxml"));
         
         Scene scene=new Scene(root);
         Stage escenaPrincipal = primaryStage;

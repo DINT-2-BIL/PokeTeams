@@ -8,42 +8,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerPopUpCambioContraseña">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="/com.fcm.pokeTeams.controllerEditarEquipo">
    <children>
-      <Label text="Escriba su nueva contraseña">
+      <Label prefWidth="300.0" text="Escriba el nuevo nombre o formato" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
          <tooltip>
-            <Tooltip text="Introduce la nueva contraseña." />
+            <Tooltip text="Intrpduce el nuevo nombre y/o formato para el equipo." />
          </tooltip>
       </Label>
-      <TextField fx:id="txtContraseña" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Contraseña">
+      <TextField fx:id="txtNuevoNombre" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Nombre">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <Label text="Confirme su contraseña">
-         <font>
-            <Font size="24.0" />
-         </font>
-         <tooltip>
-            <Tooltip text="Repite la nueva contraseña." />
-         </tooltip>
-      </Label>
-      <TextField fx:id="txtConfContraseña" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Confirmar Contraseña">
+      <TextField fx:id="txtNuevoFormato" focusTraversable="false" maxWidth="260.0" prefWidth="270.0" promptText="Formato">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
       <HBox alignment="CENTER" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#cambiarContraseña" text="Confirmar">
+            <Button mnemonicParsing="false" onAction="#editarEquipo" text="Confirmar">
                <font>
                   <Font size="24.0" />
                </font>
                <tooltip>
-                  <Tooltip text="Confirmar cambio de contraseña" />
+                  <Tooltip text="Confirmar edición de equipo" />
                </tooltip>
             </Button>
             <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
@@ -51,7 +43,7 @@
                   <Font size="24.0" />
                </font>
                <tooltip>
-                  <Tooltip text="Cancelar cambio de contraseña" />
+                  <Tooltip text="Cancelar edición" />
                </tooltip>
             </Button>
          </children>

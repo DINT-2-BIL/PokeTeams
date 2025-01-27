@@ -21,19 +21,21 @@ import java.util.logging.Logger;
  * @author DFran49
  */
 public class DbConnection {
-    private static String URL;
-    private static String USER;
-    private static String PASSWORD; // Constructor privado para evitar instancias 
+    private String URL;
+    private String USER;
+    private String PASSWORD; 
+    private InputStream input = getClass().getClassLoader().getResourceAsStream("bbdd.properties");
+
+// Constructor privado para evitar instancias 
     public DbConnection() {
         inicializar();
     }
     
-    private static void inicializar() {
+    private void inicializar() {
         FileInputStream fileIn = null;
         try {
             Properties properties = new Properties();
-            fileIn = new FileInputStream("src/main/resources/bbdd.properties");
-            properties.load(fileIn);
+            properties.load(input);
             // Mostrar propiedades recuperadas
             URL = "jdbc:mariadb://" + properties.getProperty("SERVER") + ":" + properties.getProperty("PORT") + "/" + properties.getProperty("BBDD");
             USER = properties.getProperty("USER");
@@ -45,7 +47,7 @@ public class DbConnection {
         }
     }
     
-    public static Connection getConnection() throws SQLException, FileNotFoundException, IOException {
+    public Connection getConnection() throws SQLException, FileNotFoundException, IOException {
     // Obtener conexión a la BD 
     return DriverManager.getConnection(URL, USER, PASSWORD);
     }

@@ -56,7 +56,7 @@ public class controllerEquipo implements Initializable {
             int col = 0;
             int row = 0;
             for (int i = 0; i < listaMiembros.size(); i++) {
-                FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("fxml/tarjeta_miembro_equipo_v1.fxml"));
+                FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("/fxml/tarjeta_miembro_equipo_v1.fxml"));
                 SplitPane tarjeta = cargarTarjeta.load();
                 controllerTarjetaMiembro controladorTarjeta = cargarTarjeta.getController();
                 
@@ -72,7 +72,7 @@ public class controllerEquipo implements Initializable {
                 }
             }
             if (listaMiembros.size() < 6) {
-                FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("fxml/tarjeta_añadir_miembro_v1.fxml"));
+                FXMLLoader cargarTarjeta = new FXMLLoader(getClass().getResource("/fxml/tarjeta_añadir_miembro_v1.fxml"));
                 SplitPane tarjeta = cargarTarjeta.load();
                 controllerTarjetaAñadirMiembro controladorTarjeta = cargarTarjeta.getController();
                 controladorTarjeta.asignarConexion(conexion, equipo);

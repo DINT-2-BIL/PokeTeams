@@ -264,7 +264,7 @@ public class controllerAñadirMiembro implements Initializable {
         ((Stage) txtMote.getScene().getWindow()).setOnCloseRequest(evento -> {
             evento.consume();
             Parent raiz = null;
-            FXMLLoader cargador = new FXMLLoader(getClass().getResource("fxml/popUp_confirmar_cambios.fxml"));
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/fxml/popUp_confirmar_cambios.fxml"));
             try {
                 raiz = cargador.load();
             } catch (IOException ex) {

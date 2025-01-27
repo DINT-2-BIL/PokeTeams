@@ -30,7 +30,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<TabPane prefHeight="731.0" prefWidth="1300.0" stylesheets="@/styleSheets/core.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
+<TabPane prefHeight="731.0" prefWidth="1300.0" stylesheets="@/styleSheets/core.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="/com.fcm.pokeTeams.controllerCore">
    <tabs>
       <Tab text="INICIO">
          <content>
