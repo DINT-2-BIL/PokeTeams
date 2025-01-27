@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.1682615629984051" maxHeight="164.0" minHeight="164.0" onMouseClicked="#abrirEquipo" prefHeight="164.0" prefWidth="1256.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="/com.fcm.pokeTeams.controllerEquipos">
+<SplitPane dividerPositions="0.1682615629984051" maxHeight="164.0" minHeight="164.0" onMouseClicked="#abrirEquipo" prefHeight="164.0" prefWidth="1256.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerEquipos">
    <items>
       <AnchorPane maxHeight="162.0" maxWidth="208.0" minHeight="162.0" minWidth="208.0" prefHeight="162.0" prefWidth="100.0">
          <children>

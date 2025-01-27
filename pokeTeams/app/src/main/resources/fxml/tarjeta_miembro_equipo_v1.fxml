@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.2348993288590604" maxHeight="300.0" maxWidth="405.0" minHeight="300.0" minWidth="300.0" onMouseClicked="#verMiembro" orientation="VERTICAL" prefHeight="300.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="/com.fcm.pokeTeams.controllerTarjetaMiembro">
+<SplitPane dividerPositions="0.2348993288590604" maxHeight="300.0" maxWidth="405.0" minHeight="300.0" minWidth="300.0" onMouseClicked="#verMiembro" orientation="VERTICAL" prefHeight="300.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerTarjetaMiembro">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="88.0" prefWidth="598.0">
          <children>
