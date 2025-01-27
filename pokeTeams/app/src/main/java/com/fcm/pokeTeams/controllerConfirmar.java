@@ -80,7 +80,7 @@ public class controllerConfirmar implements Initializable {
     @FXML
     void guardar(ActionEvent event) {
         Stage a = (Stage) btnCancelar.getScene().getWindow();
-        a.close();
+        
         escena = entrada.getScene();
         
         switch ((int) a.getUserData()) {
@@ -101,6 +101,7 @@ public class controllerConfirmar implements Initializable {
                 editarMiembro();
             }
         }
+        a.close();
         entrada.close();
     }
 
@@ -186,6 +187,11 @@ public class controllerConfirmar implements Initializable {
                 e.printStackTrace();
             }
         }
+        try {
+            cCore.cargarGridPokemon(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(controllerConfirmar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void editarPokemon() {
@@ -222,6 +228,11 @@ public class controllerConfirmar implements Initializable {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        try {
+            cCore.cargarGridPokemon(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(controllerConfirmar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

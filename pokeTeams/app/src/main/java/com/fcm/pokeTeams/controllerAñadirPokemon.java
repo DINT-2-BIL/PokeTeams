@@ -12,6 +12,7 @@ import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
 import com.fcm.pokeTeams.modelos.Habilidad;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.modelos.Tipos;
 import com.fcm.pokeTeams.util.Utilidades;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -34,8 +36,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class controllerAñadirPokemon implements Initializable{
+    private List<Slider> listSliders = new ArrayList<>();
+    private List<Label> listLabels = new ArrayList<>();
+    private controllerCore cc;
     Utilidades utils = new Utilidades();
     Pokemon poke;
     
@@ -116,10 +123,11 @@ public class controllerAñadirPokemon implements Initializable{
 
     @FXML
     private TextArea txtTamaño;
-
+    
     @FXML
-    void actualizarStats(MouseEvent event) {
-
+    void finalizar(ActionEvent event) {
+        Stage ventana = (Stage) txtAtk.getScene().getWindow();
+        ventana.fireEvent(new WindowEvent(ventana, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     @FXML
@@ -140,12 +148,9 @@ public class controllerAñadirPokemon implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbTipo1.getItems().addAll("Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
-                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
-                "Roca","Siniestro","Tierra","Veneno","Volador");
-        cbTipo2.getItems().addAll("Ninguno","Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
-                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
-                "Roca","Siniestro","Tierra","Veneno","Volador");
+        cbTipo1.getItems().addAll(Tipos.listaTipo1());
+        cbTipo2.getItems().addAll(Tipos.listaTipo2());
+        cbTipo2.getSelectionModel().select(Tipos.NINGUNO.getTipo());
         utils.crearTooltip("Seleccionar imagen", imgPokemon);
         cbTipo1.setStyle("-fx-font-size: 24px;");
         cbTipo2.setStyle("-fx-font-size: 24px;");
@@ -160,6 +165,8 @@ public class controllerAñadirPokemon implements Initializable{
         for (Tooltip t : tooltips) {
             t.setStyle("-fx-font-size: 24px;");
         }
+        
+        inicializarSliders();
     }
 
     void enviaPokemon(Pokemon p) {
@@ -206,30 +213,33 @@ public class controllerAñadirPokemon implements Initializable{
     void leerStats(Pokemon p) {
         Gson gson = new Gson();
         EstadisticasEnvoltorio listStats = gson.fromJson(p.getEstadisticas(), EstadisticasEnvoltorio.class);
-        List<Slider> listBarras = new ArrayList<>();
-        listBarras.add(sdHp);
-        listBarras.add(sdAtk);
-        listBarras.add(sdDef);
-        listBarras.add(sdSpA);
-        listBarras.add(sdSpD);
-        listBarras.add(sdSpe);
-        List<Label> listEtiquetas = new ArrayList<>();
-        listEtiquetas.add(txtHp);
-        listEtiquetas.add(txtAtk);
-        listEtiquetas.add(txtDef);
-        listEtiquetas.add(txtSpA);
-        listEtiquetas.add(txtSpD);
-        listEtiquetas.add(txtSpe);
+
         
         try {
             for (int i = 0; i < 6; i++) {
-                listBarras.get(i).setValue(listStats.getEstadistica(i).getValor());
-                listEtiquetas.get(i).setText(listStats.getEstadistica(i).getValor()+"/255");
+                listSliders.get(i).setValue(listStats.getEstadistica(i).getValor());
+                listLabels.get(i).setText(listStats.getEstadistica(i).getValor()+"/255");
             }
         } catch (JsonSyntaxException e) {
             System.err.println("Error: " + e.getMessage());
         }
     }
 
+    private void inicializarSliders() {
+        listSliders.clear();
+        listLabels.clear();
+        listSliders.addAll(List.of(sdHp, sdAtk, sdDef, sdSpA, sdSpD, sdSpe));
+        listLabels.addAll(List.of(txtHp, txtAtk, txtDef, txtSpA, txtSpD, txtSpe));
+
+        for (int i = 0; i <6; i++) {
+            Label tempLabel = listLabels.get(i);
+            listSliders.get(i).valueProperty().addListener((observable, oldValue, newValue) -> {
+                tempLabel.setText(String.valueOf(newValue.intValue() + "/255"));
+            });
+        }
+    }
     
+    void pasoControladorCore(controllerCore cCore) {
+        this.cc = cCore;
+    }
 }

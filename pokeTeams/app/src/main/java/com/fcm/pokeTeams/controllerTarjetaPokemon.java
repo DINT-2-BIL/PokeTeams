@@ -176,6 +176,7 @@ public class controllerTarjetaPokemon implements Initializable {
         }
 
         cap = loader.getController();
+        cap.pasoControladorCore(cCore);
 
         sceneB = new Scene(root);
         editar = new Stage();

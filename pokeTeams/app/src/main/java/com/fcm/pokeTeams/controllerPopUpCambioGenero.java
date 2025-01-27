@@ -9,19 +9,23 @@ package com.fcm.pokeTeams;
  * @author DFran49
  */
 import com.fcm.pokeTeams.modelos.Entrenador;
+import com.fcm.pokeTeams.modelos.Generos;
 import com.fcm.pokeTeams.util.Alertas;
 import com.fcm.pokeTeams.util.Conexion;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
-public class controllerPopUpCambioGenero {
+public class controllerPopUpCambioGenero implements Initializable {
     private Entrenador entrenador;
     private Conexion conexion;
     private controllerCore cc;
@@ -50,14 +54,7 @@ public class controllerPopUpCambioGenero {
                 String query = "UPDATE entrenador SET Genero = ? WHERE ID_Entrenador = ?;";
                 Connection c = conexion.getConexion();
                 preparado = c.prepareStatement(query);
-
-                if (genero.getSelectedToggle() == rbFemenino) {
-                    preparado.setString(1, "F");
-                } else if (genero.getSelectedToggle() == rbMasculino) {
-                    preparado.setString(1, "M");
-                } else {
-                    preparado.setString(1, "O");
-                }
+                preparado.setString(1, genero.getSelectedToggle().getUserData().toString());
                 
                 preparado.setInt(2, entrenador.getIdEntrenador());
 
@@ -83,6 +80,13 @@ public class controllerPopUpCambioGenero {
     @FXML
     void cancelar(ActionEvent event) {
         cerrar();
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        rbFemenino.setUserData(Generos.F.getSigla());
+        rbMasculino.setUserData(Generos.M.getSigla());
+        rbOtro.setUserData(Generos.O.getSigla());
     }
 
     private void cerrar() {

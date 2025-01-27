@@ -30,10 +30,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +57,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
 public class controllerAñadirMiembro implements Initializable {
     private controllerTarjetaMiembro ctm;
@@ -64,6 +68,8 @@ public class controllerAñadirMiembro implements Initializable {
     private List<Label> listEtiquetasIv = new ArrayList<>();
     private List<Slider> listBarrasEv = new ArrayList<>();
     private List<Label> listEtiquetasEv = new ArrayList<>();
+    private List<ValidationSupport> validadores;
+    private ValidationSupport vsSliders = new ValidationSupport();
     Utilidades util = new Utilidades();
     private Conexion conexion = null;
     private Miembro miembro;
@@ -210,25 +216,6 @@ public class controllerAñadirMiembro implements Initializable {
         cbGenero.setStyle("-fx-font-size: 24px;");
         cbHabilidad.setStyle("-fx-font-size: 24px;");
         cbNaturaleza.getItems().addAll(Naturalezas.getNaturalezas());
-        List<Slider> barras = new ArrayList<>();
-        this.sdEVsAtk.getParent().getParent().getChildrenUnmodifiable().forEach(elemento -> {
-            if (elemento instanceof HBox) {
-                ((HBox) elemento).getChildrenUnmodifiable().forEach(campo -> {
-                    if (campo instanceof Slider) {
-                        ((Slider) campo).getTooltip().setStyle("-fx-font-size: 24px;");
-                    }
-                });
-            }
-        });
-        this.sdIVsAtk.getParent().getParent().getChildrenUnmodifiable().forEach(elemento -> {
-            if (elemento instanceof HBox) {
-                ((HBox) elemento).getChildrenUnmodifiable().forEach(campo -> {
-                    if (campo instanceof Slider) {
-                        ((Slider) campo).getTooltip().setStyle("-fx-font-size: 24px;");
-                    }
-                });
-            }
-        });
         util.crearTooltip("Imagen del pokemon", imgPokemon);
         
         try {
@@ -262,6 +249,7 @@ public class controllerAñadirMiembro implements Initializable {
             }
             
         });
+        validarSliders();
     }
 
     void setControladorEnlace(controllerTarjetaMiembro c) {
@@ -350,9 +338,36 @@ public class controllerAñadirMiembro implements Initializable {
         }
     }
     
+    private void validarSliders() {
+        for (Slider sd : listBarrasEv) {
+            vsSliders.registerValidator(sd, Validator.createPredicateValidator(
+                valor -> {
+                    if (sumaEVs() > 508) {
+                    return false;
+                    }
+                    return true;
+                },
+                "La suma total de los EVs debe ser igual o menor a 508 (Actual:"+sumaEVs()+")"
+            ));
+        }
+        
+        validadores = new ArrayList<>();
+        validadores.addAll(Arrays.asList(vsSliders));
+
+        Platform.runLater(() -> {
+            for (ValidationSupport validationSupport : validadores) {
+                validationSupport.initInitialDecoration();
+            }
+        });
+    }
+    
     private void inicializarSliders() {
+        listBarrasIv.clear();
+        listBarrasEv.clear();
         listBarrasIv.addAll(List.of(sdIVsHp, sdIVsAtk, sdIVsDef, sdIVsSpA, sdIVsSpD, sdIVsSpe));
         listBarrasEv.addAll(List.of(sdEVsHp,sdEVsAtk,sdEVsDef,sdEVsSpA,sdEVsSpD,sdEVsSpe));
+        listEtiquetasIv.clear();
+        listEtiquetasEv.clear();
         listEtiquetasIv.addAll(List.of(txtIVsHp, txtIVsAtk, txtIVsDef, txtIVsSpA, txtIVsSpD, txtIVsSpe));
         listEtiquetasEv.addAll(List.of(txtEVsHp, txtEVsAtk, txtEVsDef, txtEVsSpA, txtEVsSpD, txtEVsSpe));
         for (int i = 0; i <6; i++) {
@@ -360,11 +375,17 @@ public class controllerAñadirMiembro implements Initializable {
             Label tempLabelIv = listEtiquetasIv.get(i);
             listBarrasEv.get(i).valueProperty().addListener((observable, oldValue, newValue) -> {
                 tempLabelEv.setText(String.valueOf(newValue.intValue() + "/255"));
+                sumaEVs();
+                vsSliders.revalidate();
             });
             listBarrasIv.get(i).valueProperty().addListener((observable, oldValue, newValue) -> {
                 tempLabelIv.setText(String.valueOf(newValue.intValue() + "/31"));
             });
         }
+    }
+    
+    private int sumaEVs() {
+        return listBarrasEv.stream().mapToInt(slider -> (int) slider.getValue()).sum();
     }
 }
 

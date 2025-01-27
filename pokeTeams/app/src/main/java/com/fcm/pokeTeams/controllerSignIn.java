@@ -4,6 +4,7 @@
  */
 package com.fcm.pokeTeams;
 
+import com.fcm.pokeTeams.modelos.Generos;
 import com.fcm.pokeTeams.util.Alertas;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
@@ -153,6 +154,7 @@ public class controllerSignIn implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         utils.crearTooltip("Selecciona tu imagen", imgRegistro);
+        inicializarRButtons();
         
         ValidationSupport vSNombre = new ValidationSupport();
         vSNombre.registerValidator(txtNombre, Validator.createPredicateValidator(
@@ -222,13 +224,7 @@ public class controllerSignIn implements Initializable {
             preparado = c.prepareStatement(query);
 
             preparado.setString(1, txtNombre.getText());
-            if (genero.getSelectedToggle() == rbFemenino) {
-                    preparado.setString(2, "F");
-                } else if (genero.getSelectedToggle() == rbMasculino) {
-                    preparado.setString(2, "M");
-                } else {
-                    preparado.setString(2, "O");
-                }
+            preparado.setString(2, genero.getSelectedToggle().getUserData().toString());
             preparado.setString(3, utils.codificarImagen(imgRegistro.getImage()));
             preparado.setString(4, pwContraseña.getText());
 
@@ -246,6 +242,12 @@ public class controllerSignIn implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+    
+    private void inicializarRButtons() {
+        rbFemenino.setUserData(Generos.F.getSigla());
+        rbMasculino.setUserData(Generos.M.getSigla());
+        rbOtro.setUserData(Generos.O.getSigla());
     }
     
     public void asignarConexion(Conexion c) {

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
@@ -18,14 +19,23 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" spacing="10.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerAñadirPokemon">
    <children>
-      <TextField fx:id="txtEspecie" focusTraversable="false" promptText="Especie">
-         <font>
-            <Font size="24.0" />
-         </font>
-         <tooltip>
-            <Tooltip text="Especie" />
-         </tooltip>
-      </TextField>
+      <HBox spacing="20.0">
+         <children>
+            <TextField fx:id="txtEspecie" focusTraversable="false" prefHeight="50.0" prefWidth="680.0" promptText="Especie">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Especie" />
+               </tooltip>
+            </TextField>
+            <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizar" prefHeight="50.0" text="Finalizar">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
       <HBox prefWidth="600.0" spacing="20.0">
          <children>
             <StackPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0">
@@ -205,11 +215,11 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdHp" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats">
+                        <Slider fx:id="sdHp" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
                            <tooltip>
                               <Tooltip text="Barra Salud" />
                            </tooltip></Slider>
-                        <Label fx:id="txtHp" prefWidth="90.0" text="0/255">
+                        <Label fx:id="txtHp" prefWidth="90.0" text="1/255">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -226,11 +236,11 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdAtk" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats">
+                        <Slider fx:id="sdAtk" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
                            <tooltip>
                               <Tooltip text="Barra Ataque" />
                            </tooltip></Slider>
-                        <Label fx:id="txtAtk" prefWidth="90.0" text="0/255">
+                        <Label fx:id="txtAtk" prefWidth="90.0" text="1/255">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -247,11 +257,11 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdDef" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats">
+                        <Slider fx:id="sdDef" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
                            <tooltip>
                               <Tooltip text="Barra Defensa" />
                            </tooltip></Slider>
-                        <Label fx:id="txtDef" prefWidth="90.0" text="0/255">
+                        <Label fx:id="txtDef" prefWidth="90.0" text="1/255">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -268,11 +278,11 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdSpA" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats">
+                        <Slider fx:id="sdSpA" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
                            <tooltip>
                               <Tooltip text="Barra Ataque Especial" />
                            </tooltip></Slider>
-                        <Label fx:id="txtSpA" prefWidth="90.0" text="0/255">
+                        <Label fx:id="txtSpA" prefWidth="90.0" text="1/255">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -289,11 +299,11 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdSpD" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats">
+                        <Slider fx:id="sdSpD" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
                            <tooltip>
                               <Tooltip text="Barra Defensa Especial" />
                            </tooltip></Slider>
-                        <Label fx:id="txtSpD" prefWidth="90.0" text="0/255">
+                        <Label fx:id="txtSpD" prefWidth="90.0" text="1/255">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -310,11 +320,11 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdSpe" focusTraversable="false" max="255.0" onMouseReleased="#actualizarStats">
+                        <Slider fx:id="sdSpe" blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="255.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0">
                            <tooltip>
                               <Tooltip text="Barra Velocidad" />
                            </tooltip></Slider>
-                        <Label fx:id="txtSpe" prefWidth="90.0" text="0/255">
+                        <Label fx:id="txtSpe" prefWidth="90.0" text="1/255">
                            <font>
                               <Font size="24.0" />
                            </font>
