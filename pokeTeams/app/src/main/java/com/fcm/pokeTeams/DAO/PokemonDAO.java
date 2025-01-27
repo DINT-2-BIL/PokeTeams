@@ -11,13 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author DFran49
  */
-public class PokemonDAO extends BaseDAO implements crudInt<Pokemon>{
-    public PokemonDAO() {}
+public class PokemonDAO /*extends BaseDAO implements SentenciasInt<Pokemon>*/ {
+    /*public PokemonDAO() {}
     
     /*private select() {
         
@@ -31,7 +32,7 @@ public class PokemonDAO extends BaseDAO implements crudInt<Pokemon>{
         p.setDescripcion(rs.getString("Descripcion"));
         p.setSprite(rs.getString("Sprite"));
         p.setTipo1(rs.getString("Tipo_1"));
-        p.setTipo2(getStringOrNull(rs, "Tipo_2"));
+        //p.setTipo2(getStringOrNull(rs, "Tipo_2"));
         p.setTamaño(rs.getDouble("Tamaño"));
         p.setPeso(rs.getDouble("Peso"));
         p.setHabilidades(rs.getString("Habilidades"));
@@ -39,21 +40,21 @@ public class PokemonDAO extends BaseDAO implements crudInt<Pokemon>{
         return p;
     }
     
-    @Override
+    /*@Override
     public List<Pokemon> getAll() throws SQLException, IOException {
         List<Pokemon> lista = new ArrayList<>();
         Pokemon p;
         String sql = "SELECT * FROM conferencia";
 
         /*if (!filter.isEmpty())
-            sql = "SELECT * FROM conferencia WHERE referencia LIKE ? OR tema LIKE ? OR sala LIKE ?";*/
+            sql = "SELECT * FROM conferencia WHERE referencia LIKE ? OR tema LIKE ? OR sala LIKE ?";
 
         ResultSet rs;
         try (PreparedStatement ps = DbConnection.getConnection().prepareStatement(sql)) {
             /*if (!filter.isEmpty()) {
                 for (int i = 1; i <= 3; i++)
                     ps.setString(i, "%" + filter + "%");
-            }*/
+            }
             rs = ps.executeQuery();
             while (rs.next()) {
                 p = getPokemon(rs);
@@ -69,5 +70,30 @@ public class PokemonDAO extends BaseDAO implements crudInt<Pokemon>{
     public Pokemon findByCodigo(String ref) throws SQLException, IOException {
         return null;
     }
+
+    @Override
+    public void update(Pokemon elem) throws SQLException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void insert(Pokemon elem) throws SQLException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void delete(String ref) throws SQLException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ObservableList<Pokemon> getTodos(String filter) throws SQLException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Pokemon getElemento() throws SQLException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }*/
     
 }

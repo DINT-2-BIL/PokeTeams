@@ -95,6 +95,7 @@ public class controllerCore implements Initializable {
     ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
     private controllerConfirmar cc;
     Map parametros = new HashMap();
+    private boolean equipoAbierto = false;
 
     @FXML
     private ImageView btnAddEquipo;
@@ -845,5 +846,13 @@ public class controllerCore implements Initializable {
         } catch (JRException ex) {
             System.out.println("ultimo: " + ex.getMessage());
         }
+    }
+    
+    void asignarEquipoAbierto(boolean b) {
+        equipoAbierto = b;
+    }
+    
+    boolean comprobarEquipoAbierto() {
+        return equipoAbierto;
     }
 }

@@ -36,6 +36,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class controllerEquipos implements Initializable {
@@ -73,12 +74,20 @@ public class controllerEquipos implements Initializable {
 
     @FXML
     void abrirEquipo(MouseEvent event) {
-        if (event.getButton() == MouseButton.PRIMARY) {
-            this.ce.enviaMiembros(equipo, conexion);
-            this.emergente.setTitle(txtNombreEquipo.getText());
-            this.emergente.getIcons().add(new Image("Maushold.png"));
-            this.emergente.show();
+        if (!cCore.comprobarEquipoAbierto()) {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                this.ce.enviaMiembros(equipo, conexion);
+                this.emergente.setTitle(txtNombreEquipo.getText());
+                this.emergente.getIcons().add(new Image("Maushold.png"));
+                this.emergente.setOnCloseRequest(evento -> {
+                    cCore.asignarEquipoAbierto(false);
+                });
+                cCore.asignarEquipoAbierto(true);
+                // this.emergente.initModality(Modality.APPLICATION_MODAL);
+                this.emergente.show();
+            }
         }
+        
         
     }
     
