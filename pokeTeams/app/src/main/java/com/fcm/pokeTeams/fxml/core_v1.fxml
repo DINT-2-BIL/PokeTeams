@@ -30,8 +30,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-
-<TabPane prefHeight="731.0" prefWidth="1300.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
+<TabPane prefHeight="731.0" prefWidth="1300.0" stylesheets="@/styleSheets/core.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
    <tabs>
       <Tab text="INICIO">
          <content>
@@ -122,7 +121,7 @@
                <children>
                   <HBox alignment="CENTER" layoutX="304.0" layoutY="14.0">
                      <children>
-                        <ImageView fx:id="btnBuscarPokemon" fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btnBuscarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#buscarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/lupa.png" />
                            </image>
@@ -140,7 +139,7 @@
                               <Image url="@/Leafeon.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="btnAddPokemon" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btnAddPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#añadirPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/Plusle.png" />
                            </image>
@@ -424,9 +423,9 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <HBox layoutX="304.0" layoutY="14.0">
+                  <HBox alignment="CENTER" layoutX="304.0" layoutY="14.0">
                      <children>
-                        <ImageView fx:id="btnBuscarEquipo" fitHeight="50.0" fitWidth="53.0" onMouseClicked="#buscarEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btnBuscarEquipo" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#buscarEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/lupa.png" />
                            </image>
@@ -439,14 +438,14 @@
                               <Tooltip text="Buscar Equipo" />
                            </tooltip>
                         </TextField>
-                        <ImageView fx:id="btnAddEquipo" fitHeight="49.0" fitWidth="59.0" onMouseClicked="#añadirEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btnAddEquipo" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#añadirEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/Plusle.png" />
                            </image>
                         </ImageView>
                      </children>
                   </HBox>
-                  <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="83.0" prefHeight="590.0" prefWidth="1256.0" vbarPolicy="ALWAYS">
+                  <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="83.0" prefHeight="580.0" prefWidth="1256.0" vbarPolicy="ALWAYS">
                      <content>
                         <GridPane fx:id="gridEquipos" hgap="10.0" prefHeight="171.0" prefWidth="1256.0" vgap="10.0">
                            <columnConstraints>

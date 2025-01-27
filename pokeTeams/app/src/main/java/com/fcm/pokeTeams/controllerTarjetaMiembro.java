@@ -153,6 +153,10 @@ public class controllerTarjetaMiembro implements Initializable{
         equipo = e;
     }
     
+    public void refrescar() {
+        ce.refrescar();
+    }
+    
     void setControladorEnlace(controllerEquipo c) {
         ce = c;
     }

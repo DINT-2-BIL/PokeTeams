@@ -27,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class controllerTarjetaAñadirMiembro implements Initializable {
+    private controllerEquipo ce;
     private controllerConfirmar cc;
     private controllerAñadirMiembro cam;
     private Conexion conexion = null;
@@ -64,13 +65,22 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
             System.err.println(ex.getMessage());
         }
         cam = loader.getController();
+        cam.setControladorEnlaceAñadir(this);
         miStage = new Stage();
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
+    }
+    
+    public void refrescar() {
+        ce.refrescar();
     }
 
     public void asignarConexion(Conexion c, Equipo e) {
         conexion = c;
         equipo = e;
+    }
+    
+    void setControladorEnlace(controllerEquipo c) {
+        ce = c;
     }
 }

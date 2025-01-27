@@ -76,6 +76,8 @@ public class controllerEquipo implements Initializable {
                 SplitPane tarjeta = cargarTarjeta.load();
                 controllerTarjetaAñadirMiembro controladorTarjeta = cargarTarjeta.getController();
                 controladorTarjeta.asignarConexion(conexion, equipo);
+                ctam = cargarTarjeta.getController();
+                ctam.setControladorEnlace(this);
                 utils.crearTooltip("Añadir miembro", tarjeta);
                 gridMiembros.add(tarjeta, col, row);
             }
@@ -117,6 +119,11 @@ public class controllerEquipo implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(controllerEquipos.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void refrescar() {
+        ces.cargarMiembros();
+        cargarMiembros();
     }
     
     void enviaMiembros(Equipo e, Conexion c) {

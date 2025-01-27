@@ -44,4 +44,13 @@ public enum Generos {
         }
         throw new IllegalArgumentException("No enum encontrado para el género: " + sigla);
     }
+    
+    public static char fromPokemon(String cadena) {
+        for (Generos genero : Generos.values()) {
+            if(genero.getPokemon() == cadena) {
+                return genero.sigla;
+            }
+        }
+        throw new IllegalArgumentException("No enum encontrado para el género: " + cadena);
+    }
 }

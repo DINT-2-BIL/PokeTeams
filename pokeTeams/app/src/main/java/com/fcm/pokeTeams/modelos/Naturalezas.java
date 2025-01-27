@@ -64,4 +64,12 @@ public enum Naturalezas {
         }
         throw new IllegalArgumentException("No enum encontrado para la naturaleza: " + nombre);
     }
+    
+    public static ArrayList<String> getNaturalezas() {
+        ArrayList<String> naturalezas = new ArrayList<>();
+        for (Naturalezas naturaleza : Naturalezas.values()) {
+            naturalezas.add(naturaleza.getNombre());
+        }
+        return naturalezas;
+    }
 }

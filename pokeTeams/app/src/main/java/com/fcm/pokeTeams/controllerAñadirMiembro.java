@@ -11,11 +11,13 @@ package com.fcm.pokeTeams;
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
+import com.fcm.pokeTeams.modelos.Generos;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Movimiento;
 import com.fcm.pokeTeams.modelos.MovimientoEnvoltorio;
+import com.fcm.pokeTeams.modelos.Naturalezas;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
@@ -56,7 +58,12 @@ import javafx.stage.WindowEvent;
 
 public class controllerAñadirMiembro implements Initializable {
     private controllerTarjetaMiembro ctm;
+    private controllerTarjetaAñadirMiembro ctam;
     private controllerConfirmar cc;
+    private List<Slider> listBarrasIv = new ArrayList<>();
+    private List<Label> listEtiquetasIv = new ArrayList<>();
+    private List<Slider> listBarrasEv = new ArrayList<>();
+    private List<Label> listEtiquetasEv = new ArrayList<>();
     Utilidades util = new Utilidades();
     private Conexion conexion = null;
     private Miembro miembro;
@@ -68,7 +75,7 @@ public class controllerAñadirMiembro implements Initializable {
     private ComboBox<String> cbEspecie;
 
     @FXML
-    private ComboBox<Character> cbGenero;
+    private ComboBox<String> cbGenero;
 
     @FXML
     private ComboBox<String> cbHabilidad;
@@ -186,16 +193,23 @@ public class controllerAñadirMiembro implements Initializable {
     void finalizar(ActionEvent event) {
         Stage ventana = (Stage) txtEVsAtk.getScene().getWindow();
         ventana.fireEvent(new WindowEvent(ventana, WindowEvent.WINDOW_CLOSE_REQUEST));
+        if (ctm != null) {
+           ctm.refrescar(); 
+        } else if (ctam != null) {
+            ctam.refrescar();
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbGenero.getItems().addAll('M','F','N');
+        inicializarSliders();
+        cbGenero.getItems().addAll(Generos.M.getPokemon(),Generos.F.getPokemon(),Generos.N.getPokemon());
         spNivel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1));
         spNivel.setStyle("-fx-font-size: 24px;");
         cbEspecie.setStyle("-fx-font-size: 24px;");
         cbGenero.setStyle("-fx-font-size: 24px;");
         cbHabilidad.setStyle("-fx-font-size: 24px;");
+        cbNaturaleza.getItems().addAll(Naturalezas.getNaturalezas());
         List<Slider> barras = new ArrayList<>();
         this.sdEVsAtk.getParent().getParent().getChildrenUnmodifiable().forEach(elemento -> {
             if (elemento instanceof HBox) {
@@ -253,6 +267,9 @@ public class controllerAñadirMiembro implements Initializable {
     void setControladorEnlace(controllerTarjetaMiembro c) {
         ctm = c;
     }
+    void setControladorEnlaceAñadir(controllerTarjetaAñadirMiembro c) {
+        ctam = c;
+    }
     
     void asignarCerrado(Conexion c, Equipo e, int i) {
         conexion = c;
@@ -286,11 +303,24 @@ public class controllerAñadirMiembro implements Initializable {
         cbEspecie.getSelectionModel().select(m.getEspecie());
         spNivel.getValueFactory().setValue(m.getNivel());
         txtMote.setText(m.getMote());
-        cbHabilidad.getItems().clear();
-        cbHabilidad.getItems().add(m.getHabilidad());
-        cbHabilidad.getSelectionModel().select(0);
+            try {
+                String query = "SELECT * FROM pokemon WHERE Especie = '" + m.getEspecie() + "'";
+                Statement statement = conexion.getConexion().createStatement();
+                ResultSet result = statement.executeQuery(query);
+                result.next();
+                HabilidadesEnvoltorio listaHabilidades = util.leerHabilidades(result.getString("Habilidades"));
+                cbHabilidad.getItems().clear();
+                listaHabilidades.getHabilidades().forEach(action -> {
+                    cbHabilidad.getItems().add(action.getNombre());
+                });
+                util.recuperarImagenBBDD(result.getString("Sprite"), imgPokemon);
+            } catch (SQLException e) {
+                System.out.println("Error al conectar con la BD: " + e.getMessage());
+            }
+        cbHabilidad.setValue(m.getHabilidad());
         txtObjeto.setText(m.getObjeto());
-        cbGenero.getSelectionModel().select(Character.valueOf(m.getGenero()));
+        cbGenero.getSelectionModel().select(Generos.fromSigla(m.getGenero()).getPokemon());
+        cbNaturaleza.getSelectionModel().select(m.getNaturaleza());
         
         util.recuperarImagenBBDD(m.getSprite(), imgPokemon);
         List<TextField> listText = new ArrayList<>();
@@ -299,51 +329,41 @@ public class controllerAñadirMiembro implements Initializable {
         listText.add(txtMovimiento3);
         listText.add(txtMovimiento4);
         util.leerMovimientos(m, listText);
+        inicializarSliders();
         cargarEVs();
         cargarIVs();
     }
     
     void cargarIVs() {
-        List<Slider> listBarras = new ArrayList<>();
-        listBarras.add(sdIVsHp);
-        listBarras.add(sdIVsAtk);
-        listBarras.add(sdIVsDef);
-        listBarras.add(sdIVsSpA);
-        listBarras.add(sdIVsSpD);
-        listBarras.add(sdIVsSpe);
-        List<Label> listEtiquetas = new ArrayList<>();
-        listEtiquetas.add(txtIVsHp);
-        listEtiquetas.add(txtIVsAtk);
-        listEtiquetas.add(txtIVsDef);
-        listEtiquetas.add(txtIVsSpA);
-        listEtiquetas.add(txtIVsSpD);
-        listEtiquetas.add(txtIVsSpe);
         IVsEnvoltorio ivs = util.leerIVs(miembro);
         for (int i = 0; i < 6; i++) {
-            listBarras.get(i).setValue(ivs.getEV(i).getValor());
-            listEtiquetas.get(i).setText(ivs.getEV(i).getValor()+"/31");
+            listBarrasIv.get(i).setValue(ivs.getEV(i).getValor());
+            listEtiquetasIv.get(i).setText(ivs.getEV(i).getValor()+"/31");
         }
     }
     
     void cargarEVs() {
-        List<Slider> listBarras = new ArrayList<>();
-        listBarras.add(sdEVsHp);
-        listBarras.add(sdEVsAtk);
-        listBarras.add(sdEVsDef);
-        listBarras.add(sdEVsSpA);
-        listBarras.add(sdEVsSpD);
-        listBarras.add(sdEVsSpe);
-        List<Label> listEtiquetas = new ArrayList<>();
-        listEtiquetas.add(txtEVsHp);
-        listEtiquetas.add(txtEVsAtk);
-        listEtiquetas.add(txtEVsDef);
-        listEtiquetas.add(txtEVsSpA);
-        listEtiquetas.add(txtEVsSpD);
-        listEtiquetas.add(txtEVsSpe);
         EVsEnvoltorio evs = util.leerEVs(miembro);
         for (int i = 0; i < 6; i++) {
-            listBarras.get(i).setValue(evs.getEV(i).getValor());
-            listEtiquetas.get(i).setText(evs.getEV(i).getValor()+"/255");
+            listBarrasEv.get(i).setValue(evs.getEV(i).getValor());
+            listEtiquetasEv.get(i).setText(evs.getEV(i).getValor()+"/255");
+        }
+    }
+    
+    private void inicializarSliders() {
+        listBarrasIv.addAll(List.of(sdIVsHp, sdIVsAtk, sdIVsDef, sdIVsSpA, sdIVsSpD, sdIVsSpe));
+        listBarrasEv.addAll(List.of(sdEVsHp,sdEVsAtk,sdEVsDef,sdEVsSpA,sdEVsSpD,sdEVsSpe));
+        listEtiquetasIv.addAll(List.of(txtIVsHp, txtIVsAtk, txtIVsDef, txtIVsSpA, txtIVsSpD, txtIVsSpe));
+        listEtiquetasEv.addAll(List.of(txtEVsHp, txtEVsAtk, txtEVsDef, txtEVsSpA, txtEVsSpD, txtEVsSpe));
+        for (int i = 0; i <6; i++) {
+            Label tempLabelEv = listEtiquetasEv.get(i);
+            Label tempLabelIv = listEtiquetasIv.get(i);
+            listBarrasEv.get(i).valueProperty().addListener((observable, oldValue, newValue) -> {
+                tempLabelEv.setText(String.valueOf(newValue.intValue() + "/255"));
+            });
+            listBarrasIv.get(i).valueProperty().addListener((observable, oldValue, newValue) -> {
+                tempLabelIv.setText(String.valueOf(newValue.intValue() + "/31"));
+            });
         }
     }
 }

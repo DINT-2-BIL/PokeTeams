@@ -22,12 +22,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class controllerMiembro implements Initializable{
     private Miembro miembro;
@@ -54,6 +57,9 @@ public class controllerMiembro implements Initializable{
 
     @FXML
     private ProgressBar barSpe;
+    
+    @FXML
+    private Button btnCerrar;
 
     @FXML
     private ImageView imgPokemon;
@@ -90,6 +96,9 @@ public class controllerMiembro implements Initializable{
 
     @FXML
     private TextField txtMovimiento4;
+    
+    @FXML
+    private TextField txtNaturaleza;
 
     @FXML
     private TextField txtNivel;
@@ -105,18 +114,17 @@ public class controllerMiembro implements Initializable{
 
     @FXML
     private Label txtSpe;
-
-    @FXML
-    private TextField txtTipo1;
-
-    @FXML
-    private TextField txtTipo2;
     
     @FXML
     private TextField txtTotalEVs;
 
     @FXML
     private TextField txtTotalIVs;
+    
+    @FXML
+    void cerrar(ActionEvent event) {
+        ((Stage)txtEspecie.getScene().getWindow()).close();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -129,9 +137,9 @@ public class controllerMiembro implements Initializable{
         txtEspecie.setText(m.getEspecie());
         txtHabilidad.setText(m.getHabilidad());
         txtObjeto.setText(m.getObjeto());
+        txtNaturaleza.setText(m.getNaturaleza());
+
         txtGenero.setText(Generos.fromSigla(miembro.getGenero()).getPokemon());
-        txtTipo1.setText(m.getTipo1());
-        txtTipo2.setText(m.getTipo2());
         util.recuperarImagenBBDD(m.getSprite(), imgPokemon);
         List<TextField> listText = new ArrayList<>();
         listText.add(txtMovimiento1);

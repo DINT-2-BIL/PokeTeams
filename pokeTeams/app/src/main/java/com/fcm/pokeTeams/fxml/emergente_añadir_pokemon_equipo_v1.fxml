@@ -77,7 +77,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbHabilidad" focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" promptText="Habilidad">
+                        <ComboBox fx:id="cbHabilidad" focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Habilidad">
                            <tooltip>
                               <Tooltip text="Selector habilidad" />
                            </tooltip>
@@ -203,7 +203,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdIVsHp" max="31.0" onMouseReleased="#actualizarIVs">
+                        <Slider fx:id="sdIVsHp" majorTickUnit="1.0" max="31.0" minorTickCount="0" onMouseReleased="#actualizarIVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra IVs Salud" />
                            </tooltip></Slider>
@@ -224,7 +224,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdIVsAtk" max="31.0" onMouseReleased="#actualizarIVs">
+                        <Slider fx:id="sdIVsAtk" majorTickUnit="1.0" max="31.0" minorTickCount="0" onMouseReleased="#actualizarIVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra IVs Ataque" />
                            </tooltip></Slider>
@@ -245,7 +245,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdIVsDef" max="31.0" onMouseReleased="#actualizarIVs">
+                        <Slider fx:id="sdIVsDef" majorTickUnit="1.0" max="31.0" minorTickCount="0" onMouseReleased="#actualizarIVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra IVs Defensa" />
                            </tooltip></Slider>
@@ -266,7 +266,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdIVsSpA" max="31.0" onMouseReleased="#actualizarIVs">
+                        <Slider fx:id="sdIVsSpA" majorTickUnit="1.0" max="31.0" minorTickCount="0" onMouseReleased="#actualizarIVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra IVs Ataque Especial" />
                            </tooltip></Slider>
@@ -287,7 +287,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdIVsSpD" max="31.0" onMouseReleased="#actualizarIVs">
+                        <Slider fx:id="sdIVsSpD" majorTickUnit="1.0" max="31.0" minorTickCount="0" onMouseReleased="#actualizarIVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra IVs Defensa Especial" />
                            </tooltip></Slider>
@@ -308,7 +308,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdIVsSpe" max="31.0" onMouseReleased="#actualizarIVs">
+                        <Slider fx:id="sdIVsSpe" majorTickUnit="1.0" max="31.0" minorTickCount="0" onMouseReleased="#actualizarIVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra IVs Velocidad" />
                            </tooltip></Slider>
@@ -341,7 +341,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdEVsHp" max="255.0" onMouseReleased="#actualizarEVs">
+                        <Slider fx:id="sdEVsHp" majorTickUnit="1.0" max="255.0" minorTickCount="0" onMouseReleased="#actualizarEVs">
                            <tooltip>
                               <Tooltip text="Barra EVs Salud" />
                            </tooltip></Slider>
@@ -362,7 +362,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdEVsAtk" max="255.0" onMouseReleased="#actualizarEVs">
+                        <Slider fx:id="sdEVsAtk" majorTickUnit="1.0" max="255.0" minorTickCount="0" onMouseReleased="#actualizarEVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra EVs Ataque" />
                            </tooltip></Slider>
@@ -383,7 +383,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdEVsDef" max="255.0" onMouseReleased="#actualizarEVs">
+                        <Slider fx:id="sdEVsDef" majorTickUnit="1.0" max="255.0" minorTickCount="0" onMouseReleased="#actualizarEVs">
                            <tooltip>
                               <Tooltip text="Barra EVs Defensa" />
                            </tooltip></Slider>
@@ -404,7 +404,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdEVsSpA" max="255.0" onMouseReleased="#actualizarEVs">
+                        <Slider fx:id="sdEVsSpA" majorTickUnit="1.0" max="255.0" minorTickCount="0" onMouseReleased="#actualizarEVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra EVs Ataque Especial" />
                            </tooltip></Slider>
@@ -425,7 +425,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdEVsSpD" max="255.0" onMouseReleased="#actualizarEVs">
+                        <Slider fx:id="sdEVsSpD" majorTickUnit="1.0" max="255.0" minorTickCount="0" onMouseReleased="#actualizarEVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra EVs Defensa Especial" />
                            </tooltip></Slider>
@@ -446,7 +446,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="sdEVsSpe" max="255.0" onMouseReleased="#actualizarEVs">
+                        <Slider fx:id="sdEVsSpe" majorTickUnit="1.0" max="255.0" minorTickCount="0" onMouseReleased="#actualizarEVs" snapToTicks="true">
                            <tooltip>
                               <Tooltip text="Barra EVs Velocidad" />
                            </tooltip></Slider>

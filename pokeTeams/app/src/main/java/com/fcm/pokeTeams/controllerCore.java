@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -754,7 +755,7 @@ public class controllerCore implements Initializable {
             case "Equipos" -> {
                 ruta = ruta + "equipos";
                 
-                if (spInformeIDEnt.getValue() > 0 || spInformeIDEnt.getValue() < 100000) {
+                if (spInformeIDEnt.getValue() > 0 || spInformeIDEnt.getValue() < Integer.MAX_VALUE) {
                     parametros.put("idEnt", spInformeIDEnt.getValue());
                 } else {
                     parametros.put("idEnt", 0);
@@ -779,6 +780,12 @@ public class controllerCore implements Initializable {
         ruta = ruta + ".jasper";
         
         eliminarCarpeta(new File("informeHTML.html_files"));
+        (new File("informeHTML.html")).delete();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
         wvInforme.getEngine().load(null);
         lanzaInforme(ruta, parametros, tipo);
     }
@@ -813,11 +820,12 @@ public class controllerCore implements Initializable {
                         wvInforme.getEngine().load(new File(outputHtmlFile).toURI().toString());
                     } else {
                         WebView wvnuevo = new WebView();
-                        wvInforme.getEngine().load(new File(outputHtmlFile).toURI().toString());
+                        wvnuevo.getEngine().load(new File(outputHtmlFile).toURI().toString());
                         StackPane stackPane = new StackPane(wvnuevo);
                         Scene scene = new Scene(stackPane, 600, 500);
                         Stage stage = new Stage();
                         stage.setTitle("Informe en HTML");
+                        stage.getIcons().add(new Image("pokedex.png"));
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.setResizable(true);
                         stage.setScene(scene);

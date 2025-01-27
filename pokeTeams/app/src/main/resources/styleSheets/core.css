@@ -24,10 +24,6 @@ TabPane {
     -fx-border-color: black;
     -fx-border-width: 2px;
     -fx-border-style: solid;
-    -fx-background-color: #9C0E09;
+    -fx-background-color: #A89F4C;
     -fx-start-margin: -10px;
-}
-
-Pane {
-    -fx-background-color: black;
 }

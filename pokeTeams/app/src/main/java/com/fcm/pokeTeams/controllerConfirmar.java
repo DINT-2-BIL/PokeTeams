@@ -12,6 +12,7 @@ import com.fcm.pokeTeams.modelos.EV;
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
+import com.fcm.pokeTeams.modelos.Generos;
 import com.fcm.pokeTeams.modelos.Habilidad;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
@@ -130,7 +131,9 @@ public class controllerConfirmar implements Initializable {
         miembro.setMote(((TextField)escena.lookup("#txtMote")).getText());
         miembro.setHabilidad(((ComboBox<String>)escena.lookup("#cbHabilidad")).getValue());
         miembro.setObjeto(((TextField)escena.lookup("#txtObjeto")).getText());
-        miembro.setGenero(((ComboBox<Character>)escena.lookup("#cbGenero")).getValue().toString().charAt(0));
+        miembro.setGenero(Generos.fromPokemon(((ComboBox<String>)escena.lookup("#cbGenero")).getValue()));
+        miembro.setNaturaleza(((ComboBox<String>)escena.lookup("#cbNaturaleza")).getValue());
+        System.out.println(miembro.getNaturaleza());
         miembro.setMovimientos(leerMovimientos());
         miembro.setIvs(leerIVs());
         miembro.setEvs(leerEVs());
@@ -243,7 +246,7 @@ public class controllerConfirmar implements Initializable {
             preparado.setInt(4, equipo.getIdEntrenador());
             preparado.setString(5, equipo.getNombre());
             preparado.setString(6, equipo.getFormato());
-            preparado.setString(7, miembro.getGenero()+"");
+            preparado.setString(7, String.valueOf(miembro.getGenero()));
             preparado.setInt(8, miembro.getNivel());
             preparado.setString(9, miembro.getHabilidad());
             preparado.setString(10, miembro.getObjeto());
@@ -273,7 +276,7 @@ public class controllerConfirmar implements Initializable {
         PreparedStatement preparado = null;
         try {
             
-            String query = "UPDATE equipo SET N_Pokedex = ?, Genero = ?, Nivel = ?, Mote = ?, Habilidad = ?, Objeto = ?, Movimientos = ?, EVs = ?, IVs = ? "
+            String query = "UPDATE equipo SET N_Pokedex = ?, Genero = ?, Nivel = ?, Mote = ?, Habilidad = ?, Naturaleza = ?, Objeto = ?, Movimientos = ?, EVs = ?, IVs = ? "
                     + "WHERE ID_Equipo = ? AND Mote = ?;";
             Connection c = conexion.getConexion();
             
@@ -287,13 +290,13 @@ public class controllerConfirmar implements Initializable {
             preparado.setInt(3, miembro.getNivel());
             preparado.setString(4, miembro.getMote());
             preparado.setString(5, miembro.getHabilidad());
-            //preparado.setString(5, miembro.getNaturaleza());
-            preparado.setString(6, miembro.getObjeto());
-            preparado.setString(7, miembro.getMovimientos());
-            preparado.setString(8, miembro.getEvs());
-            preparado.setString(9, miembro.getIvs());
-            preparado.setInt(10, equipo.getIdEquipo());
-            preparado.setString(11, oldMiembro.getMote());
+            preparado.setString(6, miembro.getNaturaleza());
+            preparado.setString(7, miembro.getObjeto());
+            preparado.setString(8, miembro.getMovimientos());
+            preparado.setString(9, miembro.getEvs());
+            preparado.setString(10, miembro.getIvs());
+            preparado.setInt(11, equipo.getIdEquipo());
+            preparado.setString(12, oldMiembro.getMote());
 
             if (preparado.executeUpdate() > 0) {
                 System.out.println("Inserción exitosa.");
