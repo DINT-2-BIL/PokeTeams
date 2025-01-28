@@ -211,7 +211,7 @@ public class controllerConfirmar implements Initializable {
             preparado.setDouble(8, pokemon.getPeso());
             preparado.setString(9, pokemon.getHabilidades());
             preparado.setString(10, pokemon.getEstadisticas());
-            preparado.setInt(11, Integer.parseInt(pokemon.getnPokedex()));
+            preparado.setInt(11, pokemon.getnPokedex());
 
             if (preparado.executeUpdate() > 0) {
                 System.out.println("Inserción exitosa.");

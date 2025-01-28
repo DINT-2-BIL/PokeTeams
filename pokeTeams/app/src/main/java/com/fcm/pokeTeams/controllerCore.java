@@ -595,7 +595,7 @@ public class controllerCore implements Initializable {
         ResultSet result = statement.executeQuery(query);
         while (result.next()) {                    
             Pokemon temp = new Pokemon();
-            temp.setnPokedex(result.getString("N_Pokedex"));
+            temp.setnPokedex(result.getInt("N_Pokedex"));
             temp.setEspecie(result.getString("Especie"));
             temp.setDenominacion(result.getString("Denominacion"));
             temp.setDescripcion(result.getString("Descripcion"));
@@ -808,8 +808,6 @@ public class controllerCore implements Initializable {
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, param, conexion.getConexion());
 
                 if (!jasperPrint.getPages().isEmpty()) {
-                    String pdfOutputPath = "informe.pdf";
-                    JasperExportManager.exportReportToPdfFile(jasperPrint, pdfOutputPath);
 
                     String outputHtmlFile = "informeHTML.html";
                     JasperExportManager.exportReportToHtmlFile(jasperPrint, outputHtmlFile);

@@ -29,7 +29,7 @@ public class Conexion extends Object {
         }
     }
 
-    public static Connection getConexion() {
+    public Connection getConexion() {
         return conexion;
     }
 }

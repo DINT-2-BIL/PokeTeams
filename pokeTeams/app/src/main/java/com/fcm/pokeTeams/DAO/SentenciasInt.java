@@ -4,6 +4,7 @@
  */
 package com.fcm.pokeTeams.DAO;
 
+import com.fcm.pokeTeams.util.Conexion;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.collections.ObservableList;
@@ -13,10 +14,9 @@ import javafx.collections.ObservableList;
  * @author Francisco
  */
 public interface SentenciasInt<T> {
-    void update(T elem) throws SQLException, IOException;
-    void insert(T elem) throws SQLException, IOException;
-    void delete(String ref) throws SQLException, IOException;
-    ObservableList<T> getTodos(String filter) throws SQLException, IOException;
-    T getElemento() throws SQLException, IOException;
-    T findByCodigo(String ref) throws SQLException, IOException;
+    void update(T elem, Conexion conex) throws SQLException, IOException;
+    void insert(T elem, Conexion conex) throws SQLException, IOException;
+    <U> void delete(U elem, Conexion conex);
+    ObservableList<T> getTodos(String filter, Conexion conex) throws SQLException, IOException;
+    T findByCodigo(String ref, Conexion conex) throws SQLException, IOException;
 }

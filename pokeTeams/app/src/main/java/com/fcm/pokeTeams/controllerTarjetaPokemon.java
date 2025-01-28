@@ -8,6 +8,7 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.DAO.PokemonDAO;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Conexion;
@@ -128,6 +129,7 @@ public class controllerTarjetaPokemon implements Initializable {
         });
         miStage.showAndWait();
         if ((boolean) miStage.getUserData()) {
+            /*
             try {
                 
                 String query = "DELETE FROM pokemon WHERE N_Pokedex = ?";
@@ -144,6 +146,8 @@ public class controllerTarjetaPokemon implements Initializable {
             } catch (SQLException e) {
                 System.out.println("Error al conectar con la BD: " + e.getMessage());
             }
+            */
+            PokemonDAO.getInstance().delete(pokemon.getnPokedex(), conexion);
             System.out.println(pokemon.getEspecie() + " eliminado.");
         }
     }
@@ -190,7 +194,7 @@ public class controllerTarjetaPokemon implements Initializable {
         this.admin = admin;
         txtEspecie.setText(p.getEspecie());
         
-        txtId.setText(p.getnPokedex());
+        txtId.setText(p.getnPokedex()+"");
         util.recuperarImagenBBDD(p.getSprite(), imgPokemon);
         pokemon = p;
         if (!admin) {

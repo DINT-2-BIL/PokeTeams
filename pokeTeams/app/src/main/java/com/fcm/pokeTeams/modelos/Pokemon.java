@@ -9,7 +9,7 @@ package com.fcm.pokeTeams.modelos;
  * @author DFran49
  */
 public class Pokemon {
-    private String nPokedex;
+    private int nPokedex;
     private String especie;
     private String denominacion;
     private String descripcion;
@@ -32,11 +32,11 @@ public class Pokemon {
         this.estadisticas = estadisticas;
     }
 
-    public String getnPokedex() {
+    public int getnPokedex() {
         return nPokedex;
     }
 
-    public void setnPokedex(String nPokedex) {
+    public void setnPokedex(int nPokedex) {
         this.nPokedex = nPokedex;
     }
 
