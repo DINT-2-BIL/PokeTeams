@@ -22,7 +22,7 @@
          <children>
             <ImageView fx:id="imgPokemonMiembro" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/Plusle.png" />
+                  <Image url="@/img/Plusle.png" />
                </image></ImageView>
          </children>
       </StackPane>

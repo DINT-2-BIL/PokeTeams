@@ -9,6 +9,7 @@ import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Generos;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.modelos.Tipos;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.File;
@@ -222,7 +223,7 @@ public class controllerCore implements Initializable {
             Scene inicio = new Scene(root);
             miStage.setScene(inicio);
             miStage.setTitle("Añadir equipo");
-            miStage.getIcons().add(new Image("Plusle.png"));
+            miStage.getIcons().add(new Image("/img/Plusle.png"));
             miStage.showAndWait();
             List<String> datos = (List<String>) miStage.getUserData();
             if (!datos.isEmpty()) {
@@ -291,10 +292,10 @@ public class controllerCore implements Initializable {
                 confirmar.setTitle("Confirmar");
                 cc.enviarAPokemon(miStage, conexion, this, entrenador.isEsAdmin());
                 confirmar.setUserData(1);
-                confirmar.getIcons().add(new Image("Victini.png"));
+                confirmar.getIcons().add(new Image("/img/Victini.png"));
                 confirmar.showAndWait();
             });
-            miStage.getIcons().add(new Image("Plusle.png"));
+            miStage.getIcons().add(new Image("/img/Plusle.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
@@ -337,7 +338,7 @@ public class controllerCore implements Initializable {
             Scene inicio = new Scene(root);
             miStage.setScene(inicio);
             miStage.setTitle("Cambiar contraseña");
-            miStage.getIcons().add(new Image("Klink.png"));
+            miStage.getIcons().add(new Image("/img/Klink.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
@@ -358,7 +359,7 @@ public class controllerCore implements Initializable {
             Scene inicio = new Scene(root);
             miStage.setScene(inicio);
             miStage.setTitle("Cambiar genero");
-            miStage.getIcons().add(new Image("Klink.png"));
+            miStage.getIcons().add(new Image("/img/Klink.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
@@ -379,7 +380,7 @@ public class controllerCore implements Initializable {
             Scene inicio = new Scene(root);
             miStage.setScene(inicio);
             miStage.setTitle("Cambiar nombre");
-            miStage.getIcons().add(new Image("Klink.png"));
+            miStage.getIcons().add(new Image("/img/Klink.png"));
             miStage.setUserData(entrenador.getIdEntrenador());
             miStage.showAndWait();
             
@@ -424,7 +425,7 @@ public class controllerCore implements Initializable {
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar cuenta: " + txtNombreEntrenador.getText());
-        miStage.getIcons().add(new Image("Trubbish.png"));
+        miStage.getIcons().add(new Image("/img/Trubbish.png"));
         miStage.setOnCloseRequest(evento -> {
             miStage.setUserData(false);
         });
@@ -516,12 +517,8 @@ public class controllerCore implements Initializable {
             contextMenu.show(imgEntrenador, event.getScreenX(), event.getScreenY())
         );
         
-        cbTipo1.getItems().addAll("Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
-                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
-                "Roca","Siniestro","Tierra","Veneno","Volador");
-        cbTipo2.getItems().addAll("Ninguno","Acero","Agua","Bicho","Dragón","Eléctrico","Fantasma",
-                "Fuego","Hada","Hielo","Lucha","Normal","Planta","Psíquico",
-                "Roca","Siniestro","Tierra","Veneno","Volador");
+        cbTipo1.getItems().addAll(Tipos.listaTipo1());
+        cbTipo2.getItems().addAll(Tipos.listaTipo2());
         cbEstadistica.getItems().addAll("HP","Atk","Def","SpA","SpD","SpE");
         cbEstadisticaOrden.getItems().addAll(cbEstadistica.getItems());
         inicializarSpinners();
@@ -780,18 +777,18 @@ public class controllerCore implements Initializable {
         }
         ruta = ruta + ".jasper";
         
-        eliminarCarpeta(new File("informeHTML.html_files"));
+        /*eliminarCarpeta(new File("informeHTML.html_files"));
         (new File("informeHTML.html")).delete();
         try {
             Thread.sleep(5000);
         } catch (InterruptedException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
         }
-        wvInforme.getEngine().load(null);
+        wvInforme.getEngine().load(null);*/
         lanzaInforme(ruta, parametros, tipo);
     }
     
-    public static void eliminarCarpeta(File carpeta) {
+    /*public static void eliminarCarpeta(File carpeta) {
         if (carpeta.isDirectory()) {
             for (File archivo : carpeta.listFiles()) {
                 if (archivo.isDirectory()) {
@@ -800,7 +797,7 @@ public class controllerCore implements Initializable {
                 archivo.delete();
             }
         }
-    }
+    }*/
     
     private void lanzaInforme(String rutaInf, Map<String, Object> param, int tipo) {
         System.out.println(conexion.getConexion());
@@ -826,7 +823,7 @@ public class controllerCore implements Initializable {
                         Scene scene = new Scene(stackPane, 600, 500);
                         Stage stage = new Stage();
                         stage.setTitle("Informe en HTML");
-                        stage.getIcons().add(new Image("pokedex.png"));
+                        stage.getIcons().add(new Image("/img/pokedex.png"));
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.setResizable(true);
                         stage.setScene(scene);

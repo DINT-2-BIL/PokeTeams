@@ -135,7 +135,7 @@
                <children>
                   <ImageView fx:id="imgPokemon" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/add.png" />
+                        <Image url="@/img/add.png" />
                      </image>
                   </ImageView>
                </children>

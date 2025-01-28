@@ -123,7 +123,7 @@
                      <children>
                         <ImageView fx:id="btnBuscarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#buscarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/lupa.png" />
+                              <Image url="@/img/lupa.png" />
                            </image>
                         </ImageView>
                         <TextField fx:id="txtBusquedaPokemon" onKeyTyped="#busquedaDinamicaPokemon" prefHeight="42.0" prefWidth="524.0" promptText="Búsqueda">
@@ -136,12 +136,12 @@
                         </TextField>
                         <ImageView fx:id="btnFiltrarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#filtrarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/Leafeon.png" />
+                              <Image url="@/img/Leafeon.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="btnAddPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#añadirPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/Plusle.png" />
+                              <Image url="@/img/Plusle.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -427,7 +427,7 @@
                      <children>
                         <ImageView fx:id="btnBuscarEquipo" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#buscarEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/lupa.png" />
+                              <Image url="@/img/lupa.png" />
                            </image>
                         </ImageView>
                         <TextField fx:id="txtBusquedaEquipos" onKeyTyped="#busquedaDinamicaEquipos" prefHeight="42.0" prefWidth="524.0" promptText="Búsqueda">
@@ -440,7 +440,7 @@
                         </TextField>
                         <ImageView fx:id="btnAddEquipo" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#añadirEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/Plusle.png" />
+                              <Image url="@/img/Plusle.png" />
                            </image>
                         </ImageView>
                      </children>

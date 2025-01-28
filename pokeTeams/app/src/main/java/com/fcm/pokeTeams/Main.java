@@ -32,7 +32,7 @@ public class Main extends Application {
         Stage escenaPrincipal = primaryStage;
         escenaPrincipal.setScene(scene);
         escenaPrincipal.setTitle("Log In");
-        escenaPrincipal.getIcons().add(new Image("Pokeball.png"));
+        escenaPrincipal.getIcons().add(new Image("/img/Pokeball.png"));
         escenaPrincipal.show();
     }
 

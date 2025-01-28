@@ -280,7 +280,7 @@ public class controllerAñadirMiembro implements Initializable {
             confirmar.setTitle("Confirmar");
             cc.enviaStage((Stage) txtEVsAtk.getScene().getWindow(), conexion, "a");
             cc.enviarEditarMiembro(miembro);
-            confirmar.getIcons().add(new Image("Victini.png"));
+            confirmar.getIcons().add(new Image("/img/Victini.png"));
             confirmar.showAndWait();
         });
         txtMote.setText("");

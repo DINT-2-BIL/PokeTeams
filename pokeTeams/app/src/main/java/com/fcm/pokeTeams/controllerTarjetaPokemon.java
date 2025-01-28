@@ -102,7 +102,7 @@ public class controllerTarjetaPokemon implements Initializable {
             cc.enviarAPokemon(editar, conexion, cCore, admin);
             cc.enviarEditarPokemon(pokemon);
             miStage.setUserData(2);
-            miStage.getIcons().add(new Image("Victini.png"));
+            miStage.getIcons().add(new Image("/img/Victini.png"));
             miStage.showAndWait();
         });
         this.editar.show();
@@ -122,7 +122,7 @@ public class controllerTarjetaPokemon implements Initializable {
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + pokemon.getEspecie());
-        miStage.getIcons().add(new Image("Trubbish.png"));
+        miStage.getIcons().add(new Image("/img/Trubbish.png"));
         miStage.setOnCloseRequest(evento -> {
             miStage.setUserData(false);
         });
@@ -145,8 +145,6 @@ public class controllerTarjetaPokemon implements Initializable {
                 System.out.println("Error al conectar con la BD: " + e.getMessage());
             }
             System.out.println(pokemon.getEspecie() + " eliminado.");
-        } else {
-            System.out.println("Raro");
         }
     }
 

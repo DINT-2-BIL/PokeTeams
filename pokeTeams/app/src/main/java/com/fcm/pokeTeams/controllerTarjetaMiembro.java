@@ -85,7 +85,7 @@ public class controllerTarjetaMiembro implements Initializable{
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + miembro.getMote());
-        miStage.getIcons().add(new Image("Trubbish.png"));
+        miStage.getIcons().add(new Image("/img/Trubbish.png"));
         miStage.setOnCloseRequest(evento -> {
             miStage.setUserData(false);
         });

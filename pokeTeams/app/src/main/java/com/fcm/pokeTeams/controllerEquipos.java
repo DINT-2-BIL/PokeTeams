@@ -78,7 +78,7 @@ public class controllerEquipos implements Initializable {
             if (event.getButton() == MouseButton.PRIMARY) {
                 this.ce.enviaMiembros(equipo, conexion);
                 this.emergente.setTitle(txtNombreEquipo.getText());
-                this.emergente.getIcons().add(new Image("Maushold.png"));
+                this.emergente.getIcons().add(new Image("/img/Maushold.png"));
                 this.emergente.setOnCloseRequest(evento -> {
                     cCore.asignarEquipoAbierto(false);
                 });
@@ -105,7 +105,7 @@ public class controllerEquipos implements Initializable {
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Editar " + equipo.getNombre());
-        miStage.getIcons().add(new Image("Smeargle.png"));
+        miStage.getIcons().add(new Image("/img/Smeargle.png"));
         miStage.showAndWait();
         List<String> datos = (List<String>) miStage.getUserData();
         if (!datos.isEmpty()) {
@@ -162,7 +162,7 @@ public class controllerEquipos implements Initializable {
         Scene inicio = new Scene(root);
         miStage.setScene(inicio);
         miStage.setTitle("Eliminar " + equipo.getNombre());
-        miStage.getIcons().add(new Image("Trubbish.png"));
+        miStage.getIcons().add(new Image("/img/Trubbish.png"));
         miStage.setOnCloseRequest(evento -> {
             miStage.setUserData(false);
         });

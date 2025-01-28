@@ -92,7 +92,7 @@ public class controllerSignIn implements Initializable {
             todoOK = (todoOK && validationSupport.getValidationResult().getErrors().isEmpty());
         }
         if (todoOK) {
-            if (!imgRegistro.getImage().getUrl().equals("file:/D:/Repositorios/DINT/PokeTeams/pokeTeams/app/build/resources/main/add.png")) {
+            if (!imgRegistro.getImage().getUrl().equals("/img/add.png")) {
                 try {
                     Parent root = null;
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/core_v1.fxml"));

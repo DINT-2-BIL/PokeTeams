@@ -134,7 +134,6 @@ public class controllerConfirmar implements Initializable {
         miembro.setObjeto(((TextField)escena.lookup("#txtObjeto")).getText());
         miembro.setGenero(Generos.fromPokemon(((ComboBox<String>)escena.lookup("#cbGenero")).getValue()));
         miembro.setNaturaleza(((ComboBox<String>)escena.lookup("#cbNaturaleza")).getValue());
-        System.out.println(miembro.getNaturaleza());
         miembro.setMovimientos(leerMovimientos());
         miembro.setIvs(leerIVs());
         miembro.setEvs(leerEVs());
@@ -283,7 +282,6 @@ public class controllerConfirmar implements Initializable {
     }
     
     private void editarMiembro() {
-        System.out.println("editar");
         PreparedStatement preparado = null;
         try {
             

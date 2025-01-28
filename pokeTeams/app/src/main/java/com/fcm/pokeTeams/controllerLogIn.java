@@ -11,6 +11,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -80,16 +81,14 @@ public class controllerLogIn implements Initializable {
                 result.next();
                 result.getString("Nombre");
 
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/core_v1.fxml"));
+                //Parent root = FXMLLoader.load(getClass().getResource("/fxml/core_v1.fxml"));
                 this.cc.enviaLogIn(this.conexion, txtNombre.getText());
 
                 Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
                 miStage.setTitle("PokeTeams");
                 miStage.setScene(inicio);
                 miStage.centerOnScreen();
-            } catch (IOException ex) {
-                Logger.getLogger(controllerLogIn.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            }  catch (SQLException ex) {
                 Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "CREDENCIALES INCORRECTAS", 
                             "Ha introducido el nombre o la contraseña incorrecta!", "Intentelo de nuevo.");
                     credencialesIncorrectas.mostrarAlerta();
@@ -127,14 +126,12 @@ public class controllerLogIn implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/core_v1.fxml"));
         try {
             root = loader.load();
+            cc = loader.getController();
+            cc.setControladorEnlace(this);
+            inicio = new Scene(root);
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
-
-        cc = loader.getController();
-        cc.setControladorEnlace(this);
-
-        inicio = new Scene(root);
         
         ValidationSupport vSNombre = new ValidationSupport();
         vSNombre.registerValidator(txtNombre, Validator.createPredicateValidator(

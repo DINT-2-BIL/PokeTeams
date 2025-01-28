@@ -48,7 +48,7 @@ public class controllerTarjetaAñadirMiembro implements Initializable {
             root = loader.load();
             miStage.setTitle("Añadir miembro");
             cam.asignarCerrado(conexion, equipo, 3);
-            miStage.getIcons().add(new Image("Plusle.png"));
+            miStage.getIcons().add(new Image("/img/Plusle.png"));
             miStage.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);

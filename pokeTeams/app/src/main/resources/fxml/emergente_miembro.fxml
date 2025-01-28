@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -140,11 +139,7 @@
             </VBox>
             <StackPane maxHeight="400.0" maxWidth="400.0" minHeight="300.0" minWidth="400.0">
                <children>
-                  <ImageView fx:id="imgPokemon" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/add.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="imgPokemon" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
          </children>

@@ -78,7 +78,7 @@
                      <children>
                         <ImageView fx:id="imgRegistro" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#subirImagen" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/add.png" />
+                              <Image url="@/img/add.png" />
                            </image>
                         </ImageView>
                      </children>
