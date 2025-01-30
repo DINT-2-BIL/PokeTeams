@@ -9,7 +9,9 @@ package com.fcm.pokeTeams.modelos;
  * @author DFran49
  */
 public class Miembro {
+    private Equipo equipo;
     private String mote;
+    private String oldMote;
     private String especie;
     private int nPokedex;
     private char genero;
@@ -155,5 +157,21 @@ public class Miembro {
 
     public void setStats(String stats) {
         this.stats = stats;
+    }
+
+    public Equipo getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
+    }
+
+    public String getOldMote() {
+        return oldMote;
+    }
+
+    public void setOldMote(String oldMote) {
+        this.oldMote = oldMote;
     }
 }

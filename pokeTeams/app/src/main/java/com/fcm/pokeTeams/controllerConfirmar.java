@@ -8,11 +8,12 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.DAO.PokemonDAO;
 import com.fcm.pokeTeams.modelos.EV;
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
-import com.fcm.pokeTeams.modelos.Generos;
+import com.fcm.pokeTeams.enums.Generos;
 import com.fcm.pokeTeams.modelos.Habilidad;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
@@ -21,6 +22,7 @@ import com.fcm.pokeTeams.modelos.Movimiento;
 import com.fcm.pokeTeams.modelos.MovimientoEnvoltorio;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.modelos.Stat;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.net.URL;
@@ -34,6 +36,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,16 +52,19 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class controllerConfirmar implements Initializable {
-    private controllerCore cCore;
-    Stage entrada;
+    private controllerCore cCore = CargadorFXML.getInstance().getControllerCore();
+    Stage ventana;
+    private Stage estaVentana;
+    private int opcion;
     Scene escena;
-    Utilidades utils = new Utilidades();
+    Utilidades utils = Utilidades.getInstance();
     Conexion conexion = null;
-    private boolean admin;
     private Pokemon pokemon = new Pokemon();
     private Miembro miembro = new Miembro();
     private Miembro oldMiembro;
     private Equipo equipo;
+    private ArrayList<Object> datos;
+    
     
     @FXML
     private Button btnCancelar;
@@ -74,16 +80,12 @@ public class controllerConfirmar implements Initializable {
         Stage a = (Stage) btnCancelar.getScene().getWindow();
         a.setUserData(false);
         a.close();
-        entrada.close();
+        ventana.close();
     }
 
     @FXML
     void guardar(ActionEvent event) {
-        Stage a = (Stage) btnCancelar.getScene().getWindow();
-        
-        escena = entrada.getScene();
-        
-        switch ((int) a.getUserData()) {
+        switch (opcion) {
             case 1 -> {
                 cargarDatosPokemon();
                 insertarPokemon();
@@ -101,12 +103,19 @@ public class controllerConfirmar implements Initializable {
                 editarMiembro();
             }
         }
-        a.close();
-        entrada.close();
+        estaVentana.close();
+        ventana.close();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Platform.runLater(() -> {
+            estaVentana = (Stage) btnCancelar.getScene().getWindow();
+            datos = (ArrayList<Object>) estaVentana.getUserData();
+            ventana = (Stage) datos.get(1);
+            escena = ventana.getScene();
+            opcion = (int) datos.get(0);
+        });
     }
     
     private void cargarDatosPokemon() {
@@ -152,87 +161,26 @@ public class controllerConfirmar implements Initializable {
     }
     
     private void insertarPokemon() {
-        
-        PreparedStatement preparado = null;
-        try {
-            String query = "INSERT INTO pokemon (Especie, Denominacion, Descripcion, Sprite, Tipo_1, Tipo_2, Tamaño, Peso, Habilidades, Estadisticas) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            Connection c = conexion.getConexion();
-            preparado = c.prepareStatement(query);
-
-            preparado.setString(1, pokemon.getEspecie());
-            preparado.setString(2, pokemon.getDenominacion());
-            preparado.setString(3, pokemon.getDescripcion());
-            preparado.setString(4, pokemon.getSprite());
-            preparado.setString(5, pokemon.getTipo1());
-            preparado.setString(6, pokemon.getTipo2());
-            preparado.setDouble(7, pokemon.getTamaño());
-            preparado.setDouble(8, pokemon.getPeso());
-            preparado.setString(9, pokemon.getHabilidades());
-            preparado.setString(10, pokemon.getEstadisticas());
-
-            if (preparado.executeUpdate() > 0) {
-                System.out.println("Inserción exitosa.");
-            } else {
-                System.out.println("No se insertó el Equipo.");
-            }
-            cCore.cargarGridPokemon(admin);
-        } catch (SQLException e) {
-            System.out.println("Error al insertar: " + e.getMessage());
-        } finally {
-            try {
-                if (preparado != null) preparado.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            cCore.cargarGridPokemon(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(controllerConfirmar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        PokemonDAO.getInstance().insert(pokemon);
+        cCore.cargarGridPokemon();
     }
     
     private void editarPokemon() {
-        PreparedStatement preparado = null;
-        try {
-            String query = "UPDATE pokemon SET Especie = ?, Denominacion = ?, Descripcion = ?, Sprite = ?, Tipo_1 = ?, Tipo_2 = ?, "
-                    + "Tamaño = ?, Peso = ?, Habilidades = ?, Estadisticas = ? WHERE N_Pokedex = ?;";
-            Connection c = conexion.getConexion();
-            preparado = c.prepareStatement(query);
-
-            preparado.setString(1, pokemon.getEspecie());
-            preparado.setString(2, pokemon.getDenominacion());
-            preparado.setString(3, pokemon.getDescripcion());
-            preparado.setString(4, pokemon.getSprite());
-            preparado.setString(5, pokemon.getTipo1());
-            preparado.setString(6, pokemon.getTipo2());
-            preparado.setDouble(7, pokemon.getTamaño());
-            preparado.setDouble(8, pokemon.getPeso());
-            preparado.setString(9, pokemon.getHabilidades());
-            preparado.setString(10, pokemon.getEstadisticas());
-            preparado.setInt(11, pokemon.getnPokedex());
-
-            if (preparado.executeUpdate() > 0) {
-                System.out.println("Inserción exitosa.");
-            } else {
-                System.out.println("No se insertó el Equipo.");
-            }
-            cCore.cargarGridPokemon(admin);
-        } catch (SQLException e) {
-            System.out.println("Error al insertar: " + e.getMessage());
-        } finally {
-            try {
-                if (preparado != null) preparado.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            cCore.cargarGridPokemon(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(controllerConfirmar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        pokemon.setnPokedex((int) datos.get(2));
+        PokemonDAO.getInstance().update(pokemon);
+        System.out.println("aaa");
+        System.out.println(pokemon.getnPokedex());
+        System.out.println(pokemon.getDenominacion());
+        System.out.println(pokemon.getDescripcion());
+        System.out.println(pokemon.getEspecie());
+        System.out.println(pokemon.getEstadisticas());
+        System.out.println(pokemon.getHabilidades());
+        System.out.println(pokemon.getPeso());
+        System.out.println(pokemon.getSprite());
+        System.out.println(pokemon.getTamaño());
+        System.out.println(pokemon.getTipo1());
+        System.out.println(pokemon.getTipo2());
+        cCore.cargarGridPokemon();
     }
     
     private void insertarMiembro() {
@@ -394,11 +342,9 @@ public class controllerConfirmar implements Initializable {
     }
 
     public void enviarAPokemon(Stage s, Conexion c, controllerCore controlador, boolean admin) {
-        entrada = s;
         Stage ventana = (Stage) this.btnCancelar.getScene().getWindow();
         ventana.setOnCloseRequest(event -> event.consume());
         conexion = c;
-        this.admin = admin;
         cCore = (controllerCore) controlador;
     }
     
@@ -411,7 +357,6 @@ public class controllerConfirmar implements Initializable {
     }
     
     public void enviaStage(Stage s, Conexion c, Object controlador) {
-        entrada = s;
         Stage ventana = (Stage) this.btnCancelar.getScene().getWindow();
         ventana.setOnCloseRequest(event -> event.consume());
         conexion = c;

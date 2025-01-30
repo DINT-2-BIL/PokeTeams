@@ -8,8 +8,10 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.enums.VistasControladores;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Miembro;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.IOException;
@@ -20,13 +22,16 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -41,39 +46,56 @@ public class controllerTarjetaMiembro implements Initializable{
     private Conexion conexion = null;
     Stage emergenteEditar;
     Stage emergenteVer;
-    Miembro miembro;
-    Utilidades util = new Utilidades();
-    Equipo equipo;
+    Utilidades util = Utilidades.getInstance();
+    private Miembro miembro;
 
     @FXML
     private ImageView imgPokemonMiembro;
+
+    @FXML
+    private ContextMenu menu;
+
+    @FXML
+    private SplitPane tarjeta;
 
     @FXML
     private Label txtNombreMiembro;
     
     @FXML
     void editar(ActionEvent event) {
-        cam.asignarCerrado(conexion, equipo, 4);
+        Stage ventana = new Stage();
+        CargadorFXML.getInstance().cargar(VistasControladores.ADDEDITMIEMBRO, ventana);
+        ventana.setUserData(miembro);
+        ventana.setTitle("Editar ".concat(miembro.getMote()));
+        ventana.getIcons().add(Utilidades.getInstance().getImage(miembro.getSprite()));
+        ventana.showAndWait();
+        /*cam.asignarCerrado(conexion, equipo, 4);
         this.cam.enviaMiembro(miembro);
         this.emergenteEditar.setTitle(miembro.getMote());
         
         emergenteEditar.getIcons().add(util.getImage(miembro.getSprite()));
-        emergenteEditar.show();
+        emergenteEditar.show();*/
     }
 
     @FXML
     void verMiembro(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
-            this.cm.enviaMiembro(miembro);
+             Stage ventana = new Stage();
+            CargadorFXML.getInstance().cargar(VistasControladores.MIEMBRO, ventana);
+            ventana.setUserData(miembro);
+            ventana.setTitle("Datos de ".concat(miembro.getMote()));
+            ventana.getIcons().add(Utilidades.getInstance().getImage(miembro.getSprite()));
+            ventana.showAndWait();
+            /*this.cm.enviaMiembro(miembro);
             this.emergenteVer.setTitle(miembro.getMote());
             emergenteVer.getIcons().add(util.getImage(miembro.getSprite()));
-            emergenteVer.show();
+            emergenteVer.show();*/
         }
     }
     
     @FXML
     void eliminar(ActionEvent event) {
-        Parent root = null;
+        /*Parent root = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_eliminar.fxml"));
         try {
             root = loader.load();
@@ -107,12 +129,12 @@ public class controllerTarjetaMiembro implements Initializable{
             }
             
             System.out.println(miembro.getEspecie() + " eliminado.");
-        }
+        }*/
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Parent root = null;
+        /*Parent root = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/emergente_añadir_pokemon_equipo_v1.fxml"));
         try {
             root = loader.load();
@@ -142,15 +164,20 @@ public class controllerTarjetaMiembro implements Initializable{
         emergenteVer = new Stage();
         emergenteVer.setResizable(false);
         emergenteVer.setScene(sceneC);
-        emergenteVer.setTitle("Ver miembro");
+        emergenteVer.setTitle("Ver miembro");*/
+        
+        Platform.runLater(() -> {
+            miembro = (Miembro) tarjeta.getUserData();
+            txtNombreMiembro.setText(miembro.getMote());
+            util.recuperarImagenBBDD(miembro.getSprite(), imgPokemonMiembro);
+        });
     }
     
     public void asignarMiembro(Miembro m, Conexion c, Equipo e) {
-        txtNombreMiembro.setText(m.getMote());
-        util.recuperarImagenBBDD(m.getSprite(), imgPokemonMiembro);
+        
         miembro = m;
         conexion = c;
-        equipo = e;
+        //equipo = e;
     }
     
     public void refrescar() {

@@ -34,6 +34,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import org.controlsfx.validation.ValidationSupport;
@@ -43,8 +44,12 @@ import org.controlsfx.validation.ValidationSupport;
  * @author DFran49
  */
 public class Utilidades {
+    private static final Utilidades instance = new Utilidades();
 
-    public Utilidades() {
+    private Utilidades() { }
+
+    public static Utilidades getInstance() {
+        return instance;
     }
     
     public Image getImage(String b64) {
@@ -138,5 +143,9 @@ public class Utilidades {
         return listEVs;
     }
     
+    public static String definirIdPokemon(int id) {
+        String temp = String.valueOf(id);
+        return ("0".repeat(3-temp.length())).concat(temp);
+    }
     //public ValidationSupport crearValidacion() {}
 }

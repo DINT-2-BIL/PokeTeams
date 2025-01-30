@@ -4,7 +4,11 @@
  */
 package com.fcm.pokeTeams;
 
+import com.fcm.pokeTeams.DAO.EntrenadorDAO;
+import com.fcm.pokeTeams.enums.VistasControladores;
+import com.fcm.pokeTeams.modelos.Entrenador;
 import com.fcm.pokeTeams.util.Alertas;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import java.io.IOException;
 import java.net.URL;
@@ -48,9 +52,6 @@ import org.controlsfx.validation.Validator;
  * @author DFran49
  */
 public class controllerLogIn implements Initializable {
-    private controllerCore cc;
-    Scene inicio;
-    Conexion conexion;
     List<ValidationSupport> validadores;
     
     @FXML
@@ -72,67 +73,26 @@ public class controllerLogIn implements Initializable {
             todoOK = (todoOK && validationSupport.getValidationResult().getErrors().isEmpty());
         }
 
-        if (todoOK) {
-            try {
-                String query = "SELECT * FROM entrenador WHERE Nombre = '" + txtNombre.getText() + "' && Contraseña = '" + pwContraseña.getText() + "'";
-
-                Statement statement = conexion.getConexion().createStatement();
-                ResultSet result = statement.executeQuery(query);  
-                result.next();
-                result.getString("Nombre");
-
-                //Parent root = FXMLLoader.load(getClass().getResource("/fxml/core_v1.fxml"));
-                this.cc.enviaLogIn(this.conexion, txtNombre.getText());
-
-                Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
-                miStage.setTitle("PokeTeams");
-                miStage.setScene(inicio);
-                miStage.centerOnScreen();
-            }  catch (SQLException ex) {
-                Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "CREDENCIALES INCORRECTAS", 
-                            "Ha introducido el nombre o la contraseña incorrecta!", "Intentelo de nuevo.");
-                    credencialesIncorrectas.mostrarAlerta();
+        //if (todoOK) {
+            Entrenador entrenador = EntrenadorDAO.getInstance().selectEntrenador(txtNombre.getText(), pwContraseña.getText());
+            if (entrenador.getNombre() != null) {
+                CargadorFXML.getInstance().cargar(VistasControladores.INICIO, (Stage) this.txtNombre.getScene().getWindow());
+                CargadorFXML.getInstance().getControllerCore().entrenador = entrenador;
             }
-        } else {
+        /*} else {
             new Alertas(Alert.AlertType.WARNING, "Algo falló", "Incoherencia con las restricciones", 
                         "Debe rellenar todos los campos y asegurarse de que siguen el formato que puede ver en el iconito de X pequeño").mostrarAlerta();
-        }
+        }*/
     }
 
     @FXML
     void registro() {
-        try {
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/signIn.fxml"));
-            root = loader.load();
-            controllerSignIn csi = loader.getController();
-            csi.asignarConexion(conexion);
-            Scene scene=new Scene(root);
-            Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
-            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-            miStage.setX((screenBounds.getWidth() - miStage.getWidth()) / 2);
-            miStage.setY((screenBounds.getHeight() - miStage.getHeight()) / 2 - miStage.getHeight() / 2);
-            miStage.setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(controllerLogIn.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        CargadorFXML.getInstance().cargar(VistasControladores.SIGNIN, (Stage) this.txtNombre.getScene().getWindow());
         
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        conexion = new Conexion();
-        Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/core_v1.fxml"));
-        try {
-            root = loader.load();
-            cc = loader.getController();
-            cc.setControladorEnlace(this);
-            inicio = new Scene(root);
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-        }
-        
         ValidationSupport vSNombre = new ValidationSupport();
         vSNombre.registerValidator(txtNombre, Validator.createPredicateValidator(
             texto -> {
@@ -141,7 +101,7 @@ public class controllerLogIn implements Initializable {
                 }
                 try {
                     int numero = texto.toString().length();
-                    return numero >= 3 && numero <= 20 && txtNombre.getText().matches("^[A-Za-z0-9. ]+$");
+                    return numero >= 3 && numero <= 20 && txtNombre.getText().matches("^[A-Za-z0-9. ]{3,}$");
                 } catch (NumberFormatException e) {
                     return false;
                 }
@@ -173,9 +133,5 @@ public class controllerLogIn implements Initializable {
                 validationSupport.initInitialDecoration();
             }
         });
-    }
-    
-    public void asignarConexion(Conexion c) {
-        conexion = c;
     }
 }

@@ -61,7 +61,6 @@ public class controllerEliminar implements Initializable {
         vSNombre.registerValidator(txtEliminar, Validator.createPredicateValidator(
             texto -> {
                 try {
-                    int numero = texto.toString().length();
                     return texto.equals("ELIMINAR") ;
                 } catch (NumberFormatException e) {
                     return false;

@@ -14,9 +14,7 @@ import javafx.collections.ObservableList;
  * @author Francisco
  */
 public interface SentenciasInt<T> {
-    void update(T elem, Conexion conex) throws SQLException, IOException;
-    void insert(T elem, Conexion conex) throws SQLException, IOException;
-    <U> void delete(U elem, Conexion conex);
-    ObservableList<T> getTodos(String filter, Conexion conex) throws SQLException, IOException;
-    T findByCodigo(String ref, Conexion conex) throws SQLException, IOException;
+    void update(T elem);
+    void insert(T elem);
+    <U> void delete(U elem);
 }

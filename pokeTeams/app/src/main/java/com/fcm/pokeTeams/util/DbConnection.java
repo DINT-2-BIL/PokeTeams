@@ -47,13 +47,18 @@ public class DbConnection {
         }
     }
     
-    public Connection getConnection() throws SQLException, FileNotFoundException, IOException {
-    // Obtener conexión a la BD 
-    return DriverManager.getConnection(URL, USER, PASSWORD);
+    public Connection getConnection() {
+        try {
+            // Obtener conexión a la BD
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException ex) {
+            Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public static void closeConnection(Connection connection) throws SQLException {
 // Cerrar conexión
-    if (connection != null) connection.close();
+        if (connection != null) connection.close();
     }
 }

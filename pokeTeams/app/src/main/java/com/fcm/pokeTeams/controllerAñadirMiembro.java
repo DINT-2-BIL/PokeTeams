@@ -11,13 +11,13 @@ package com.fcm.pokeTeams;
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
-import com.fcm.pokeTeams.modelos.Generos;
+import com.fcm.pokeTeams.enums.Generos;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Movimiento;
 import com.fcm.pokeTeams.modelos.MovimientoEnvoltorio;
-import com.fcm.pokeTeams.modelos.Naturalezas;
+import com.fcm.pokeTeams.enums.Naturalezas;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
@@ -70,8 +70,8 @@ public class controllerAñadirMiembro implements Initializable {
     private List<Label> listEtiquetasEv = new ArrayList<>();
     private List<ValidationSupport> validadores;
     private ValidationSupport vsSliders = new ValidationSupport();
-    Utilidades util = new Utilidades();
-    private Conexion conexion = null;
+    Utilidades util = Utilidades.getInstance();
+    private Conexion conexion = Conexion.getInstance();
     private Miembro miembro;
     
     @FXML
@@ -208,6 +208,7 @@ public class controllerAñadirMiembro implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        /*try {
         inicializarSliders();
         cbGenero.getItems().addAll(Generos.M.getPokemon(),Generos.F.getPokemon(),Generos.N.getPokemon());
         spNivel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1));
@@ -250,6 +251,9 @@ public class controllerAñadirMiembro implements Initializable {
             
         });
         validarSliders();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }*/
     }
 
     void setControladorEnlace(controllerTarjetaMiembro c) {
@@ -260,7 +264,7 @@ public class controllerAñadirMiembro implements Initializable {
     }
     
     void asignarCerrado(Conexion c, Equipo e, int i) {
-        conexion = c;
+        //conexion = c;
         ((Stage) txtMote.getScene().getWindow()).setOnCloseRequest(evento -> {
             evento.consume();
             Parent raiz = null;

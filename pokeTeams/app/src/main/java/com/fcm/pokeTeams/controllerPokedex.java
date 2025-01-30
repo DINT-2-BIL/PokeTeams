@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,9 +34,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class controllerPokedex implements Initializable {
-    private controllerTarjetaPokemon ctp;
-    Pokemon poke;
-    Utilidades util = new Utilidades();
+    Pokemon pokemon;
+    Utilidades util = Utilidades.getInstance();
 
      @FXML
     private ProgressBar BarSpD;
@@ -117,21 +117,20 @@ public class controllerPokedex implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }
-
-    void enviaPokemon(Pokemon p) {
-        poke = p;
-        txtEspecie.setText(p.getEspecie());
-        txtDenominacion.setText(p.getDenominacion());
-        txtDescripcion.setText(p.getDescripcion());
-        txtTamaño.setText(p.getTamaño() + " metros");
-        txtPeso.setText(p.getPeso() + " kilogramos");
-        txtTipo1.setText(p.getTipo1());
-        txtTipo2.setText(p.getTipo2());
-        util.recuperarImagenBBDD(p.getSprite(), imgPokemon);
-        util.crearTooltip("Imagen " + p.getEspecie(), imgPokemon);
-        leerHabilidades(p);
-        leerStats(p);
+        Platform.runLater(() -> {
+            pokemon = (Pokemon) this.BarSpD.getScene().getWindow().getUserData();
+            txtEspecie.setText(pokemon.getEspecie());
+            txtDenominacion.setText(pokemon.getDenominacion());
+            txtDescripcion.setText(pokemon.getDescripcion());
+            txtTamaño.setText(pokemon.getTamaño() + " metros");
+            txtPeso.setText(pokemon.getPeso() + " kilogramos");
+            txtTipo1.setText(pokemon.getTipo1());
+            txtTipo2.setText(pokemon.getTipo2());
+            util.recuperarImagenBBDD(pokemon.getSprite(), imgPokemon);
+            util.crearTooltip("Imagen " + pokemon.getEspecie(), imgPokemon);
+            leerHabilidades(pokemon);
+            leerStats(pokemon);
+        });
     }
     
     void leerHabilidades(Pokemon p) {
@@ -210,10 +209,6 @@ public class controllerPokedex implements Initializable {
         } catch (JsonSyntaxException e) {
             System.err.println("Error: " + e.getMessage());
         }
-    }
-    
-    void setControladorEnlace(controllerTarjetaPokemon c) {
-        ctp = c;
     }
 }
 

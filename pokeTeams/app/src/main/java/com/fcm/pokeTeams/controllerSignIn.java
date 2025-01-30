@@ -4,8 +4,12 @@
  */
 package com.fcm.pokeTeams;
 
-import com.fcm.pokeTeams.modelos.Generos;
+import com.fcm.pokeTeams.DAO.EntrenadorDAO;
+import com.fcm.pokeTeams.modelos.Entrenador;
+import com.fcm.pokeTeams.enums.Generos;
+import com.fcm.pokeTeams.enums.VistasControladores;
 import com.fcm.pokeTeams.util.Alertas;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.File;
@@ -51,8 +55,9 @@ import org.controlsfx.validation.Validator;
  * @author DFran49
  */
 public class controllerSignIn implements Initializable {
-    Utilidades utils = new Utilidades();
-    private Conexion conexion;
+    private Stage venana;
+    private Entrenador entrenador;
+    private Utilidades utils = Utilidades.getInstance();
     List<ValidationSupport> validadores;
     
     @FXML
@@ -93,22 +98,9 @@ public class controllerSignIn implements Initializable {
         }
         if (todoOK) {
             if (!imgRegistro.getImage().getUrl().equals("/img/add.png")) {
-                try {
-                    Parent root = null;
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/core_v1.fxml"));
-                    root = loader.load();
-                    insertar();
-                    controllerCore cc = loader.getController();
-                    cc.enviaLogIn(conexion, txtNombre.getText());
-                    Scene scene=new Scene(root);
-                    Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
-                    Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-                    miStage.setX((screenBounds.getWidth() - miStage.getWidth()) / 2 - miStage.getWidth() / 4);
-                    miStage.setY((screenBounds.getHeight() - miStage.getHeight()) / 2);
-                    miStage.setScene(scene);
-                } catch (IOException ex) {
-                    Logger.getLogger(controllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                insertar();
+                CargadorFXML.getInstance().cargar(VistasControladores.INICIO, (Stage) this.txtNombre.getScene().getWindow());
+                CargadorFXML.getInstance().getControllerCore().entrenador = entrenador;
             } else {
                 new Alertas(Alert.AlertType.WARNING, "Falta algo", "Imagen no seleccionada", 
                         "Elija una imagen (pulsando en el icono de +)").mostrarAlerta();
@@ -121,18 +113,7 @@ public class controllerSignIn implements Initializable {
 
     @FXML
     void inicio() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/logIn.fxml"));
-            Scene scene=new Scene(root);
-            Stage miStage = (Stage) this.txtNombre.getScene().getWindow();
-            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-            miStage.setX((screenBounds.getWidth() - miStage.getWidth()) / 2);
-            miStage.setY((screenBounds.getHeight() - miStage.getHeight() /1.3));
-            miStage.setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(controllerLogIn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        CargadorFXML.getInstance().cargar(VistasControladores.LOGIN, (Stage) this.txtNombre.getScene().getWindow());
     }
     
     @FXML
@@ -164,12 +145,12 @@ public class controllerSignIn implements Initializable {
                 }
                 try {
                     int numero = texto.toString().length();
-                    return numero >= 1 && numero <= 20 && txtNombre.getText().matches("^[A-Za-z0-9. ]+$");
+                    return numero >= 1 && numero <= 20 && txtNombre.getText().matches("^[A-Za-z0-9. ]{3,}$");
                 } catch (NumberFormatException e) {
                     return false;
                 }
             },
-            "Debe tener el nombre introducido entre 1 y 20 y solo puede contener letras, números o puntos"
+            "El nombre puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
         ));
        
         
@@ -216,41 +197,18 @@ public class controllerSignIn implements Initializable {
     }
     
     private void insertar() {
-        PreparedStatement preparado = null;
-        try {
-            String query = "INSERT INTO entrenador (Nombre, Genero, Sprite, Contraseña) "
-                    + "VALUES (?, ?, ?, ?)";
-            Connection c = conexion.getConexion();
-            preparado = c.prepareStatement(query);
-
-            preparado.setString(1, txtNombre.getText());
-            preparado.setString(2, genero.getSelectedToggle().getUserData().toString());
-            preparado.setString(3, utils.codificarImagen(imgRegistro.getImage()));
-            preparado.setString(4, pwContraseña.getText());
-
-            if (preparado.executeUpdate() > 0) {
-                System.out.println("Inserción exitosa.");
-            } else {
-                System.out.println("No se insertó el Equipo.");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al insertar: " + e.getMessage());
-        } finally {
-            try {
-                if (preparado != null) preparado.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        entrenador = new Entrenador();
+        entrenador.setNombre(txtNombre.getText());
+        entrenador.setGenero((char) genero.getSelectedToggle().getUserData());
+        entrenador.setSprite(utils.codificarImagen(imgRegistro.getImage()));
+        entrenador.setContraseña(pwContraseña.getText());
+        entrenador.setEsAdmin(false);
+        EntrenadorDAO.getInstance().insert(entrenador);
     }
     
     private void inicializarRButtons() {
         rbFemenino.setUserData(Generos.F.getSigla());
         rbMasculino.setUserData(Generos.M.getSigla());
         rbOtro.setUserData(Generos.O.getSigla());
-    }
-    
-    public void asignarConexion(Conexion c) {
-        conexion = c;
     }
 }

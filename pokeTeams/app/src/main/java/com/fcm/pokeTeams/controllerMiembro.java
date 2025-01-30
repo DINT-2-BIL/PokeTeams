@@ -10,10 +10,10 @@ package com.fcm.pokeTeams;
  */
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
-import com.fcm.pokeTeams.modelos.Generos;
+import com.fcm.pokeTeams.enums.Generos;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Miembro;
-import com.fcm.pokeTeams.modelos.Naturalezas;
+import com.fcm.pokeTeams.enums.Naturalezas;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Utilidades;
 import com.google.gson.Gson;
@@ -38,7 +38,7 @@ public class controllerMiembro implements Initializable{
     private IVsEnvoltorio ivs;
     private EstadisticasEnvoltorio estadisticas;
     private ArrayList<String> etiquetasStats = new ArrayList<>(List.of("Hp","Atk","Def","SpA","SpD","Spe"));
-    Utilidades util = new Utilidades();
+    Utilidades util = Utilidades.getInstance();
 
     @FXML
     private ProgressBar BarSpD;

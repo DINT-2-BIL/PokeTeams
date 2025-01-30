@@ -9,8 +9,10 @@ package com.fcm.pokeTeams;
  * @author DFran49
  */
 import com.fcm.pokeTeams.DAO.PokemonDAO;
+import com.fcm.pokeTeams.enums.VistasControladores;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +44,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class controllerTarjetaPokemon implements Initializable {
-    private controllerPokedex cp;
     private controllerAñadirPokemon cap;
     private controllerConfirmar cc;
     private controllerCore cCore;
@@ -50,13 +52,16 @@ public class controllerTarjetaPokemon implements Initializable {
     Stage emergente;
     Stage editar;
     Pokemon pokemon;
-    Utilidades util = new Utilidades();
+    Utilidades util = Utilidades.getInstance();
     
     @FXML
     private ImageView imgPokemon;
 
     @FXML
     private ContextMenu menu;
+
+    @FXML
+    private SplitPane tarjeta;
 
     @FXML
     private Label txtEspecie;
@@ -72,132 +77,52 @@ public class controllerTarjetaPokemon implements Initializable {
     @FXML
     void abrirPokemon(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
-            this.cp.enviaPokemon(pokemon);
-            emergente.setTitle(pokemon.getEspecie());
-            emergente.getIcons().add(util.getImage(pokemon.getSprite()));
-            this.emergente.show();
+            Stage ventana = new Stage();
+            CargadorFXML.getInstance().cargar(VistasControladores.POKEMON, ventana);
+            ventana.getIcons().add(Utilidades.getInstance().getImage(pokemon.getSprite()));
+            ventana.setTitle("Ver datos de ".concat(pokemon.getEspecie()));
+            ventana.setUserData(pokemon);
+            ventana.show();
         }
     }
     
     @FXML
     void editar(ActionEvent event) {
-        this.cap.enviaPokemon(pokemon);
-        editar.setTitle("Editar " + pokemon.getEspecie());
-        editar.getIcons().add(util.getImage(pokemon.getSprite()));
-        editar.setOnCloseRequest(evento -> {
-            
-            evento.consume();
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_confirmar_cambios.fxml"));
-            try {
-                root = loader.load();
-            } catch (IOException ex) {
-                Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            cc = loader.getController();
-
-            Stage miStage = new Stage();
-            Scene inicio = new Scene(root);
-            miStage.setScene(inicio);
-            miStage.setTitle("Confirmar");
-            cc.enviarAPokemon(editar, conexion, cCore, admin);
-            cc.enviarEditarPokemon(pokemon);
-            miStage.setUserData(2);
-            miStage.getIcons().add(new Image("/img/Victini.png"));
-            miStage.showAndWait();
-        });
-        this.editar.show();
+        Stage ventana = new Stage();
+        CargadorFXML.getInstance().cargar(VistasControladores.ADDEDITPOKEMON, ventana);
+        ventana.getIcons().add(Utilidades.getInstance().getImage(pokemon.getSprite()));
+        ventana.setTitle("Editar ".concat(pokemon.getEspecie()));
+        ventana.setUserData(pokemon);
+        ventana.show();
     }
 
     @FXML
     void eliminar(ActionEvent event) {
-        Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_eliminar.fxml"));
-        try {
-            root = loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        Stage miStage = new Stage();
-        Scene inicio = new Scene(root);
-        miStage.setScene(inicio);
-        miStage.setTitle("Eliminar " + pokemon.getEspecie());
-        miStage.getIcons().add(new Image("/img/Trubbish.png"));
-        miStage.setOnCloseRequest(evento -> {
-            miStage.setUserData(false);
-        });
-        miStage.showAndWait();
-        if ((boolean) miStage.getUserData()) {
-            /*
-            try {
-                
-                String query = "DELETE FROM pokemon WHERE N_Pokedex = ?";
-                Connection c = conexion.getConexion();
-                PreparedStatement preparado = c.prepareStatement(query);
-                preparado.setInt(1, Integer.parseInt(pokemon.getnPokedex()));
-                if (preparado.executeUpdate() > 0) {
-                    System.out.println("Borrado");
-                } else {
-                    System.out.println("No borrado");
-                }
-                cCore.cargarGridPokemon(admin);
-                cCore.cargarGridEquipo();
-            } catch (SQLException e) {
-                System.out.println("Error al conectar con la BD: " + e.getMessage());
-            }
-            */
-            PokemonDAO.getInstance().delete(pokemon.getnPokedex(), conexion);
+        Stage ventanaConfirmar = new Stage();
+        CargadorFXML.getInstance().cargar(ventanaConfirmar, pokemon.getEspecie());
+        ventanaConfirmar.showAndWait();
+        if ((boolean) ventanaConfirmar.getUserData()) {
+            PokemonDAO.getInstance().delete(pokemon.getnPokedex());
             System.out.println(pokemon.getEspecie() + " eliminado.");
+            cCore.cargarGridPokemon();
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/emergente_pokemon_v1.fxml"));
-        try {
-            root = loader.load();
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-        }
-
-        cp = loader.getController();
-        cp.setControladorEnlace(this);
-
-        Scene sceneB = new Scene(root);
-        emergente = new Stage();
-        emergente.setResizable(false);
-        emergente.setScene(sceneB);
+        cCore = CargadorFXML.getInstance().getControllerCore();
         
-        loader = new FXMLLoader(getClass().getResource("/fxml/emergente_añadir_pokemon_v1.fxml"));
-        try {
-            root = loader.load();
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-        }
-
-        cap = loader.getController();
-        cap.pasoControladorCore(cCore);
-
-        sceneB = new Scene(root);
-        editar = new Stage();
-        editar.setResizable(false);
-        editar.setScene(sceneB);
-    }
-    
-    public void asignarControladorCore(controllerCore c) {
-        this.cCore = c;
+        Platform.runLater(() -> {
+            pokemon = (Pokemon) tarjeta.getUserData();
+            asignarPokemon();
+        });
     }
 
-    public void asignarPokemon(Pokemon p, boolean admin, Conexion c) {
-        this.admin = admin;
-        txtEspecie.setText(p.getEspecie());
-        
-        txtId.setText(p.getnPokedex()+"");
-        util.recuperarImagenBBDD(p.getSprite(), imgPokemon);
-        pokemon = p;
-        if (!admin) {
+    public void asignarPokemon() {
+        txtEspecie.setText(pokemon.getEspecie());
+        txtId.setText(Utilidades.definirIdPokemon(pokemon.getnPokedex()));
+        util.recuperarImagenBBDD(pokemon.getSprite(), imgPokemon);
+        if (!cCore.entrenador.isEsAdmin()) {
             menu.getItems().clear();
         }
     }

@@ -8,8 +8,10 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
+import com.fcm.pokeTeams.DAO.EntrenadorDAO;
 import com.fcm.pokeTeams.modelos.Entrenador;
 import com.fcm.pokeTeams.util.Alertas;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import java.net.URL;
 import java.sql.Connection;
@@ -31,10 +33,8 @@ import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 public class controllerPopUpCambioNombre implements Initializable{
-    private Entrenador entrenador;
-    private Conexion conexion;
-    private controllerCore cc;
-    List<ValidationSupport> validadores;
+    private controllerCore cCore = CargadorFXML.getInstance().getControllerCore();
+    private List<ValidationSupport> validadores;
 
     @FXML
     private TextField txtNuevoNombre;
@@ -47,30 +47,11 @@ public class controllerPopUpCambioNombre implements Initializable{
         }
 
         if (todoOK) {
-            PreparedStatement preparado = null;
-            try {
-                String query = "UPDATE entrenador SET Nombre = ? WHERE ID_Entrenador = ?;";
-                Connection c = conexion.getConexion();
-                preparado = c.prepareStatement(query);
-
-                preparado.setString(1, txtNuevoNombre.getText());
-                preparado.setInt(2, entrenador.getIdEntrenador());
-
-                if (preparado.executeUpdate() > 0) {
-                    System.out.println("Inserción exitosa.");
-                } else {
-                    System.out.println("No se insertó el Equipo.");
-                }
-                cc.refrescarUser();
-            } catch (SQLException e) {
-                System.out.println("Error al editar: " + e.getMessage());
-            } finally {
-                try {
-                    if (preparado != null) preparado.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            Entrenador entrenador = (Entrenador) this.txtNuevoNombre.getScene().getWindow().getUserData();
+            entrenador.setNombre(txtNuevoNombre.getText());
+            EntrenadorDAO.getInstance().update(entrenador);
+            cCore.entrenador = entrenador;
+            cCore.refrescarUser();
             cerrar();
         }
     }
@@ -84,12 +65,7 @@ public class controllerPopUpCambioNombre implements Initializable{
         Stage ventana = (Stage) txtNuevoNombre.getScene().getWindow();
         ventana.close();
     }
-    
-    public void pasoVariables(Conexion c, Entrenador e, controllerCore cCore) {
-        conexion = c;
-        entrenador = e;
-        cc = cCore;
-    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -101,12 +77,12 @@ public class controllerPopUpCambioNombre implements Initializable{
                 }
                 try {
                     int numero = texto.toString().length();
-                    return numero >= 1 && numero <= 20 && txtNuevoNombre.getText().matches("^[A-Za-z0-9. ]+$");
+                    return numero >= 1 && numero <= 20 && txtNuevoNombre.getText().matches("^[A-Za-z0-9. ]{3,}$");
                 } catch (NumberFormatException e) {
                     return false;
                 }
             },
-            "Debe tener el nombre introducido entre 1 y 20 y solo puede contener letras, números o puntos"
+            "El nombre puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
         ));
         
         validadores = new ArrayList<>();

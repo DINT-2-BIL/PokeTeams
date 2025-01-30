@@ -4,12 +4,17 @@
  */
 package com.fcm.pokeTeams;
 
+import com.fcm.pokeTeams.DAO.EntrenadorDAO;
+import com.fcm.pokeTeams.DAO.EquipoDAO;
+import com.fcm.pokeTeams.DAO.PokemonDAO;
 import com.fcm.pokeTeams.modelos.Entrenador;
 import com.fcm.pokeTeams.modelos.Equipo;
-import com.fcm.pokeTeams.modelos.Generos;
+import com.fcm.pokeTeams.enums.Generos;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Pokemon;
-import com.fcm.pokeTeams.modelos.Tipos;
+import com.fcm.pokeTeams.enums.Tipos;
+import com.fcm.pokeTeams.enums.VistasControladores;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.File;
@@ -28,6 +33,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -86,18 +92,19 @@ import net.sf.jasperreports.engine.util.JRLoader;
  * @author DFran49
  */
 public class controllerCore implements Initializable {
-    private controllerLogIn cLi;
+    private Stage ventana;
     private ContextMenu contextMenu;
-    Conexion conexion = null;
     int col = 0;
     int row = 0;
-    private Entrenador entrenador;
-    Utilidades utils = new Utilidades();
-    ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
+    private Conexion conexion = Conexion.getInstance();
+    protected Entrenador entrenador = null;
+    private Utilidades utils = Utilidades.getInstance();
+    private ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
+    private ObservableList<Equipo> listaEquipos = FXCollections.observableArrayList();
     private controllerConfirmar cc;
     Map parametros = new HashMap();
-    private boolean equipoAbierto = false;
-
+    protected String equipoAbierto = "";
+    
     @FXML
     private ImageView btnAddEquipo;
 
@@ -214,92 +221,16 @@ public class controllerCore implements Initializable {
 
     @FXML
     void añadirEquipo(MouseEvent event) {
-        try {
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_añadir_equipo_v1.fxml"));
-            root = loader.load();
-
-            Stage miStage = new Stage();
-            Scene inicio = new Scene(root);
-            miStage.setScene(inicio);
-            miStage.setTitle("Añadir equipo");
-            miStage.getIcons().add(new Image("/img/Plusle.png"));
-            miStage.showAndWait();
-            List<String> datos = (List<String>) miStage.getUserData();
-            if (!datos.isEmpty()) {
-                PreparedStatement preparado = null;
-                 try {
-                    String query = "INSERT INTO equipo (ID_Equipo, ID_Entrenador, Nombre_Equipo, Formato) VALUES (?, ?, ?, ?)";
-                    Connection c = conexion.getConexion();
-                    preparado = c.prepareStatement(query);
-
-                    String select = "SELECT MAX(ID_Equipo) AS ultimo_equipo FROM equipo";
-                    Statement statement = conexion.getConexion().createStatement();
-                    ResultSet result = statement.executeQuery(select);
-                    result.next();
-                    
-                    preparado.setInt(1, result.getInt("ultimo_equipo")+1);
-                    preparado.setInt(2, entrenador.getIdEntrenador());
-                    preparado.setString(3, datos.get(0));
-                    preparado.setString(4, datos.get(1));
-
-                    if (preparado.executeUpdate() > 0) {
-                        System.out.println("Inserción exitosa.");
-                    } else {
-                        System.out.println("No se insertó el Equipo.");
-                    }
-                    cargarGridEquipo();
-                } catch (SQLException e) {
-                    System.out.println("Error al insertar: " + e.getMessage());
-                } finally {
-                    try {
-                        if (preparado != null) preparado.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Stage añadirEquipo = new Stage();
+        CargadorFXML.getInstance().cargar(VistasControladores.ADDEQUIPO, añadirEquipo);
+        añadirEquipo.show();
     }
 
     @FXML
     void añadirPokemon(MouseEvent event) {
-        try {
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/emergente_añadir_pokemon_v1.fxml"));
-            root = loader.load();
-
-            Stage miStage = new Stage();
-            Scene inicio = new Scene(root);
-            miStage.setScene(inicio);
-            miStage.setTitle("Añadir pokemon");
-            miStage.setOnCloseRequest(evento -> {
-                evento.consume();
-                Parent raiz = null;
-                FXMLLoader cargador = new FXMLLoader(getClass().getResource("/fxml/popUp_confirmar_cambios.fxml"));
-                try {
-                    raiz = cargador.load();
-                } catch (IOException ex) {
-                    Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                cc = cargador.getController();
-
-                Stage confirmar = new Stage();
-                Scene scene = new Scene(raiz);
-                confirmar.setScene(scene);
-                confirmar.setTitle("Confirmar");
-                cc.enviarAPokemon(miStage, conexion, this, entrenador.isEsAdmin());
-                confirmar.setUserData(1);
-                confirmar.getIcons().add(new Image("/img/Victini.png"));
-                confirmar.showAndWait();
-            });
-            miStage.getIcons().add(new Image("/img/Plusle.png"));
-            miStage.showAndWait();
-        } catch (IOException ex) {
-            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Stage añadirPokemon = new Stage();
+        CargadorFXML.getInstance().cargar(VistasControladores.ADDEDITPOKEMON, añadirPokemon);
+        añadirPokemon.show();
     }
 
     @FXML
@@ -326,67 +257,26 @@ public class controllerCore implements Initializable {
 
     @FXML
     void cambiarContraseña(ActionEvent event) {
-        try {
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_cambiar_contraseña.fxml"));
-            root = loader.load();
-            
-            controllerPopUpCambioContraseña ccn = loader.getController();
-            ccn.pasoVariables(conexion, entrenador);
-
-            Stage miStage = new Stage();
-            Scene inicio = new Scene(root);
-            miStage.setScene(inicio);
-            miStage.setTitle("Cambiar contraseña");
-            miStage.getIcons().add(new Image("/img/Klink.png"));
-            miStage.showAndWait();
-        } catch (IOException ex) {
-            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Stage config = new Stage();
+        CargadorFXML.getInstance().cargar(VistasControladores.EDITCONTRASEÑA, config);
+        config.setUserData(entrenador);
+        config.showAndWait();
     }
 
     @FXML
     void cambiarGenero(ActionEvent event) {
-        try {
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_cambiar_genero.fxml"));
-            root = loader.load();
-            
-            controllerPopUpCambioGenero ccn = loader.getController();
-            ccn.pasoVariables(conexion, entrenador, this);
-
-            Stage miStage = new Stage();
-            Scene inicio = new Scene(root);
-            miStage.setScene(inicio);
-            miStage.setTitle("Cambiar genero");
-            miStage.getIcons().add(new Image("/img/Klink.png"));
-            miStage.showAndWait();
-        } catch (IOException ex) {
-            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Stage config = new Stage();
+        CargadorFXML.getInstance().cargar(VistasControladores.EDITGENERO, config);
+        config.setUserData(entrenador);
+        config.showAndWait();
     }
 
     @FXML
     void cambiarNombre(ActionEvent event) {
-        try {
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_cambiar_nombre.fxml"));
-            root = loader.load();
-            
-            controllerPopUpCambioNombre ccn = loader.getController();
-            ccn.pasoVariables(conexion, entrenador, this);
-
-            Stage miStage = new Stage();
-            Scene inicio = new Scene(root);
-            miStage.setScene(inicio);
-            miStage.setTitle("Cambiar nombre");
-            miStage.getIcons().add(new Image("/img/Klink.png"));
-            miStage.setUserData(entrenador.getIdEntrenador());
-            miStage.showAndWait();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Stage config = new Stage();
+        CargadorFXML.getInstance().cargar(VistasControladores.EDITNOMBRE, config);
+        config.setUserData(entrenador);
+        config.showAndWait();
     }
     
     @FXML
@@ -413,38 +303,15 @@ public class controllerCore implements Initializable {
 
     @FXML
     void eliminarCuenta(ActionEvent event) {
-        Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/popUp_eliminar.fxml"));
-        try {
-            root = loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(controllerTarjetaPokemon.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        Stage miStage = new Stage();
-        Scene inicio = new Scene(root);
-        miStage.setScene(inicio);
-        miStage.setTitle("Eliminar cuenta: " + txtNombreEntrenador.getText());
-        miStage.getIcons().add(new Image("/img/Trubbish.png"));
-        miStage.setOnCloseRequest(evento -> {
-            miStage.setUserData(false);
+        Stage eliminar = new Stage();
+        CargadorFXML.getInstance().cargar(VistasControladores.ELIMINAR, eliminar);
+        eliminar.setTitle("Eliminar cuenta: " + txtNombreEntrenador.getText());
+        eliminar.setOnCloseRequest(evento -> {
+            eliminar.setUserData(false);
         });
-        miStage.showAndWait();
-        if ((boolean) miStage.getUserData()) {
-            try {
-                
-                String query = "DELETE FROM entrenador WHERE ID_Entrenador = ?";
-                Connection c = conexion.getConexion();
-                PreparedStatement preparado = c.prepareStatement(query);
-                preparado.setInt(1, entrenador.getIdEntrenador());
-                if (preparado.executeUpdate() > 0) {
-                    System.out.println("Borrado");
-                } else {
-                    System.out.println("No borrado");
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al conectar con la BD: " + e.getMessage());
-            }
+        eliminar.showAndWait();
+        if ((boolean) eliminar.getUserData()) {
+            EntrenadorDAO.getInstance().delete(entrenador.getIdEntrenador());
             cerrar();
         }
     }
@@ -484,29 +351,8 @@ public class controllerCore implements Initializable {
                     if (archivoSeleccionado != null) {
                         String rutaArchivo = archivoSeleccionado.toURI().toString();
                         Image imagen = new Image(rutaArchivo);
-                        PreparedStatement preparado = null;
-                        try {
-                            String query = "UPDATE entrenador SET Sprite = ? WHERE ID_Entrenador = ?;";
-                            Connection c = conexion.getConexion();
-                            preparado = c.prepareStatement(query);
-
-                            preparado.setString(1, utils.codificarImagen(imagen));
-                            preparado.setInt(2, entrenador.getIdEntrenador());
-
-                            if (preparado.executeUpdate() > 0) {
-                                System.out.println("Inserción exitosa.");
-                            } else {
-                                System.out.println("No se insertó.");
-                            }
-                        } catch (SQLException e) {
-                            System.out.println("Error al editar: " + e.getMessage());
-                        } finally {
-                            try {
-                                if (preparado != null) preparado.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                        entrenador.setSprite(utils.codificarImagen(imagen));
+                        EntrenadorDAO.getInstance().update(entrenador);
                         imgEntrenador.setImage(imagen);
                     }
         });
@@ -529,6 +375,11 @@ public class controllerCore implements Initializable {
         utils.crearTooltip("Buscar equipo", btnBuscarEquipo);
         utils.crearTooltip("Buscar pokemon", btnBuscarPokemon);
         utils.crearTooltip("Filtrar pokemon", btnFiltrarPokemon);
+        
+        Platform.runLater(() -> {
+            iniciar();
+            ventana = (Stage) txtBusquedaEquipos.getScene().getWindow();
+        });
     }
     
     private void inicializarSpinners() {
@@ -543,111 +394,46 @@ public class controllerCore implements Initializable {
         spInformeIDEnt.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1));
     }
     
-    private void cargarPokemon(Pokemon pokemon, boolean a) {
-        try {
-            FXMLLoader cargarPokemon = new FXMLLoader(getClass().getResource("/fxml/tarjeta_pokemon_v1.fxml"));
-            SplitPane tarjetaPokemon = cargarPokemon.load();
-            controllerTarjetaPokemon controlador = cargarPokemon.getController();
-
-            controlador.asignarPokemon(pokemon, a, conexion);
-            controlador.asignarControladorCore(this);
-            utils.crearTooltip(pokemon.getEspecie(), tarjetaPokemon);
-            gridPokemon.add(tarjetaPokemon, col, row);
-            /*tarjetaPokemon.boundsInParentProperty().addListener((obs, oldBounds, newBounds) -> {
-                    boolean isVisible = isNodeVisible((ScrollPane)gridPokemon.getParent(), tarjetaPokemon);
-                    System.out.println("Tarjeta en [" + i + ", " + j + "] visible: " + isVisible);
-                });*/
-            if(col == 2) {
-                col = 0;
-                row++;
-            } else {
-                col++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void cargarPokemon(Pokemon pokemon) {
+        /*tarjetaPokemon.boundsInParentProperty().addListener((obs, oldBounds, newBounds) -> {
+                boolean isVisible = isNodeVisible((ScrollPane)gridPokemon.getParent(), tarjetaPokemon);
+                System.out.println("Tarjeta en [" + i + ", " + j + "] visible: " + isVisible);
+            });*/
+        CargadorFXML.getInstance().cargar(gridPokemon, col, row, pokemon);
+        if(col == 2) {
+            col = 0;
+            row++;
+        } else {
+            col++;
         }
     }
     
     private void cargarEquipo(Equipo e) {
-        try {
-            FXMLLoader cargarEquipo = new FXMLLoader(getClass().getResource("/fxml/tarjeta_equipo_v1.fxml"));
-            SplitPane tarjetaEquipo = cargarEquipo.load();
-            controllerEquipos controladorEquipo = cargarEquipo.getController();
-
-            controladorEquipo.asignarEquipo(e, conexion);
-            controladorEquipo.asignarControladorCore(this);
-            utils.crearTooltip(e.getNombre(), tarjetaEquipo);
-            gridEquipos.add(tarjetaEquipo, 0, row);
-            row++;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        CargadorFXML.getInstance().cargar(gridEquipos, 0, row, e);
+        row++;
     }
     
-    void setControladorEnlace(controllerLogIn c) {
-        cLi = c;
-    }
-    
-    void cargarGridPokemon(Boolean admin) throws SQLException {
+    void cargarGridPokemon() {
         this.gridPokemon.getChildren().clear();
-        String query = "SELECT * FROM pokemon";
-        Statement statement = conexion.getConexion().createStatement();
-        ResultSet result = statement.executeQuery(query);
-        while (result.next()) {                    
-            Pokemon temp = new Pokemon();
-            temp.setnPokedex(result.getInt("N_Pokedex"));
-            temp.setEspecie(result.getString("Especie"));
-            temp.setDenominacion(result.getString("Denominacion"));
-            temp.setDescripcion(result.getString("Descripcion"));
-            temp.setSprite(result.getString("Sprite"));
-            temp.setTipo1(result.getString("Tipo_1"));
-            temp.setTipo2(result.getString("Tipo_2"));
-            temp.setTamaño(result.getDouble("Tamaño"));
-            temp.setPeso(result.getDouble("Peso"));
-            temp.setHabilidades(result.getString("Habilidades"));
-            temp.setEstadisticas(result.getString("Estadisticas"));
-            cargarPokemon(temp, admin);
-        }
+        listaPokemon = PokemonDAO.getInstance().getTodos("");
+        listaPokemon.forEach(pokemon -> cargarPokemon(pokemon));
         row = 0;
         col = 0;
     }
     
-    void cargarGridEquipo() throws SQLException {
+    void cargarGridEquipo() {
         this.gridEquipos.getChildren().clear();
-        String query = "SELECT DISTINCT ID_Equipo FROM equipo WHERE ID_Entrenador = " + entrenador.getIdEntrenador();
-
-        Statement statement = conexion.getConexion().createStatement();
-        ResultSet result = statement.executeQuery(query);
-        int idEquipo = 0;
-        while (result.next()) {                
-            idEquipo = result.getInt("ID_Equipo");
-            query = "SELECT * FROM equipo WHERE ID_Equipo = " + idEquipo;
-            statement = conexion.getConexion().createStatement();
-            ResultSet resultado = statement.executeQuery(query);
-            resultado.next();
-            Equipo tempEquipo = new Equipo();
-            tempEquipo.setIdEquipo(resultado.getInt("ID_Equipo"));
-            tempEquipo.setFormato(resultado.getString("Formato"));
-            tempEquipo.setNombre(resultado.getString("Nombre_Equipo"));
-            tempEquipo.setIdEntrenador(entrenador.getIdEntrenador());
-            cargarEquipo(tempEquipo);
-        }
+        listaEquipos = EquipoDAO.getInstance().getTodos("ID_Entrenador = "+entrenador.getIdEntrenador());
+        listaEquipos.forEach(equipo -> cargarEquipo(equipo));
         row = 0;
     }
     
-    void refrescarUser() throws SQLException {
-        String query = "SELECT * FROM entrenador WHERE ID_Entrenador = " + entrenador.getIdEntrenador();
-
-        Statement statement = conexion.getConexion().createStatement();
-        ResultSet result = statement.executeQuery(query);
-        result.next();
-
-
-        entrenador.setNombre(result.getString("Nombre"));
-        entrenador.setGenero(result.getString("Genero").charAt(0));
-        entrenador.setSprite(result.getString("Sprite"));
-        entrenador.setEsAdmin(result.getBoolean("esAdmin"));
-        
+    void refrescarUser() {
+        entrenador = EntrenadorDAO.getInstance().selectEntrenador(entrenador.getIdEntrenador());
+        asignarDatosUser();
+    }
+    
+    void asignarDatosUser() {
         txtNombreEntrenador.setText(entrenador.getNombre());
         utils.crearTooltip("Entrenador " + entrenador.getNombre(), txtNombreEntrenador);
         txtGeneroEntrenador.setText(Generos.fromSigla(entrenador.getGenero()).getEntrenador());
@@ -655,46 +441,14 @@ public class controllerCore implements Initializable {
         utils.recuperarImagenBBDD(entrenador.getSprite(), imgEntrenador);
         utils.crearTooltip("Entrenador: " + entrenador.getNombre(), imgEntrenador);
         btnAddPokemon.setVisible(entrenador.isEsAdmin());
-        
     }
     
-    void enviaLogIn(Conexion c, String user) {
-        conexion = c;
-        entrenador = new Entrenador();
-        try {
-            String query = "SELECT ID_Entrenador FROM entrenador WHERE Nombre = '" + user +"'";
-
-            Statement statement = conexion.getConexion().createStatement();
-            ResultSet result = statement.executeQuery(query);
-            result.next();
-            entrenador.setIdEntrenador(result.getInt("ID_Entrenador"));
-            
-            refrescarUser();
-            cargarGridPokemon(entrenador.isEsAdmin());
-            
-            cargarGridEquipo();
-        } catch (SQLException e) {
-            System.out.println("Error al conectar con la BD: " + e.getMessage());
-        }
+    void iniciar() {
+        asignarDatosUser();
+        cargarGridPokemon();
+        cargarGridEquipo();
     }
-    
-    private void cerrar() {
-        try {
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"));
-            root = loader.load();
-
-            Stage miStage = (Stage) this.txtBusquedaEquipos.getScene().getWindow();
-            Scene inicio = new Scene(root);
-            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-            miStage.setX((screenBounds.getWidth() - miStage.getWidth() / 1.1));
-            miStage.setY((screenBounds.getHeight() - miStage.getHeight() / 1.3));
-            miStage.setScene(inicio);
-        } catch (IOException ex) {
-            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
+   
     
     private void prepararInformes() {
         cbInforme.getItems().addAll("Pokemon","Equipos","Entrenadores");
@@ -843,11 +597,16 @@ public class controllerCore implements Initializable {
         }
     }
     
-    void asignarEquipoAbierto(boolean b) {
-        equipoAbierto = b;
+    protected void asignarEquipoAbierto(String s) {
+        equipoAbierto = s;
     }
     
-    boolean comprobarEquipoAbierto() {
+    protected String comprobarEquipoAbierto() {
         return equipoAbierto;
+    }
+
+    private void cerrar() {
+        CargadorFXML.getInstance().cargar(VistasControladores.LOGIN, ventana);
+        CargadorFXML.getInstance().cerrarSesion();
     }
 }

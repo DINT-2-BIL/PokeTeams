@@ -12,7 +12,9 @@ import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
 import com.fcm.pokeTeams.modelos.Habilidad;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.Pokemon;
-import com.fcm.pokeTeams.modelos.Tipos;
+import com.fcm.pokeTeams.enums.Tipos;
+import com.fcm.pokeTeams.enums.VistasControladores;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Utilidades;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -21,6 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,9 +45,10 @@ import javafx.stage.WindowEvent;
 public class controllerAñadirPokemon implements Initializable{
     private List<Slider> listSliders = new ArrayList<>();
     private List<Label> listLabels = new ArrayList<>();
-    private controllerCore cc;
-    Utilidades utils = new Utilidades();
-    Pokemon poke;
+    private ArrayList<Object> datos;
+    Utilidades utils = Utilidades.getInstance();
+    Pokemon pokemon;
+    private int tipoPaso;
     
     @FXML
     private ComboBox<String> cbTipo1;
@@ -148,6 +152,7 @@ public class controllerAñadirPokemon implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        datos = new ArrayList<>();
         cbTipo1.getItems().addAll(Tipos.listaTipo1());
         cbTipo2.getItems().addAll(Tipos.listaTipo2());
         cbTipo2.getSelectionModel().select(Tipos.NINGUNO.getTipo());
@@ -167,20 +172,45 @@ public class controllerAñadirPokemon implements Initializable{
         }
         
         inicializarSliders();
+        
+        Platform.runLater(() -> {
+            Stage ventana = (Stage) this.txtAtk.getScene().getWindow();
+            pokemon = (Pokemon) ventana.getUserData();
+            enviaPokemon();
+            
+            ventana.setOnCloseRequest(evento -> {
+                evento.consume();
+                Stage ventanaConfirmar = new Stage();
+                CargadorFXML.getInstance().cargar(VistasControladores.CONFIRMAR, ventanaConfirmar);
+                
+                datos.add(tipoPaso);
+                datos.add(ventana);
+                if (tipoPaso == 2) datos.add(pokemon.getnPokedex());
+                
+                ventanaConfirmar.setUserData(datos);
+
+                ventanaConfirmar.showAndWait();
+                
+            });
+        });
     }
 
-    void enviaPokemon(Pokemon p) {
-        poke = p;
-        txtEspecie.setText(p.getEspecie());
-        txtDenominacion.setText(p.getDenominacion());
-        txtDescripcion.setText(p.getDescripcion());
-        txtTamaño.setText(p.getTamaño() + " metros");
-        txtPeso.setText(p.getPeso() + " kilogramos");
-        cbTipo1.getSelectionModel().select(p.getTipo1());
-        cbTipo2.getSelectionModel().select(p.getTipo2());
-        utils.recuperarImagenBBDD(p.getSprite(), imgPokemon);
-        leerHabilidades(p);
-        leerStats(p);
+    void enviaPokemon() {
+        if (pokemon != null) {
+            txtEspecie.setText(pokemon.getEspecie());
+            txtDenominacion.setText(pokemon.getDenominacion());
+            txtDescripcion.setText(pokemon.getDescripcion());
+            txtTamaño.setText(pokemon.getTamaño() + " metros");
+            txtPeso.setText(pokemon.getPeso() + " kilogramos");
+            cbTipo1.getSelectionModel().select(pokemon.getTipo1());
+            cbTipo2.getSelectionModel().select(pokemon.getTipo2());
+            utils.recuperarImagenBBDD(pokemon.getSprite(), imgPokemon);
+            leerHabilidades(pokemon);
+            leerStats(pokemon);
+            tipoPaso = 2;
+        } else {
+            tipoPaso = 1;
+        }
     }
     
     void leerHabilidades(Pokemon p) {
@@ -237,9 +267,5 @@ public class controllerAñadirPokemon implements Initializable{
                 tempLabel.setText(String.valueOf(newValue.intValue() + "/255"));
             });
         }
-    }
-    
-    void pasoControladorCore(controllerCore cCore) {
-        this.cc = cCore;
     }
 }

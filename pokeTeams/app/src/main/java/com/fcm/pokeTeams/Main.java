@@ -3,6 +3,8 @@
  */
 package com.fcm.pokeTeams;
 
+import com.fcm.pokeTeams.enums.VistasControladores;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -25,15 +27,17 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/logIn.fxml"));
+    public void start(Stage ventana) throws Exception {
+        CargadorFXML.getInstance().cargar(VistasControladores.LOGIN, ventana);
+        /*Parent root = FXMLLoader.load(getClass().getResource("/fxml/logIn.fxml"));
         
         Scene scene=new Scene(root);
         Stage escenaPrincipal = primaryStage;
         escenaPrincipal.setScene(scene);
         escenaPrincipal.setTitle("Log In");
-        escenaPrincipal.getIcons().add(new Image("/img/Pokeball.png"));
-        escenaPrincipal.show();
+        escenaPrincipal.getIcons().add(new Image("/img/Pokeball.png"));*/
+        ventana.setUserData("Hola");
+        ventana.show();
     }
 
 }

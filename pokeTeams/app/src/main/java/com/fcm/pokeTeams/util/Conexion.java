@@ -16,20 +16,30 @@ import javafx.scene.control.Alert;
  * @author DFran49
  */
 public class Conexion extends Object {
-    static Connection conexion;
+    private static final Conexion instance = new Conexion();
+    private static Connection conexion;
 
-    public Conexion() {
+    public static Conexion getInstance() {
+        return instance;
+    }
+
+    private Conexion() {
+        generarConexion();
+    }
+    
+    private void generarConexion() {
         DbConnection bbdd = new DbConnection();
-        try {
-            this.conexion = bbdd.getConnection();
-        } catch (SQLException ex) {
-            new Alertas(Alert.AlertType.WARNING, "Base de Datos no disponible", "No se ha podido conectar a la Base e Datos", "Encienda la base de datos").mostrarAlerta();
-        } catch (IOException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.conexion = bbdd.getConnection();
     }
 
     public Connection getConexion() {
+        try {
+            if (conexion == null||conexion.isClosed()) {
+                generarConexion();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return conexion;
     }
 }

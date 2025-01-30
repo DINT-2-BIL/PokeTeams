@@ -9,8 +9,10 @@ package com.fcm.pokeTeams;
  * @author DFran49
  */
 
+import com.fcm.pokeTeams.DAO.EntrenadorDAO;
 import com.fcm.pokeTeams.modelos.Entrenador;
 import com.fcm.pokeTeams.util.Alertas;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import java.net.URL;
 import java.sql.Connection;
@@ -32,7 +34,6 @@ import org.controlsfx.validation.Validator;
 
 public class controllerPopUpCambioContraseña implements Initializable{
     private Entrenador entrenador;
-    private Conexion conexion;
     List<ValidationSupport> validadores;
 
     @FXML
@@ -49,29 +50,9 @@ public class controllerPopUpCambioContraseña implements Initializable{
         }
 
         if (todoOK) {
-            PreparedStatement preparado = null;
-            try {
-                String query = "UPDATE entrenador SET Contraseña = ? WHERE ID_Entrenador = ?;";
-                Connection c = conexion.getConexion();
-                preparado = c.prepareStatement(query);
-
-                preparado.setString(1, txtContraseña.getText());
-                preparado.setInt(2, entrenador.getIdEntrenador());
-
-                if (preparado.executeUpdate() > 0) {
-                    System.out.println("Inserción exitosa.");
-                } else {
-                    System.out.println("No se insertó el Equipo.");
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al editar: " + e.getMessage());
-            } finally {
-                try {
-                    if (preparado != null) preparado.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            entrenador.setContraseña(txtContraseña.getText());
+            EntrenadorDAO.getInstance().update(entrenador);
+            CargadorFXML.getInstance().getControllerCore().refrescarUser();
             cerrar();
         }
     }
@@ -84,11 +65,6 @@ public class controllerPopUpCambioContraseña implements Initializable{
     private void cerrar() {
         Stage ventana = (Stage) txtConfContraseña.getScene().getWindow();
         ventana.close();
-    }
-    
-    public void pasoVariables(Conexion c, Entrenador e) {
-        conexion = c;
-        entrenador = e;
     }
 
     @Override
@@ -129,6 +105,7 @@ public class controllerPopUpCambioContraseña implements Initializable{
         validadores.addAll(Arrays.asList(vSContraseña, vSContraseñaConf));
 
         Platform.runLater(() -> {
+            entrenador = (Entrenador) this.txtContraseña.getScene().getWindow().getUserData();
             for (ValidationSupport validationSupport : validadores) {
                 validationSupport.initInitialDecoration();
             }
