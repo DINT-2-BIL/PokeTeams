@@ -21,7 +21,7 @@
    <children>
       <HBox spacing="20.0">
          <children>
-            <TextField fx:id="txtEspecie" focusTraversable="false" prefHeight="50.0" prefWidth="680.0" promptText="Especie">
+            <TextField fx:id="txtEspecie" focusTraversable="false" prefHeight="51.0" prefWidth="751.0" promptText="Especie">
                <font>
                   <Font size="24.0" />
                </font>
@@ -49,157 +49,120 @@
             </StackPane>
             <VBox prefHeight="290.0" prefWidth="400.0" spacing="20.0">
                <children>
-                  <Accordion>
-                     <panes>
-                        <TitledPane animated="false" expanded="false" text="Denominación" underline="true" wrapText="true">
-                           <content>
-                              <VBox>
-                                 <children>
-                                    <TextArea fx:id="txtDenominacion" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Denominación" />
-                                       </tooltip>
-                                    </TextArea>
-                                 </children>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
+                  <Accordion />
+               </children>
+            </VBox>
+            <VBox prefHeight="350.0" prefWidth="400.0" spacing="10.0">
+               <children>
+                  <HBox spacing="10.0" />
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="46.0" spacing="30.0">
+                     <children>
+                        <Label minWidth="-Infinity" prefWidth="171.0" text="Denominación:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
+                        </Label>
+                        <TextField fx:id="txtDenominacion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Denominación">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
                            <tooltip>
-                              <Tooltip text="Apartado denominación" />
+                              <Tooltip text="Mote" />
                            </tooltip>
-                        </TitledPane>
-                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="10.0" text="Descripción" underline="true" wrapText="true">
-                           <content>
-                              <VBox>
-                                 <children>
-                                    <TextArea fx:id="txtDescripcion" prefHeight="125.0" prefWidth="200.0" wrapText="true">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Descripción" />
-                                       </tooltip>
-                                    </TextArea>
-                                 </children>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0">
+                     <children>
+                        <Label minWidth="-Infinity" prefWidth="171.0" text="Descripción:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
-                           <tooltip>
-                              <Tooltip text="Apartado descripción" />
-                           </tooltip>
-                        </TitledPane>
-                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="61.0" text="Tamaño" underline="true" wrapText="true">
-                           <content>
-                              <VBox>
-                                 <children>
-                                    <TextArea fx:id="txtTamaño" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Tamaño" />
-                                       </tooltip>
-                                    </TextArea>
-                                 </children>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
+                        </Label>
+                        <VBox>
+                           <children>
+                              <TextArea fx:id="txtDescripcion" prefHeight="75.0" prefWidth="250.0" promptText="Descripción" wrapText="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <tooltip>
+                                    <Tooltip text="Descripción" />
+                                 </tooltip>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets top="-1.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="46.0" spacing="30.0">
+                     <children>
+                        <Label prefWidth="171.0" text="Tamaño:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
+                        </Label>
+                        <TextField fx:id="txtTamaño" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Tamaño">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
                            <tooltip>
-                              <Tooltip text="Apartado tamaño" />
+                              <Tooltip text="Objeto" />
                            </tooltip>
-                        </TitledPane>
-                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="112.0" text="Peso" underline="true" wrapText="true">
-                           <content>
-                              <VBox>
-                                 <children>
-                                    <TextArea fx:id="txtPeso" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" wrapText="true">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <tooltip>
-                                          <Tooltip text="Peso" />
-                                       </tooltip>
-                                    </TextArea>
-                                 </children>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="205.0" spacing="30.0">
+                     <children>
+                        <Label prefWidth="171.0" text="Peso:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
+                        </Label>
+                        <TextField fx:id="txtPeso" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Peso">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
                            <tooltip>
-                              <Tooltip text="Apartado peso" />
+                              <Tooltip text="Objeto" />
                            </tooltip>
-                        </TitledPane>
-                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="164.0" text="Tipo 1" underline="true" wrapText="true">
-                           <content>
-                              <VBox>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                                 <children>
-                                    <ComboBox fx:id="cbTipo1" editable="true" prefWidth="350.0">
-                                       <tooltip>
-                                          <Tooltip text="Tipo 1" />
-                                       </tooltip></ComboBox>
-                                 </children>
-                              </VBox>
-                           </content>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="189.0" spacing="30.0">
+                     <children>
+                        <Label prefWidth="171.0" text="Tipo 1:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
+                        </Label>
+                        <ComboBox fx:id="cbTipo1" prefHeight="50.0" prefWidth="250.0">
                            <tooltip>
-                              <Tooltip text="Apartado tipo 1" />
+                              <Tooltip text="Tipo 1" />
                            </tooltip>
-                        </TitledPane>
-                        <TitledPane animated="false" expanded="false" layoutX="10.0" layoutY="215.0" text="Tipo 2" underline="true" wrapText="true">
-                           <content>
-                              <VBox>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                                 <children>
-                                    <ComboBox fx:id="cbTipo2" editable="true" prefWidth="350.0">
-                                       <tooltip>
-                                          <Tooltip text="Tipo 2" />
-                                       </tooltip></ComboBox>
-                                 </children>
-                              </VBox>
-                           </content>
+                        </ComboBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="199.0" spacing="30.0">
+                     <children>
+                        <Label minWidth="-Infinity" prefWidth="171.0" text="Tipo 2:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
+                        </Label>
+                        <ComboBox fx:id="cbTipo2" prefHeight="50.0" prefWidth="250.0">
                            <tooltip>
-                              <Tooltip text="Apartado tipo 2" />
+                              <Tooltip text="Tipo 2" />
                            </tooltip>
-                        </TitledPane>
-                     </panes>
-                  </Accordion>
+                        </ComboBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
       </HBox>
-      <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
+      <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="100.0">
          <children>
             <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.2" prefWidth="400.0" spacing="5.0">
                <children>
@@ -343,7 +306,7 @@
                <children>
                   <Accordion>
                      <panes>
-                        <TitledPane animated="false" expanded="false" underline="true" wrapText="true">
+                        <TitledPane fx:id="panelHabilidad1" animated="false" expanded="false" underline="true" wrapText="true">
                            <content>
                               <TextArea fx:id="txtHabilidad1" maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" promptText="Descripción 1" wrapText="true">
                                  <font>

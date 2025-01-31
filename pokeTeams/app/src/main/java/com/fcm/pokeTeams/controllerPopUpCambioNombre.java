@@ -70,7 +70,7 @@ public class controllerPopUpCambioNombre implements Initializable {
                     }
                     try {
                         int numero = texto.toString().length();
-                        return numero >= 1 && numero <= 20 && txtNuevoNombre.getText().matches("^[A-Za-z0-9. ]{3,}$");
+                        return numero >= 1 && numero <= 20 && txtNuevoNombre.getText().matches("^[\\p{L}0-9. ]{3,}$");
                     } catch (NumberFormatException e) {
                         return false;
                     }

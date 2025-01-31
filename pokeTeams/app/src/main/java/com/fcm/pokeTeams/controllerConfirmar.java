@@ -33,7 +33,7 @@ public class controllerConfirmar implements Initializable {
     private int opcion;
     private Pokemon pokemon = new Pokemon();
     private Miembro miembro = new Miembro();
-    private ArrayList<Object> datos;
+    private ArrayList<Object> datos = new ArrayList<>();
     
     
     @FXML
@@ -77,6 +77,7 @@ public class controllerConfirmar implements Initializable {
         } catch (Exception e) {
             new Alertas(Alert.AlertType.WARNING, "Algo falló", "Faltan datos",
                     "Debe rellenar todos los campos y asegurarse de que siguen el formato que puede ver en el iconito de X pequeño").mostrarAlerta();
+            System.err.println(e.getMessage());
         }
         
         ventana.close();

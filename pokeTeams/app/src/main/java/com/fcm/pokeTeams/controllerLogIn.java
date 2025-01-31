@@ -77,7 +77,7 @@ public class controllerLogIn implements Initializable {
                 }
                 try {
                     int numero = texto.toString().length();
-                    return numero >= 3 && numero <= 20 && txtNombre.getText().matches("^[A-Za-z0-9. ]{3,}$");
+                    return numero >= 3 && numero <= 20 && txtNombre.getText().matches("^[\\p{L}0-9. ]{3,}$");
                 } catch (NumberFormatException e) {
                     return false;
                 }

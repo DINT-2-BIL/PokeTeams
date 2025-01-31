@@ -113,6 +113,7 @@ public class EquipoDAO implements SentenciasInt<Equipo> {
             Equipo e;
 
             String sql = "SELECT DISTINCT ID_Equipo FROM equipo WHERE " + filter;
+            System.out.println(sql);
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

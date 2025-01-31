@@ -15,6 +15,7 @@ import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.enums.Tipos;
 import com.fcm.pokeTeams.enums.VistasControladores;
 import com.fcm.pokeTeams.modelos.Stat;
+import com.fcm.pokeTeams.util.Alertas;
 import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Utilidades;
 import com.google.gson.Gson;
@@ -22,35 +23,45 @@ import com.google.gson.JsonSyntaxException;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
 public class controllerAñadirPokemon implements Initializable {
 
     private List<Slider> listSliders = new ArrayList<>();
     private List<Label> listLabels = new ArrayList<>();
+    private List<ValidationSupport> validadores;
     private List<TextField> listPaneles;
     private List<TextArea> listText;
 
-    private ArrayList<Object> datos;
+    private ArrayList<Object> datos = new ArrayList<>();
     Utilidades utils = Utilidades.getInstance();
     Pokemon pokemon;
     private int tipoPaso;
+    private int id;
+
+    @FXML
+    private TitledPane panelHabilidad1;
 
     @FXML
     private ComboBox<String> cbTipo1;
@@ -86,7 +97,7 @@ public class controllerAñadirPokemon implements Initializable {
     private Label txtDef;
 
     @FXML
-    private TextArea txtDenominacion;
+    private TextField txtDenominacion;
 
     @FXML
     private TextArea txtDescripcion;
@@ -116,7 +127,7 @@ public class controllerAñadirPokemon implements Initializable {
     private TextField txtNombreHabilidad3;
 
     @FXML
-    private TextArea txtPeso;
+    private TextField txtPeso;
 
     @FXML
     private Label txtSpA;
@@ -128,7 +139,7 @@ public class controllerAñadirPokemon implements Initializable {
     private Label txtSpe;
 
     @FXML
-    private TextArea txtTamaño;
+    private TextField txtTamaño;
 
     @FXML
     void finalizar(ActionEvent event) {
@@ -163,7 +174,118 @@ public class controllerAñadirPokemon implements Initializable {
         utils.crearTooltip("Seleccionar imagen", imgPokemon);
         inicializarSliders();
 
+        ValidationSupport vEsp = new ValidationSupport();
+        vEsp.registerValidator(txtEspecie, Validator.createPredicateValidator(
+                texto -> {
+                    if (texto == null || texto.toString().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        int numero = texto.toString().length();
+                        return numero >= 3 && numero <= 20 && txtEspecie.getText().matches("^[\\p{L}0-9. ]{3,}$");
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                },
+                "La especie puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
+        ));
+        ValidationSupport vDeno = new ValidationSupport();
+        vDeno.registerValidator(txtDenominacion, Validator.createPredicateValidator(
+                texto -> {
+                    if (texto == null || texto.toString().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        int numero = texto.toString().length();
+                        return numero >= 3 && numero <= 20 && txtDenominacion.getText().matches("^[\\p{L}0-9. ]{3,}$");
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                },
+                "La denominación puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
+        ));
+        ValidationSupport vDes = new ValidationSupport();
+        vDes.registerValidator(txtDescripcion, Validator.createPredicateValidator(
+                texto -> {
+                    if (texto == null || texto.toString().isEmpty()) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+                "La descripción no puede estar vacía"
+        ));
+        ValidationSupport vTam = new ValidationSupport();
+        vTam.registerValidator(txtTamaño, Validator.createPredicateValidator(
+                texto -> {
+                    if (texto == null || texto.toString().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        int numero = texto.toString().length();
+                        return numero >= 3 && numero <= 20 && txtTamaño.getText().matches("^\\d{1,3}\\.\\d{1,2}$");
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                },
+                "El peso puede tener entre 1 y 3 dígitos enteros, un punto y 2 dígitos decimales"
+        ));
+        ValidationSupport vPes = new ValidationSupport();
+        vPes.registerValidator(txtPeso, Validator.createPredicateValidator(
+                texto -> {
+                    if (texto == null || texto.toString().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        int numero = texto.toString().length();
+                        return numero >= 3 && numero <= 20 && txtPeso.getText().matches("^\\d{1,3}\\.\\d{1,2}$");
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                },
+                "El peso puede tener entre 1 y 3 dígitos enteros, un punto y 2 dígitos decimales"
+        ));
+        ValidationSupport vHab = new ValidationSupport();
+        vHab.registerValidator(txtNombreHabilidad1, Validator.createPredicateValidator(
+                texto -> {
+                    if (texto == null || texto.toString().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        int numero = texto.toString().length();
+                        return numero >= 3 && numero <= 20 && txtNombreHabilidad1.getText().matches("^[\\p{L}0-9. ]{3,}$");
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                },
+                "El nombre de la habilidad puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos y debe haber mínimo una"
+        ));
+        ValidationSupport vHabDes = new ValidationSupport();
+        vHabDes.registerValidator(txtHabilidad1, Validator.createPredicateValidator(
+                texto -> {
+                    if (texto == null || texto.toString().isEmpty()) {
+                        panelHabilidad1.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                        return false;
+                    }
+                    try {
+                        int numero = texto.toString().length();
+                        panelHabilidad1.setStyle("");
+                        return numero >= 3 && numero <= 20 && txtHabilidad1.getText().matches("^[\\p{L}0-9. ]{3,}$");
+                    } catch (NumberFormatException e) {
+                        panelHabilidad1.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                        return false;
+                    }
+                },
+                "La descripción de la habilidad puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos y debe haber mínimo una"
+        ));
+
+        validadores = new ArrayList<>();
+        validadores.addAll(Arrays.asList(vDeno, vDes, vEsp, vHab, vPes, vTam, vHab, vHabDes));
+
         Platform.runLater(() -> {
+            for (ValidationSupport validationSupport : validadores) {
+                validationSupport.initInitialDecoration();
+            }
             Stage ventana = (Stage) this.txtAtk.getScene().getWindow();
             pokemon = (Pokemon) ventana.getUserData();
             enviaPokemon();
@@ -171,15 +293,32 @@ public class controllerAñadirPokemon implements Initializable {
             ventana.setOnCloseRequest(evento -> {
                 evento.consume();
                 Stage ventanaConfirmar = new Stage();
-                CargadorFXML.getInstance().cargar(VistasControladores.CONFIRMAR, ventanaConfirmar);
-                datos.add(tipoPaso);
-                datos.add(ventana);
-                cargarPokemon();
-                datos.add(pokemon);
-                ventanaConfirmar.setUserData(datos);
-                ventanaConfirmar.showAndWait();
 
+                boolean todoOK = true;
+                for (ValidationSupport validationSupport : validadores) {
+                    todoOK = (todoOK && validationSupport.getValidationResult().getErrors().isEmpty());
+                }
+                if (todoOK) {
+                    try {
+                        datos = new ArrayList<>();
+                        datos.add(tipoPaso);
+
+                        datos.add(ventana);
+                        cargarPokemon();
+                        datos.add(pokemon);
+                        ventanaConfirmar.setUserData(datos);
+                        CargadorFXML.getInstance().cargar(VistasControladores.CONFIRMAR, ventanaConfirmar);
+                        ventanaConfirmar.showAndWait();
+                    } catch (Exception e) {
+                        new Alertas(Alert.AlertType.WARNING, "Algo falló", "Incoherencia con las restricciones",
+                                "Debe rellenar todos los campos y asegurarse de que siguen el formato que puede ver en el iconito de X pequeño").mostrarAlerta();
+                    }
+                } else {
+                    new Alertas(Alert.AlertType.WARNING, "Algo falló", "Incoherencia con las restricciones",
+                            "Debe rellenar todos los campos y asegurarse de que siguen el formato que puede ver en el iconito de X pequeño").mostrarAlerta();
+                }
             });
+
         });
     }
 
@@ -188,25 +327,28 @@ public class controllerAñadirPokemon implements Initializable {
             txtEspecie.setText(pokemon.getEspecie());
             txtDenominacion.setText(pokemon.getDenominacion());
             txtDescripcion.setText(pokemon.getDescripcion());
-            txtTamaño.setText(pokemon.getTamaño() + " metros");
-            txtPeso.setText(pokemon.getPeso() + " kilogramos");
+            txtTamaño.setText(pokemon.getTamaño() + "");
+            txtPeso.setText(pokemon.getPeso() + "");
             cbTipo1.getSelectionModel().select(pokemon.getTipo1());
             cbTipo2.getSelectionModel().select(pokemon.getTipo2());
             utils.recuperarImagenBBDD(pokemon.getSprite(), imgPokemon);
             leerHabilidades(pokemon);
             leerStats(pokemon);
             tipoPaso = 2;
+            id = pokemon.getnPokedex();
         } else {
             tipoPaso = 1;
         }
     }
 
     private void cargarPokemon() {
+        pokemon = new Pokemon();
+        pokemon.setnPokedex(id);
         pokemon.setEspecie(txtEspecie.getText());
         pokemon.setDenominacion(txtDenominacion.getText());
         pokemon.setDescripcion(txtDescripcion.getText());
-        pokemon.setTamaño(Double.parseDouble(txtTamaño.getText().replace(" metros", "")));
-        pokemon.setPeso(Double.parseDouble(txtPeso.getText().replace(" kilogramos", "")));
+        pokemon.setTamaño(Double.parseDouble(txtTamaño.getText()));
+        pokemon.setPeso(Double.parseDouble(txtPeso.getText()));
         pokemon.setSprite(utils.codificarImagen(imgPokemon.getImage()));
         pokemon.setTipo1(cbTipo1.getValue());
         pokemon.setTipo2(cbTipo2.getValue());
@@ -240,7 +382,6 @@ public class controllerAñadirPokemon implements Initializable {
     }
 
     void leerStats(Pokemon p) {
-
         Gson gson = new Gson();
         EstadisticasEnvoltorio listStats = gson.fromJson(p.getEstadisticas(), EstadisticasEnvoltorio.class);
 

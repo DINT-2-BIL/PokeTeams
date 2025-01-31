@@ -18,6 +18,7 @@ import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -35,6 +36,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tab;
@@ -74,8 +76,13 @@ public class controllerCore implements Initializable {
     private Utilidades utils = Utilidades.getInstance();
     private ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
     private ObservableList<Equipo> listaEquipos = FXCollections.observableArrayList();
+    private ArrayList<Object> vars = new ArrayList<>();
     private Map parametros = new HashMap();
     protected String equipoAbierto = "";
+    private String filtro = "WHERE Especie LIKE '%%%s%%' AND Tipo_1 LIKE '%%%s%%' AND Tipo_2 LIKE '%%%s%%' AND "
+            + "(Tamaño BETWEEN %s AND %s) AND (Peso BETWEEN %s AND %s) AND Habilidades LIKE '%%%s%%' AND Estadisticas LIKE '%%%s%%'"
+            + "ORDER BY CASE WHEN %s = 1 THEN especie END %s, CASE WHEN %s = 1 THEN tamaño END %s, CASE WHEN %s = 1 THEN peso END %s";
+    private String busqueda = "";
 
     @FXML
     private ImageView btnAddEquipo;
@@ -99,9 +106,6 @@ public class controllerCore implements Initializable {
     private ComboBox<String> cbEstadistica;
 
     @FXML
-    private ComboBox<String> cbEstadisticaOrden;
-
-    @FXML
     private ComboBox<String> cbInforme;
 
     @FXML
@@ -117,16 +121,22 @@ public class controllerCore implements Initializable {
     private ComboBox<String> cbTipo2;
 
     @FXML
+    private CheckBox ckbEspecie;
+
+    @FXML
     private CheckBox ckbInformeAdmin;
 
     @FXML
     private CheckBox ckbInformeInc;
 
     @FXML
-    private ToggleGroup especie;
+    private CheckBox ckbPeso;
 
     @FXML
-    private ToggleGroup estadistica;
+    private CheckBox ckbTamaño;
+
+    @FXML
+    private ToggleGroup especie;
 
     @FXML
     private GridPane gridEquipos;
@@ -208,24 +218,32 @@ public class controllerCore implements Initializable {
 
     @FXML
     void buscarEquipo(MouseEvent event) {
-
+        String filtroE = "(Nombre_Equipo LIKE '%%%s%%' OR Formato LIKE '%%%s%%')";
+        String temp = String.format(filtroE, txtBusquedaEquipos.getText(),txtBusquedaEquipos.getText());
+        cargarGridEquipo(temp);
     }
 
     @FXML
     void buscarPokemon(MouseEvent event) {
         vbFiltro.setVisible(false);
-        tpFiltro.expandedProperty().set(false);
-        tpOrdenar.expandedProperty().set(false);
+        getVars();
+        String filtroComp = String.format(filtro, vars.get(0), vars.get(1), vars.get(2), vars.get(3), vars.get(4), vars.get(5), 
+                vars.get(6), vars.get(7), vars.get(8), vars.get(9), vars.get(10), vars.get(11), vars.get(12), vars.get(13), vars.get(14));
+        cargarGridPokemonFiltrado(filtroComp);
     }
 
     @FXML
     void busquedaDinamicaEquipos(KeyEvent event) {
-
+        buscarEquipo(null);
     }
 
     @FXML
     void busquedaDinamicaPokemon(KeyEvent event) {
-
+        busqueda = txtBusquedaPokemon.getText();
+        getVars();
+        String filtroComp = String.format(filtro, vars.get(0), vars.get(1), vars.get(2), vars.get(3), vars.get(4), vars.get(5), 
+                vars.get(6), vars.get(7), vars.get(8), vars.get(9), vars.get(10), vars.get(11), vars.get(12), vars.get(13));
+        cargarGridPokemonFiltrado(filtroComp);
     }
 
     @FXML
@@ -285,7 +303,9 @@ public class controllerCore implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         contextMenu = new ContextMenu();
-
+        for (int i = 0; i < 15; i++) {
+            vars.add("");
+        }
         MenuItem item1 = new MenuItem("Cambiar imagen");
         item1.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
@@ -309,11 +329,14 @@ public class controllerCore implements Initializable {
         imgEntrenador.setOnContextMenuRequested(event
                 -> contextMenu.show(imgEntrenador, event.getScreenX(), event.getScreenY())
         );
-
+        cbTipo1.getItems().add("");
         cbTipo1.getItems().addAll(Tipos.listaTipo1());
+        cbTipo1.getSelectionModel().selectFirst();
+        cbTipo2.getItems().add("");
         cbTipo2.getItems().addAll(Tipos.listaTipo2());
-        cbEstadistica.getItems().addAll("HP", "Atk", "Def", "SpA", "SpD", "SpE");
-        cbEstadisticaOrden.getItems().addAll(cbEstadistica.getItems());
+        cbTipo2.getSelectionModel().selectFirst();
+        cbEstadistica.getItems().addAll("","HP", "Atk", "Def", "SpA", "SpD", "SpE");
+        cbEstadistica.getSelectionModel().selectFirst();
         inicializarSpinners();
         prepararInformes();
 
@@ -328,6 +351,49 @@ public class controllerCore implements Initializable {
             ventana = (Stage) txtBusquedaEquipos.getScene().getWindow();
         });
     }
+    
+    private void getVars() {
+        Object temp = txtBusquedaPokemon.getText();
+        vars.set(0, busqueda);
+        temp = cbTipo1.getSelectionModel().getSelectedItem();
+        vars.set(1, (temp != null && ((String) temp).isEmpty()) ? "" : temp);
+        temp = cbTipo2.getSelectionModel().getSelectedItem();
+        vars.set(2, (temp != null && ((String) temp).isEmpty()) ? "" : temp);
+        temp = spTamañoMin.getValue();
+        vars.set(3, (temp instanceof Double && (Double) temp > 0 && (Double) temp < 999.99) ? temp : 0);
+        temp = spTamañoMax.getValue();
+        vars.set(4, (temp instanceof Double && (Double) temp > 0 && (Double) temp < 999.99) ? temp : 999.99);
+        temp = spPesoMin.getValue();
+        vars.set(5, (temp instanceof Double && (Double) temp > 0 && (Double) temp < 999.99) ? temp : 0);
+        temp = spPesoMax.getValue();
+        vars.set(6, (temp instanceof Double && (Double) temp > 0 && (Double) temp < 999.99) ? temp : 999.99);
+        temp = txtHabilidad.getText();
+        vars.set(7, (temp != null && ((String) temp).isEmpty()) ? "" : temp);
+        
+        String a = cbEstadistica.getSelectionModel().getSelectedItem()+"\",\"valor\":";
+        temp = spEstadistica.getValue();
+        a = a + ((temp instanceof Integer && (int) temp > 0 && (int) temp < 255) ? temp : 0);
+        temp = cbEstadistica.getSelectionModel().getSelectedItem();
+        vars.set(8, (temp != null && ((String) temp).isEmpty()) ? temp : a);
+    
+        vars.set(9, ckbEspecie.isSelected() ? 1 : 0);
+        vars.set(10, ckbEspecie.isSelected() ? devolverOrden(((RadioButton)especie.getSelectedToggle()).getText()) : "");
+        
+        vars.set(11, ckbTamaño.isSelected() ? 1 : 0);
+        vars.set(12, ckbTamaño.isSelected() ? devolverOrden(((RadioButton)tamaño.getSelectedToggle()).getText()) : "");
+        
+        vars.set(13, ckbPeso.isSelected() ? 1 : 0);
+        vars.set(14, ckbPeso.isSelected() ? devolverOrden(((RadioButton)peso.getSelectedToggle()).getText()) : "");
+    }
+    
+    private String devolverOrden(String nombre) {
+        if (nombre.equals("Ascendente")) {
+            return "ASC";
+        } else {
+            return "DESC";
+        }
+    }
+    
 
     private void inicializarSpinners() {
         int stat = 255;
@@ -367,10 +433,25 @@ public class controllerCore implements Initializable {
         row = 0;
         col = 0;
     }
+    
+    void cargarGridPokemonFiltrado(String s) {
+        this.gridPokemon.getChildren().clear();
+        listaPokemon = PokemonDAO.getInstance().getTodos(s);
+        listaPokemon.forEach(pokemon -> cargarPokemon(pokemon));
+        row = 0;
+        col = 0;
+    }
 
     void cargarGridEquipo() {
         this.gridEquipos.getChildren().clear();
         listaEquipos = EquipoDAO.getInstance().getTodos("ID_Entrenador = " + entrenador.getIdEntrenador());
+        listaEquipos.forEach(equipo -> cargarEquipo(equipo));
+        row = 0;
+    }
+    
+    void cargarGridEquipo(String s) {
+        this.gridEquipos.getChildren().clear();
+        listaEquipos = EquipoDAO.getInstance().getTodos("ID_Entrenador = " + entrenador.getIdEntrenador() + " AND " + s);
         listaEquipos.forEach(equipo -> cargarEquipo(equipo));
         row = 0;
     }

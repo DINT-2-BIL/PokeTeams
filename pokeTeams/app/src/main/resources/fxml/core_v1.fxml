@@ -30,7 +30,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<TabPane prefHeight="731.0" prefWidth="1300.0" stylesheets="@/styleSheets/core.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
+<TabPane prefHeight="731.0" prefWidth="1300.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fcm.pokeTeams.controllerCore">
    <tabs>
       <Tab text="INICIO">
          <content>
@@ -180,7 +180,7 @@
                                                             <Font size="18.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbTipo1" editable="true" prefWidth="150.0" />
+                                                      <ComboBox fx:id="cbTipo1" prefWidth="150.0" />
                                                       <Label text="Tipo secundario:">
                                                          <font>
                                                             <Font size="18.0" />
@@ -189,7 +189,7 @@
                                                             <Insets left="10.0" />
                                                          </HBox.margin>
                                                       </Label>
-                                                      <ComboBox fx:id="cbTipo2" editable="true" prefWidth="150.0" />
+                                                      <ComboBox fx:id="cbTipo2" prefWidth="150.0" />
                                                    </children>
                                                 </HBox>
                                                 <Separator prefWidth="200.0" />
@@ -271,7 +271,7 @@
                                                             <Font size="18.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbEstadistica" editable="true" prefWidth="150.0" />
+                                                      <ComboBox fx:id="cbEstadistica" prefWidth="150.0" />
                                                       <Label text="Valor:">
                                                          <font>
                                                             <Font size="18.0" />
@@ -303,7 +303,7 @@
                                              <children>
                                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
                                                    <children>
-                                                      <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Especie">
+                                                      <CheckBox fx:id="ckbEspecie" mnemonicParsing="false" prefWidth="100.0" text="Especie">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -327,7 +327,7 @@
                                                 <Separator prefWidth="200.0" />
                                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" minWidth="-Infinity" spacing="20.0">
                                                    <children>
-                                                      <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Tamaño">
+                                                      <CheckBox fx:id="ckbTamaño" mnemonicParsing="false" prefWidth="100.0" text="Tamaño">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -350,7 +350,7 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="61.0" minWidth="-Infinity" spacing="20.0">
                                                    <children>
-                                                      <CheckBox mnemonicParsing="false" prefWidth="100.0" text="Peso">
+                                                      <CheckBox fx:id="ckbPeso" mnemonicParsing="false" prefWidth="100.0" text="Peso">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -372,30 +372,6 @@
                                                    </children>
                                                 </HBox>
                                                 <Separator prefWidth="200.0" />
-                                                <HBox alignment="CENTER_LEFT" minWidth="-Infinity" spacing="10.0">
-                                                   <children>
-                                                      <Label text="Estadística:">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <ComboBox fx:id="cbEstadisticaOrden" editable="true" prefWidth="150.0" />
-                                                      <Separator orientation="VERTICAL" />
-                                                      <RadioButton mnemonicParsing="false" text="Ascendente">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                         <toggleGroup>
-                                                            <ToggleGroup fx:id="estadistica" />
-                                                         </toggleGroup>
-                                                      </RadioButton>
-                                                      <RadioButton mnemonicParsing="false" text="Descendente" toggleGroup="$estadistica">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                      </RadioButton>
-                                                   </children>
-                                                </HBox>
                                              </children>
                                              <padding>
                                                 <Insets top="10.0" />

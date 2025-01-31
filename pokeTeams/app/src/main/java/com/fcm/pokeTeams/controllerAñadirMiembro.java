@@ -193,12 +193,12 @@ public class controllerAñadirMiembro implements Initializable {
                 }
                 try {
                     int numero = texto.toString().length();
-                    return numero >= 3 && numero <= 20 && txtMote.getText().matches("^[A-Za-z0-9. ]{3,}$");
+                    return numero >= 3 && numero <= 20 && txtMote.getText().matches("^[\\p{L}0-9. ]{3,}$");
                 } catch (NumberFormatException e) {
                     return false;
                 }
             },
-            "El nombre puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
+            "El mote puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
         ));
         ValidationSupport vObjeto = new ValidationSupport();
         vObjeto.registerValidator(txtObjeto, Validator.createPredicateValidator(
@@ -208,12 +208,12 @@ public class controllerAñadirMiembro implements Initializable {
                 }
                 try {
                     int numero = texto.toString().length();
-                    return numero >= 3 && numero <= 20 && txtObjeto.getText().matches("^[A-Za-z0-9. ]{3,}$");
+                    return numero >= 3 && numero <= 20 && txtObjeto.getText().matches("^[\\p{L}0-9. ]{3,}$");
                 } catch (NumberFormatException e) {
                     return false;
                 }
             },
-            "El nombre puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
+            "El objeto puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
         ));
         ValidationSupport vMov1 = new ValidationSupport();
         vMov1.registerValidator(txtMovimiento1, Validator.createPredicateValidator(
@@ -223,12 +223,12 @@ public class controllerAñadirMiembro implements Initializable {
                 }
                 try {
                     int numero = texto.toString().length();
-                    return numero >= 3 && numero <= 20 && txtMovimiento1.getText().matches("^[A-Za-z0-9. ]{3,}$");
+                    return numero >= 3 && numero <= 20 && txtMovimiento1.getText().matches("^[\\p{L}0-9. ]{3,}$");
                 } catch (NumberFormatException e) {
                     return false;
                 }
             },
-            "El nombre puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
+            "El movimiento puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos y no debe estar vacío"
         ));
         
         validarSliders();

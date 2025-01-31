@@ -144,21 +144,19 @@ public class controllerPokedex implements Initializable {
         Habilidad habilidad = null;
         try {
             for (int i = 0; i < 3; i++) {
-                if (listHabilidades.vacia() && !listPaneles.isEmpty()) {
-                    for (TitledPane pane : listPaneles) {
-                        pane.setVisible(false);
-                    }
+                if (listHabilidades.vacia()) {
+                    
+                    listPaneles.get(i).setVisible(false);
+                    
                     for (TextArea text : listText) {
                         text.setVisible(false);
                     }
                 } else {
                     habilidad = listHabilidades.siguienteHabilidad();
-                    listPaneles.get(0).setText(habilidad.getNombre());
+                    listPaneles.get(i).setText(habilidad.getNombre());
                     util.crearTooltip("Desplegable " + habilidad.getNombre(), listPaneles.get(0));
-                    listPaneles.remove(0);
-                    listText.get(0).setText(habilidad.getDescripcion());
+                    listText.get(i).setText(habilidad.getDescripcion());
                     util.crearTooltip("Descripción " + habilidad.getNombre(), listPaneles.get(0));
-                    listText.remove(0);
                 }
             }
         } catch (JsonSyntaxException e) {
