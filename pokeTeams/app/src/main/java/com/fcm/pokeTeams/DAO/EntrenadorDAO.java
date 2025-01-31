@@ -130,10 +130,10 @@ public class EntrenadorDAO implements SentenciasInt<Entrenador> {
         ResultSet rs;
         Entrenador e = new Entrenador();
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
-            //ps.setString(1, nombre);
-            //ps.setString(2, password);
-            ps.setString(1, "Rosa");
-            ps.setString(2, "rosa");
+            ps.setString(1, nombre);
+            ps.setString(2, password);
+            //ps.setString(1, "Rosa");
+            //ps.setString(2, "rosa");
 
             rs = ps.executeQuery();
             rs.next();
