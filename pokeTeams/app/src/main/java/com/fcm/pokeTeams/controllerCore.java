@@ -240,10 +240,7 @@ public class controllerCore implements Initializable {
     @FXML
     void busquedaDinamicaPokemon(KeyEvent event) {
         busqueda = txtBusquedaPokemon.getText();
-        getVars();
-        String filtroComp = String.format(filtro, vars.get(0), vars.get(1), vars.get(2), vars.get(3), vars.get(4), vars.get(5), 
-                vars.get(6), vars.get(7), vars.get(8), vars.get(9), vars.get(10), vars.get(11), vars.get(12), vars.get(13));
-        cargarGridPokemonFiltrado(filtroComp);
+        buscarPokemon(null);
     }
 
     @FXML
