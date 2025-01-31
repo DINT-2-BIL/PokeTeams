@@ -206,6 +206,7 @@ public class controllerCore implements Initializable {
         Stage añadirEquipo = new Stage();
         añadirEquipo.setUserData(entrenador);
         CargadorFXML.getInstance().cargar(VistasControladores.ADDEQUIPO, añadirEquipo);
+        añadirEquipo.initModality(Modality.APPLICATION_MODAL);
         añadirEquipo.showAndWait();
     }
 

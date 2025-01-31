@@ -6,13 +6,11 @@ package com.fcm.pokeTeams.util;
 
 import com.fcm.pokeTeams.modelos.EVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
-import com.fcm.pokeTeams.modelos.Habilidad;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
 import com.fcm.pokeTeams.modelos.IVsEnvoltorio;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Movimiento;
 import com.fcm.pokeTeams.modelos.MovimientoEnvoltorio;
-import com.fcm.pokeTeams.modelos.Pokemon;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import java.awt.image.BufferedImage;
@@ -26,18 +24,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
-import org.controlsfx.validation.ValidationSupport;
 
 /**
  *

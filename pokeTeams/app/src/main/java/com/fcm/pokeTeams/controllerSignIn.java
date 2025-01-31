@@ -80,7 +80,7 @@ public class controllerSignIn implements Initializable {
             todoOK = (todoOK && validationSupport.getValidationResult().getErrors().isEmpty());
         }
         if (todoOK) {
-            if (!imgRegistro.getImage().getUrl().equals("/img/add.png")) {
+            if (!imgRegistro.getImage().getUrl().equals(new Image("/img/add.png").getUrl())) {
                 insertar();
                 CargadorFXML.getInstance().cargar(VistasControladores.INICIO, (Stage) this.txtNombre.getScene().getWindow());
                 CargadorFXML.getInstance().getControllerCore().entrenador = entrenador;
