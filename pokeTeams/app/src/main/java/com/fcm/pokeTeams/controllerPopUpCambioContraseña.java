@@ -8,16 +8,10 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
-
 import com.fcm.pokeTeams.DAO.EntrenadorDAO;
 import com.fcm.pokeTeams.modelos.Entrenador;
-import com.fcm.pokeTeams.util.Alertas;
 import com.fcm.pokeTeams.util.CargadorFXML;
-import com.fcm.pokeTeams.util.Conexion;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,13 +20,13 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
-public class controllerPopUpCambioContraseña implements Initializable{
+public class controllerPopUpCambioContraseña implements Initializable {
+
     private Entrenador entrenador;
     List<ValidationSupport> validadores;
 
@@ -56,7 +50,7 @@ public class controllerPopUpCambioContraseña implements Initializable{
             cerrar();
         }
     }
-    
+
     @FXML
     void cancelar(ActionEvent event) {
         cerrar();
@@ -71,36 +65,36 @@ public class controllerPopUpCambioContraseña implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         ValidationSupport vSContraseña = new ValidationSupport();
         vSContraseña.registerValidator(txtContraseña, Validator.createPredicateValidator(
-            texto -> {
-                String regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$";
-                if (texto == null || texto.toString().isEmpty()) {
-                return false;
-                }
-                try {
-                    int numero = texto.toString().length();
-                    return numero >= 4 && txtContraseña.getText().matches(regex);
-                } catch (NumberFormatException e) {
-                    return false;
-                }
-            },
-            "La contraseña debe tener mínimo 8 caracteres, 20 de máximo, tener una letra, un número y un carácter especial (@$!%*?&)"
+                texto -> {
+                    String regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$";
+                    if (texto == null || texto.toString().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        int numero = texto.toString().length();
+                        return numero >= 4 && txtContraseña.getText().matches(regex);
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                },
+                "La contraseña debe tener mínimo 8 caracteres, 20 de máximo, tener una letra, un número y un carácter especial (@$!%*?&)"
         ));
-        
+
         ValidationSupport vSContraseñaConf = new ValidationSupport();
         vSContraseñaConf.registerValidator(txtConfContraseña, Validator.createPredicateValidator(
-            texto -> {
-                if (texto == null || texto.toString().isEmpty()) {
-                return false;
-                }
-                try {
-                    return txtConfContraseña.getText().equals(txtContraseña.getText());
-                } catch (NumberFormatException e) {
-                    return false;
-                }
-            },
-            "La confirmación debe ser igual a la contraseña"
+                texto -> {
+                    if (texto == null || texto.toString().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        return txtConfContraseña.getText().equals(txtContraseña.getText());
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                },
+                "La confirmación debe ser igual a la contraseña"
         ));
-        
+
         validadores = new ArrayList<>();
         validadores.addAll(Arrays.asList(vSContraseña, vSContraseñaConf));
 

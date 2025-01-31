@@ -9,6 +9,7 @@ package com.fcm.pokeTeams.modelos;
  * @author DFran49
  */
 public class Entrenador {
+
     private int idEntrenador;
     private String nombre;
     private char genero;
@@ -67,6 +68,4 @@ public class Entrenador {
         this.contraseña = contraseña;
     }
 
-    
-    
 }

@@ -12,18 +12,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 /**
  *
  * @author DFran49
  */
-public class EntrenadorDAO extends BaseDAO implements SentenciasInt<Entrenador> {
+public class EntrenadorDAO implements SentenciasInt<Entrenador> {
+
     private static final EntrenadorDAO instance = new EntrenadorDAO();
     private Conexion conexion = Conexion.getInstance();
 
-    private EntrenadorDAO() { }
+    private EntrenadorDAO() {
+    }
 
     public static EntrenadorDAO getInstance() {
         return instance;
@@ -51,7 +52,7 @@ public class EntrenadorDAO extends BaseDAO implements SentenciasInt<Entrenador> 
     @Override
     public void insert(Entrenador e) {
         String sql = "INSERT INTO entrenador (ID_Entrenador, Nombre, Genero, Sprite, Contraseña) "
-                    + "VALUES (?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
             ps.setInt(1, e.getIdEntrenador());
             ps.setString(2, e.getNombre());
@@ -82,7 +83,7 @@ public class EntrenadorDAO extends BaseDAO implements SentenciasInt<Entrenador> 
             System.err.println(e.getMessage());
         }
     }
-    
+
     public Entrenador getEntrenador(ResultSet rs) throws SQLException {
         Entrenador e = new Entrenador();
         e.setIdEntrenador(rs.getInt("ID_Entrenador"));
@@ -93,7 +94,7 @@ public class EntrenadorDAO extends BaseDAO implements SentenciasInt<Entrenador> 
         e.setEsAdmin(rs.getBoolean("esAdmin"));
         return e;
     }
-    
+
     public Entrenador selectEntrenador(int id) {
         String sql = "SELECT * FROM entrenador WHERE ID_Entrenador = ?";
         ResultSet rs;
@@ -108,7 +109,7 @@ public class EntrenadorDAO extends BaseDAO implements SentenciasInt<Entrenador> 
         }
         return e;
     }
-    
+
     public Entrenador selectEntrenador(String nombre) {
         String sql = "SELECT * FROM entrenador WHERE Nombre = ?";
         ResultSet rs;
@@ -123,7 +124,7 @@ public class EntrenadorDAO extends BaseDAO implements SentenciasInt<Entrenador> 
         }
         return e;
     }
-    
+
     public Entrenador selectEntrenador(String nombre, String password) {
         String sql = "SELECT * FROM entrenador WHERE Nombre = ? AND Contraseña = ?";
         ResultSet rs;
@@ -133,14 +134,14 @@ public class EntrenadorDAO extends BaseDAO implements SentenciasInt<Entrenador> 
             //ps.setString(2, password);
             ps.setString(1, "Rosa");
             ps.setString(2, "rosa");
-            
+
             rs = ps.executeQuery();
             rs.next();
             e = getEntrenador(rs);
         } catch (SQLException ex) {
-            Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "CREDENCIALES INCORRECTAS", 
-                            "Ha introducido el nombre o la contraseña incorrecta!", "Intentelo de nuevo.");
-                    credencialesIncorrectas.mostrarAlerta();
+            Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "CREDENCIALES INCORRECTAS",
+                    "Ha introducido el nombre o la contraseña incorrecta!", "Intentelo de nuevo.");
+            credencialesIncorrectas.mostrarAlerta();
         }
         return e;
     }

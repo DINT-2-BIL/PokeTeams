@@ -10,47 +10,27 @@ package com.fcm.pokeTeams;
  */
 import com.fcm.pokeTeams.DAO.PokemonDAO;
 import com.fcm.pokeTeams.enums.VistasControladores;
-import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class controllerTarjetaPokemon implements Initializable {
-    private controllerAñadirPokemon cap;
-    private controllerConfirmar cc;
     private controllerCore cCore;
-    Conexion conexion = null;
-    private boolean admin;
-    Stage emergente;
-    Stage editar;
     Pokemon pokemon;
     Utilidades util = Utilidades.getInstance();
     

@@ -12,6 +12,7 @@ import java.util.List;
  * @author DFran49
  */
 public class EstadisticasEnvoltorio {
+
     List<Stat> stats;
 
     public EstadisticasEnvoltorio(List<Stat> s) {
@@ -21,7 +22,7 @@ public class EstadisticasEnvoltorio {
     public List<Stat> getEstadisticas() {
         return stats;
     }
-    
+
     public Stat getEstadistica(int i) {
         return stats.get(i);
     }

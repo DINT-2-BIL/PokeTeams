@@ -11,15 +11,16 @@ import javafx.scene.control.Alert;
  * @author DFran49
  */
 public class Alertas {
+
     Alert alerta;
 
     public Alertas(Alert.AlertType tipo, String titulo, String header, String contenido) {
-        alerta=new Alert(tipo);
+        alerta = new Alert(tipo);
         alerta.setTitle(titulo);
         alerta.setHeaderText(header);
         alerta.setContentText(contenido);
     }
-    
+
     public void mostrarAlerta() {
         alerta.showAndWait();
     }

@@ -9,6 +9,7 @@ package com.fcm.pokeTeams.modelos;
  * @author DFran49
  */
 public class Miembro {
+
     private Equipo equipo;
     private String mote;
     private String oldMote;

@@ -9,6 +9,7 @@ package com.fcm.pokeTeams.modelos;
  * @author Francisco
  */
 public class EV {
+
     private String estadistica;
     private int valor;
 
@@ -32,6 +33,5 @@ public class EV {
     public void setEstadistica(String estadistica) {
         this.estadistica = estadistica;
     }
-    
-    
+
 }

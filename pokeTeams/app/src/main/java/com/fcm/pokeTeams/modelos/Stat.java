@@ -9,6 +9,7 @@ package com.fcm.pokeTeams.modelos;
  * @author DFran49
  */
 public class Stat {
+
     String estadistica;
     int valor;
 
@@ -24,5 +25,5 @@ public class Stat {
     public int getValor() {
         return valor;
     }
-    
+
 }

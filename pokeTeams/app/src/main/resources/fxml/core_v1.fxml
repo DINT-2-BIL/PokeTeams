@@ -121,7 +121,7 @@
                <children>
                   <HBox alignment="CENTER" layoutX="304.0" layoutY="14.0">
                      <children>
-                        <ImageView fx:id="btnBuscarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#buscarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btnBuscarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#buscarPokemon" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/img/lupa.png" />
                            </image>
@@ -134,12 +134,12 @@
                               <Tooltip text="Buscar Pokemon" />
                            </tooltip>
                         </TextField>
-                        <ImageView fx:id="btnFiltrarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#filtrarPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btnFiltrarPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#filtrarPokemon" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/img/Leafeon.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="btnAddPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#añadirPokemon" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btnAddPokemon" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#añadirPokemon" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/img/Plusle.png" />
                            </image>
@@ -425,7 +425,7 @@
                <children>
                   <HBox alignment="CENTER" layoutX="304.0" layoutY="14.0">
                      <children>
-                        <ImageView fx:id="btnBuscarEquipo" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#buscarEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btnBuscarEquipo" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#buscarEquipo" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/img/lupa.png" />
                            </image>
@@ -438,7 +438,7 @@
                               <Tooltip text="Buscar Equipo" />
                            </tooltip>
                         </TextField>
-                        <ImageView fx:id="btnAddEquipo" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#añadirEquipo" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btnAddEquipo" fitHeight="53.0" fitWidth="53.0" onMouseClicked="#añadirEquipo" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/img/Plusle.png" />
                            </image>
@@ -501,7 +501,7 @@
                               <Insets />
                            </opaqueInsets>
                         </VBox>
-                        <Button mnemonicParsing="false" onAction="#cambiarNombre" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefHeight="51.0" prefWidth="298.4" text="CAMBIAR NOMBRE">
+                        <Button mnemonicParsing="false" onAction="#cambiarNombre" prefHeight="51.0" prefWidth="298.4" text="CAMBIAR NOMBRE">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -509,7 +509,7 @@
                               <Tooltip text="Cambiar Nombre" />
                            </tooltip>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#cambiarGenero" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CAMBIAR GÉNERO">
+                        <Button mnemonicParsing="false" onAction="#cambiarGenero" prefWidth="298.4" text="CAMBIAR GÉNERO">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -517,7 +517,7 @@
                               <Tooltip text="Cambiar Género" />
                            </tooltip>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#cambiarContraseña" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CAMBIAR CONTRASEÑA">
+                        <Button mnemonicParsing="false" onAction="#cambiarContraseña" prefWidth="298.4" text="CAMBIAR CONTRASEÑA">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -525,7 +525,7 @@
                               <Tooltip text="Cambiar Contraseña" />
                            </tooltip>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#logOut" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="CERRAR SESIÓN">
+                        <Button mnemonicParsing="false" onAction="#logOut" prefWidth="298.4" text="CERRAR SESIÓN">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -533,7 +533,7 @@
                               <Tooltip text="Cerrar Sesión" />
                            </tooltip>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#eliminarCuenta" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefWidth="298.4" text="ELIMINAR CUENTA" textFill="RED">
+                        <Button mnemonicParsing="false" onAction="#eliminarCuenta" prefWidth="298.4" text="ELIMINAR CUENTA" textFill="RED">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -685,7 +685,7 @@
                               </CheckBox>
                            </children>
                         </HBox>
-                        <Button fx:id="btnInformeMostrar" disable="true" mnemonicParsing="false" onAction="#mostrarInforme" onMouseEntered="#cursorEntra" onMouseExited="#cursorSale" prefHeight="51.0" prefWidth="306.0" text="MOSTRAR">
+                        <Button fx:id="btnInformeMostrar" disable="true" mnemonicParsing="false" onAction="#mostrarInforme" prefHeight="51.0" prefWidth="306.0" text="MOSTRAR">
                            <font>
                               <Font size="24.0" />
                            </font>

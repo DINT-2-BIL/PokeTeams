@@ -4,6 +4,7 @@
  */
 package com.fcm.pokeTeams.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,23 +22,43 @@ import java.util.logging.Logger;
  * @author DFran49
  */
 public class DbConnection {
+
     private String URL;
     private String USER;
-    private String PASSWORD; 
+    private String PASSWORD;
     private InputStream input = getClass().getClassLoader().getResourceAsStream("bbdd.properties");
+    private String rutaIp = "ip.properties";
 
-// Constructor privado para evitar instancias 
     public DbConnection() {
         inicializar();
     }
-    
+
     private void inicializar() {
+        File ficheroIp = new File(rutaIp);
+        Properties ip = new Properties();
+
+        if (!ficheroIp.exists()) {
+            try (FileOutputStream escribir = new FileOutputStream(ficheroIp)) {
+                ip.setProperty("SERVER", "localhost");
+                ip.store(escribir, "Configuración predeterminada de la IP");
+                System.out.println("Archivo de configuración de IP creado con valores predeterminados.");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        try (FileInputStream leer = new FileInputStream(ficheroIp)) {
+            ip.load(leer);
+        } catch (IOException e) {
+            System.out.println("Error al manejar el archivo de configuración de IP: " + e.getMessage());
+        }
+
         FileInputStream fileIn = null;
         try {
             Properties properties = new Properties();
             properties.load(input);
             // Mostrar propiedades recuperadas
-            URL = "jdbc:mariadb://" + properties.getProperty("SERVER") + ":" + properties.getProperty("PORT") + "/" + properties.getProperty("BBDD");
+            URL = "jdbc:mariadb://" + ip.getProperty("SERVER") + ":" + properties.getProperty("PORT") + "/" + properties.getProperty("BBDD");
             USER = properties.getProperty("USER");
             PASSWORD = properties.getProperty("PWD");
         } catch (FileNotFoundException ex) {
@@ -46,7 +67,7 @@ public class DbConnection {
             Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public Connection getConnection() {
         try {
             // Obtener conexión a la BD
@@ -56,9 +77,11 @@ public class DbConnection {
         }
         return null;
     }
-    
+
     public static void closeConnection(Connection connection) throws SQLException {
 // Cerrar conexión
-        if (connection != null) connection.close();
+        if (connection != null) {
+            connection.close();
+        }
     }
 }

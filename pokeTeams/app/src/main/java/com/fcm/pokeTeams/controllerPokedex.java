@@ -8,7 +8,6 @@ package com.fcm.pokeTeams;
  *
  * @author DFran49
  */
-import com.fcm.pokeTeams.modelos.Stat;
 import com.fcm.pokeTeams.modelos.EstadisticasEnvoltorio;
 import com.fcm.pokeTeams.modelos.Habilidad;
 import com.fcm.pokeTeams.modelos.HabilidadesEnvoltorio;
@@ -21,23 +20,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 public class controllerPokedex implements Initializable {
-    Pokemon pokemon;
-    Utilidades util = Utilidades.getInstance();
 
-     @FXML
+    private Pokemon pokemon;
+    private Utilidades util = Utilidades.getInstance();
+
+    @FXML
     private ProgressBar BarSpD;
 
     @FXML
@@ -132,7 +129,7 @@ public class controllerPokedex implements Initializable {
             leerStats(pokemon);
         });
     }
-    
+
     void leerHabilidades(Pokemon p) {
         Gson gson = new Gson();
         HabilidadesEnvoltorio listHabilidades = gson.fromJson(p.getHabilidades(), HabilidadesEnvoltorio.class);
@@ -168,7 +165,7 @@ public class controllerPokedex implements Initializable {
             System.err.println("Error: " + e.getMessage());
         }
     }
-    
+
     void leerStats(Pokemon p) {
         Gson gson = new Gson();
         EstadisticasEnvoltorio listStats = gson.fromJson(p.getEstadisticas(), EstadisticasEnvoltorio.class);
@@ -187,14 +184,13 @@ public class controllerPokedex implements Initializable {
         listEtiquetas.add(txtSpD);
         listEtiquetas.add(txtSpe);
         double progreso;
-        
+
         try {
             for (int i = 0; i < 6; i++) {
-                
-                progreso = (listStats.getEstadistica(i).getValor()*100)/255;
-                progreso = progreso/100;
+
+                progreso = (listStats.getEstadistica(i).getValor() * 100) / 255;
+                progreso = progreso / 100;
                 listBarras.get(i).setProgress(progreso);
-                listBarras.get(i).getTooltip().setStyle("-fx-font-size: 24px;");
                 if (progreso < 0.25) {
                     listBarras.get(i).setStyle("-fx-accent: #ff0000;");
                 } else if (progreso < 0.50) {
@@ -204,11 +200,10 @@ public class controllerPokedex implements Initializable {
                 } else {
                     listBarras.get(i).setStyle("-fx-accent: #00913f;");
                 }
-                listEtiquetas.get(i).setText(""+listStats.getEstadistica(i).getValor());
+                listEtiquetas.get(i).setText("" + listStats.getEstadistica(i).getValor());
             }
         } catch (JsonSyntaxException e) {
             System.err.println("Error: " + e.getMessage());
         }
     }
 }
-

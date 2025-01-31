@@ -28,7 +28,7 @@ public enum VistasControladores {
     EDITCONTRASEÑA("controllerPopUpCambioContraseña", "popUp_cambiar_contraseña", "Cambiar contraseña", "Klink.png"),
     ELIMINAR("controllerEliminar", "popUp_eliminar", "Eliminar ", "Trubbish.png"),
     CONFIRMAR("controllerConfirmar", "popUp_confirmar_cambios", "Confirmar", "Victini.png");
-    
+
     private final String controlador;
     private final String vista;
     private final String titulo;

@@ -10,7 +10,6 @@ import com.fcm.pokeTeams.DAO.PokemonDAO;
 import com.fcm.pokeTeams.modelos.Entrenador;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.enums.Generos;
-import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.enums.Tipos;
 import com.fcm.pokeTeams.enums.VistasControladores;
@@ -18,34 +17,17 @@ import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -53,32 +35,23 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -92,19 +65,18 @@ import net.sf.jasperreports.engine.util.JRLoader;
  * @author DFran49
  */
 public class controllerCore implements Initializable {
+
     private Stage ventana;
     private ContextMenu contextMenu;
-    int col = 0;
-    int row = 0;
-    private Conexion conexion = Conexion.getInstance();
+    private int col = 0;
+    private int row = 0;
     protected Entrenador entrenador = null;
     private Utilidades utils = Utilidades.getInstance();
     private ObservableList<Pokemon> listaPokemon = FXCollections.observableArrayList();
     private ObservableList<Equipo> listaEquipos = FXCollections.observableArrayList();
-    private controllerConfirmar cc;
-    Map parametros = new HashMap();
+    private Map parametros = new HashMap();
     protected String equipoAbierto = "";
-    
+
     @FXML
     private ImageView btnAddEquipo;
 
@@ -119,7 +91,7 @@ public class controllerCore implements Initializable {
 
     @FXML
     private ImageView btnFiltrarPokemon;
-    
+
     @FXML
     private Button btnInformeMostrar;
 
@@ -128,7 +100,7 @@ public class controllerCore implements Initializable {
 
     @FXML
     private ComboBox<String> cbEstadisticaOrden;
-    
+
     @FXML
     private ComboBox<String> cbInforme;
 
@@ -143,7 +115,7 @@ public class controllerCore implements Initializable {
 
     @FXML
     private ComboBox<String> cbTipo2;
-    
+
     @FXML
     private CheckBox ckbInformeAdmin;
 
@@ -170,7 +142,7 @@ public class controllerCore implements Initializable {
 
     @FXML
     private Spinner<Integer> spEstadistica;
-    
+
     @FXML
     private Spinner<Integer> spInformeIDEnt;
 
@@ -185,7 +157,7 @@ public class controllerCore implements Initializable {
 
     @FXML
     private Spinner<Double> spTamañoMin;
-    
+
     @FXML
     private Tab tabInformes;
 
@@ -212,18 +184,19 @@ public class controllerCore implements Initializable {
 
     @FXML
     private TextField txtNombreEntrenador;
-    
+
     @FXML
     private VBox vbFiltro;
-    
+
     @FXML
     private WebView wvInforme;
 
     @FXML
     void añadirEquipo(MouseEvent event) {
         Stage añadirEquipo = new Stage();
+        añadirEquipo.setUserData(entrenador);
         CargadorFXML.getInstance().cargar(VistasControladores.ADDEQUIPO, añadirEquipo);
-        añadirEquipo.show();
+        añadirEquipo.showAndWait();
     }
 
     @FXML
@@ -278,37 +251,11 @@ public class controllerCore implements Initializable {
         config.setUserData(entrenador);
         config.showAndWait();
     }
-    
-    @FXML
-    void cursorEntra(MouseEvent event) {
-        if (event.getSource() instanceof ImageView) {
-            ImageView imagen = (ImageView) event.getSource();
-            imagen.setOpacity(0.6);
-        } else {
-            Button boton = (Button) event.getSource();
-            boton.setOpacity(0.6);
-        }
-    }
-
-    @FXML
-    void cursorSale(MouseEvent event) {
-        if (event.getSource() instanceof ImageView) {
-            ImageView imagen = (ImageView) event.getSource();
-            imagen.setOpacity(1);
-        } else {
-            Button boton = (Button) event.getSource();
-            boton.setOpacity(1);
-        }
-    }
 
     @FXML
     void eliminarCuenta(ActionEvent event) {
         Stage eliminar = new Stage();
-        CargadorFXML.getInstance().cargar(VistasControladores.ELIMINAR, eliminar);
-        eliminar.setTitle("Eliminar cuenta: " + txtNombreEntrenador.getText());
-        eliminar.setOnCloseRequest(evento -> {
-            eliminar.setUserData(false);
-        });
+        CargadorFXML.getInstance().cargar(eliminar,"Eliminar cuenta: " + txtNombreEntrenador.getText());
         eliminar.showAndWait();
         if ((boolean) eliminar.getUserData()) {
             EntrenadorDAO.getInstance().delete(entrenador.getIdEntrenador());
@@ -329,7 +276,7 @@ public class controllerCore implements Initializable {
     void logOut(ActionEvent event) {
         cerrar();
     }
-    
+
     @FXML
     void mostrarInforme(ActionEvent event) {
         selInforme();
@@ -343,45 +290,45 @@ public class controllerCore implements Initializable {
         item1.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
 
-                fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("Imagen jpg", "*.jpg"),
-                        new FileChooser.ExtensionFilter("Imagen png", "*.png")
-                );
-                File archivoSeleccionado = fileChooser.showOpenDialog(null);
-                    if (archivoSeleccionado != null) {
-                        String rutaArchivo = archivoSeleccionado.toURI().toString();
-                        Image imagen = new Image(rutaArchivo);
-                        entrenador.setSprite(utils.codificarImagen(imagen));
-                        EntrenadorDAO.getInstance().update(entrenador);
-                        imgEntrenador.setImage(imagen);
-                    }
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Imagen jpg", "*.jpg"),
+                    new FileChooser.ExtensionFilter("Imagen png", "*.png")
+            );
+            File archivoSeleccionado = fileChooser.showOpenDialog(null);
+            if (archivoSeleccionado != null) {
+                String rutaArchivo = archivoSeleccionado.toURI().toString();
+                Image imagen = new Image(rutaArchivo);
+                entrenador.setSprite(utils.codificarImagen(imagen));
+                EntrenadorDAO.getInstance().update(entrenador);
+                imgEntrenador.setImage(imagen);
+            }
         });
-        
+
         contextMenu.getItems().add(item1);
-        
-        imgEntrenador.setOnContextMenuRequested(event -> 
-            contextMenu.show(imgEntrenador, event.getScreenX(), event.getScreenY())
+
+        imgEntrenador.setOnContextMenuRequested(event
+                -> contextMenu.show(imgEntrenador, event.getScreenX(), event.getScreenY())
         );
-        
+
         cbTipo1.getItems().addAll(Tipos.listaTipo1());
         cbTipo2.getItems().addAll(Tipos.listaTipo2());
-        cbEstadistica.getItems().addAll("HP","Atk","Def","SpA","SpD","SpE");
+        cbEstadistica.getItems().addAll("HP", "Atk", "Def", "SpA", "SpD", "SpE");
         cbEstadisticaOrden.getItems().addAll(cbEstadistica.getItems());
         inicializarSpinners();
         prepararInformes();
-        
+
         utils.crearTooltip("Añadir equipo", btnAddEquipo);
         utils.crearTooltip("Añadir pokemon", btnAddPokemon);
         utils.crearTooltip("Buscar equipo", btnBuscarEquipo);
         utils.crearTooltip("Buscar pokemon", btnBuscarPokemon);
         utils.crearTooltip("Filtrar pokemon", btnFiltrarPokemon);
-        
+
         Platform.runLater(() -> {
             iniciar();
             ventana = (Stage) txtBusquedaEquipos.getScene().getWindow();
         });
     }
-    
+
     private void inicializarSpinners() {
         int stat = 255;
         spEstadistica.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, stat, 0));
@@ -393,26 +340,26 @@ public class controllerCore implements Initializable {
         spPesoMax.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, peso, 0.0, 0.1));
         spInformeIDEnt.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1));
     }
-    
+
     private void cargarPokemon(Pokemon pokemon) {
         /*tarjetaPokemon.boundsInParentProperty().addListener((obs, oldBounds, newBounds) -> {
                 boolean isVisible = isNodeVisible((ScrollPane)gridPokemon.getParent(), tarjetaPokemon);
                 System.out.println("Tarjeta en [" + i + ", " + j + "] visible: " + isVisible);
             });*/
         CargadorFXML.getInstance().cargar(gridPokemon, col, row, pokemon);
-        if(col == 2) {
+        if (col == 2) {
             col = 0;
             row++;
         } else {
             col++;
         }
     }
-    
+
     private void cargarEquipo(Equipo e) {
         CargadorFXML.getInstance().cargar(gridEquipos, 0, row, e);
         row++;
     }
-    
+
     void cargarGridPokemon() {
         this.gridPokemon.getChildren().clear();
         listaPokemon = PokemonDAO.getInstance().getTodos("");
@@ -420,45 +367,44 @@ public class controllerCore implements Initializable {
         row = 0;
         col = 0;
     }
-    
+
     void cargarGridEquipo() {
         this.gridEquipos.getChildren().clear();
-        listaEquipos = EquipoDAO.getInstance().getTodos("ID_Entrenador = "+entrenador.getIdEntrenador());
+        listaEquipos = EquipoDAO.getInstance().getTodos("ID_Entrenador = " + entrenador.getIdEntrenador());
         listaEquipos.forEach(equipo -> cargarEquipo(equipo));
         row = 0;
     }
-    
+
     void refrescarUser() {
         entrenador = EntrenadorDAO.getInstance().selectEntrenador(entrenador.getIdEntrenador());
         asignarDatosUser();
     }
-    
+
     void asignarDatosUser() {
         txtNombreEntrenador.setText(entrenador.getNombre());
         utils.crearTooltip("Entrenador " + entrenador.getNombre(), txtNombreEntrenador);
         txtGeneroEntrenador.setText(Generos.fromSigla(entrenador.getGenero()).getEntrenador());
-        utils.crearTooltip("Género: "+Generos.fromSigla(entrenador.getGenero()).getEntrenador(), txtGeneroEntrenador);
+        utils.crearTooltip("Género: " + Generos.fromSigla(entrenador.getGenero()).getEntrenador(), txtGeneroEntrenador);
         utils.recuperarImagenBBDD(entrenador.getSprite(), imgEntrenador);
         utils.crearTooltip("Entrenador: " + entrenador.getNombre(), imgEntrenador);
         btnAddPokemon.setVisible(entrenador.isEsAdmin());
     }
-    
+
     void iniciar() {
         asignarDatosUser();
         cargarGridPokemon();
         cargarGridEquipo();
     }
-   
-    
+
     private void prepararInformes() {
-        cbInforme.getItems().addAll("Pokemon","Equipos","Entrenadores");
-        
+        cbInforme.getItems().addAll("Pokemon", "Equipos", "Entrenadores");
+
         cbInforme.setOnAction((event) -> {
-            int selectedIndex=cbInforme.getSelectionModel().getSelectedIndex();
-            Object selectedItem=cbInforme.getSelectionModel().getSelectedItem();
-            
-            if (btnInformeMostrar.isDisabled()) btnInformeMostrar.setDisable(false);
-            
+            int selectedIndex = cbInforme.getSelectionModel().getSelectedIndex();
+            if (btnInformeMostrar.isDisabled()) {
+                btnInformeMostrar.setDisable(false);
+            }
+
             if (selectedIndex == 0) {
                 cbInformeTipo1.setDisable(false);
                 cbInformeTipo2.setDisable(false);
@@ -476,15 +422,15 @@ public class controllerCore implements Initializable {
                 spInformeIDEnt.setDisable(true);
             }
         });
-        
+
         cbInformeTipo1.getItems().add("");
         cbInformeTipo1.getItems().addAll(cbTipo1.getItems());
         cbInformeTipo2.getItems().add("");
         cbInformeTipo2.getItems().addAll(cbTipo2.getItems());
     }
-    
+
     private void selInforme() {
-        int tipo = ckbInformeInc.isSelected() ? 0:1;
+        int tipo = ckbInformeInc.isSelected() ? 0 : 1;
         String ruta = "/reports/";
         System.out.println(spInformeIDEnt.getChildrenUnmodifiable());
         parametros.clear();
@@ -506,13 +452,13 @@ public class controllerCore implements Initializable {
             }
             case "Equipos" -> {
                 ruta = ruta + "equipos";
-                
+
                 if (spInformeIDEnt.getValue() > 0 || spInformeIDEnt.getValue() < Integer.MAX_VALUE) {
                     parametros.put("idEnt", spInformeIDEnt.getValue());
                 } else {
                     parametros.put("idEnt", 0);
                 }
-                
+
             }
             case "Entrenadores" -> {
                 ruta = ruta + "entrenadores";
@@ -522,7 +468,7 @@ public class controllerCore implements Initializable {
                 }
                 if (ckbInformeAdmin.isSelected() && !ckbInformeAdmin.isIndeterminate()) {
                     temp = 1;
-                } 
+                }
                 if (!ckbInformeAdmin.isSelected() && !ckbInformeAdmin.isIndeterminate()) {
                     temp = 0;
                 }
@@ -530,36 +476,15 @@ public class controllerCore implements Initializable {
             }
         }
         ruta = ruta + ".jasper";
-        
-        /*eliminarCarpeta(new File("informeHTML.html_files"));
-        (new File("informeHTML.html")).delete();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        wvInforme.getEngine().load(null);*/
         lanzaInforme(ruta, parametros, tipo);
     }
-    
-    /*public static void eliminarCarpeta(File carpeta) {
-        if (carpeta.isDirectory()) {
-            for (File archivo : carpeta.listFiles()) {
-                if (archivo.isDirectory()) {
-                    eliminarCarpeta(archivo);
-                }
-                archivo.delete();
-            }
-        }
-    }*/
-    
+
     private void lanzaInforme(String rutaInf, Map<String, Object> param, int tipo) {
-        System.out.println(conexion.getConexion());
+        System.out.println(Conexion.getInstance().getConexion());
         try {
             JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResourceAsStream(rutaInf));
             try {
-                System.out.println(this.conexion);
-                JasperPrint jasperPrint = JasperFillManager.fillReport(report, param, conexion.getConexion());
+                JasperPrint jasperPrint = JasperFillManager.fillReport(report, param, Conexion.getInstance().getConexion());
 
                 if (!jasperPrint.getPages().isEmpty()) {
 
@@ -596,11 +521,11 @@ public class controllerCore implements Initializable {
             System.out.println("ultimo: " + ex.getMessage());
         }
     }
-    
+
     protected void asignarEquipoAbierto(String s) {
         equipoAbierto = s;
     }
-    
+
     protected String comprobarEquipoAbierto() {
         return equipoAbierto;
     }

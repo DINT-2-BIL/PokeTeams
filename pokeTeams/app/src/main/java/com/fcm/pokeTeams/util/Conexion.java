@@ -4,18 +4,17 @@
  */
 package com.fcm.pokeTeams.util;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Alert;
 
 /**
  *
  * @author DFran49
  */
 public class Conexion extends Object {
+
     private static final Conexion instance = new Conexion();
     private static Connection conexion;
 
@@ -26,7 +25,7 @@ public class Conexion extends Object {
     private Conexion() {
         generarConexion();
     }
-    
+
     private void generarConexion() {
         DbConnection bbdd = new DbConnection();
         this.conexion = bbdd.getConnection();
@@ -34,7 +33,7 @@ public class Conexion extends Object {
 
     public Connection getConexion() {
         try {
-            if (conexion == null||conexion.isClosed()) {
+            if (conexion == null || conexion.isClosed()) {
                 generarConexion();
             }
         } catch (SQLException ex) {

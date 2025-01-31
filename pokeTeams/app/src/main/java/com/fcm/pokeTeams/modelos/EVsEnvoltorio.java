@@ -11,6 +11,7 @@ import java.util.List;
  * @author Francisco
  */
 public class EVsEnvoltorio {
+
     private List<EV> evs;
 
     public EVsEnvoltorio(List<EV> evs) {
@@ -20,7 +21,7 @@ public class EVsEnvoltorio {
     public List<EV> getEvs() {
         return evs;
     }
-    
+
     public EV getEV(int i) {
         return evs.get(i);
     }

@@ -25,11 +25,12 @@ import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 public class controllerEliminar implements Initializable {
+
     List<ValidationSupport> validadores;
 
     @FXML
     private TextField txtEliminar;
-    
+
     @FXML
     void cancelar(ActionEvent event) {
         cerrar();
@@ -42,13 +43,13 @@ public class controllerEliminar implements Initializable {
         for (ValidationSupport validationSupport : validadores) {
             todoOK = (todoOK && validationSupport.getValidationResult().getErrors().isEmpty());
         }
-        
+
         if (!todoOK) {
-            Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "NO CONFIRMADO", 
-                        "Debe escribir \"ELIMINAR\" para poder eliminar el elemento.", "Intentelo de nuevo.");
-                credencialesIncorrectas.mostrarAlerta();
-                
-                a.setUserData(false);
+            Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "NO CONFIRMADO",
+                    "Debe escribir \"ELIMINAR\" para poder eliminar el elemento.", "Intentelo de nuevo.");
+            credencialesIncorrectas.mostrarAlerta();
+
+            a.setUserData(false);
         } else {
             a.setUserData(true);
             cerrar();
@@ -59,16 +60,16 @@ public class controllerEliminar implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ValidationSupport vSNombre = new ValidationSupport();
         vSNombre.registerValidator(txtEliminar, Validator.createPredicateValidator(
-            texto -> {
-                try {
-                    return texto.equals("ELIMINAR") ;
-                } catch (NumberFormatException e) {
-                    return false;
-                }
-            },
-            "Debe escribir esáctamente \"ELIMINAR\" para poder eliminar el elemento"
+                texto -> {
+                    try {
+                        return texto.equals("ELIMINAR");
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                },
+                "Debe escribir esáctamente \"ELIMINAR\" para poder eliminar el elemento"
         ));
-        
+
         validadores = new ArrayList<>();
         validadores.addAll(Arrays.asList(vSNombre));
 

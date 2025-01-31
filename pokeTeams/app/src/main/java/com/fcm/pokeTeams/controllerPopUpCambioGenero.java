@@ -13,11 +13,7 @@ import com.fcm.pokeTeams.modelos.Entrenador;
 import com.fcm.pokeTeams.enums.Generos;
 import com.fcm.pokeTeams.util.Alertas;
 import com.fcm.pokeTeams.util.CargadorFXML;
-import com.fcm.pokeTeams.util.Conexion;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +24,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 public class controllerPopUpCambioGenero implements Initializable {
+
     private controllerCore cCore = CargadorFXML.getInstance().getControllerCore();
 
     @FXML
@@ -45,9 +42,9 @@ public class controllerPopUpCambioGenero implements Initializable {
     @FXML
     void cambiarGenero(ActionEvent event) {
         if (genero.getSelectedToggle() == null) {
-            Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "GÉNERO NO SELECCIONADO", 
-                        "Debe seleccionar un género.", "Intentelo de nuevo.");
-                credencialesIncorrectas.mostrarAlerta();
+            Alertas credencialesIncorrectas = new Alertas(Alert.AlertType.ERROR, "GÉNERO NO SELECCIONADO",
+                    "Debe seleccionar un género.", "Intentelo de nuevo.");
+            credencialesIncorrectas.mostrarAlerta();
         } else {
             Entrenador entrenador = (Entrenador) this.rbFemenino.getScene().getWindow().getUserData();
             entrenador.setGenero((char) genero.getSelectedToggle().getUserData());
@@ -62,7 +59,7 @@ public class controllerPopUpCambioGenero implements Initializable {
     void cancelar(ActionEvent event) {
         cerrar();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rbFemenino.setUserData(Generos.F.getSigla());

@@ -1,17 +1,14 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.fcm.pokeTeams.DAO;
+
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Conexion;
-import com.fcm.pokeTeams.util.DbConnection;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -21,11 +18,13 @@ import javafx.collections.ObservableList;
  *
  * @author DFran49
  */
-public class PokemonDAO extends BaseDAO implements SentenciasInt<Pokemon> {
+public class PokemonDAO implements SentenciasInt<Pokemon> {
+
     private static final PokemonDAO instance = new PokemonDAO();
     private Conexion conexion = Conexion.getInstance();
 
-    private PokemonDAO() { }
+    private PokemonDAO() {
+    }
 
     public static PokemonDAO getInstance() {
         return instance;
@@ -34,7 +33,7 @@ public class PokemonDAO extends BaseDAO implements SentenciasInt<Pokemon> {
     @Override
     public void update(Pokemon p) {
         String sql = "UPDATE pokemon SET Especie = ?, Denominacion = ?, Descripcion = ?, Sprite = ?, Tipo_1 = ?, Tipo_2 = ?, "
-                    + "Tamaño = ?, Peso = ?, Habilidades = ?, Estadisticas = ? WHERE N_Pokedex = ?";
+                + "Tamaño = ?, Peso = ?, Habilidades = ?, Estadisticas = ? WHERE N_Pokedex = ?";
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
             ps.setString(1, p.getEspecie());
             ps.setString(2, p.getDenominacion());
@@ -60,7 +59,7 @@ public class PokemonDAO extends BaseDAO implements SentenciasInt<Pokemon> {
     @Override
     public void insert(Pokemon p) {
         String sql = "INSERT INTO pokemon (Especie, Denominacion, Descripcion, Sprite, Tipo_1, Tipo_2, Tamaño, Peso, Habilidades, Estadisticas) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
             ps.setString(1, p.getEspecie());
             ps.setString(2, p.getDenominacion());
@@ -96,7 +95,7 @@ public class PokemonDAO extends BaseDAO implements SentenciasInt<Pokemon> {
             System.err.println(e.getMessage());
         }
     }
-    
+
     public Pokemon getPokemon(ResultSet rs) throws SQLException {
         Pokemon p = new Pokemon();
         p.setnPokedex(rs.getInt("N_Pokedex"));
@@ -118,8 +117,9 @@ public class PokemonDAO extends BaseDAO implements SentenciasInt<Pokemon> {
         Pokemon p;
         String sql = "SELECT * FROM pokemon";
 
-        if (!filter.isEmpty())
+        if (!filter.isEmpty()) {
             sql = "SELECT * FROM pokemon " + filter;
+        }
 
         ResultSet rs;
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {

@@ -9,6 +9,7 @@ package com.fcm.pokeTeams.modelos;
  * @author Francisco
  */
 public class Habilidad {
+
     String nombre;
     String descripcion;
 
@@ -24,6 +25,5 @@ public class Habilidad {
     public String getDescripcion() {
         return descripcion;
     }
-    
-    
+
 }

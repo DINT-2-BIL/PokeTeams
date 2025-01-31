@@ -5,15 +5,12 @@
 package com.fcm.pokeTeams.util;
 
 import com.fcm.pokeTeams.controllerCore;
+import com.fcm.pokeTeams.controllerEquipo;
 import com.fcm.pokeTeams.enums.VistasControladores;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,19 +24,22 @@ import javafx.stage.Stage;
  * @author DFran49
  */
 public class CargadorFXML {
-    private static final CargadorFXML instance = new CargadorFXML();
-    private ArrayList<Object> controladoresSingleton = new ArrayList<>();
 
-    private CargadorFXML() { }
+    private static final CargadorFXML instance = new CargadorFXML();
+    private controllerCore cCore;
+    private controllerEquipo cEqu;
+
+    private CargadorFXML() {
+    }
 
     public static CargadorFXML getInstance() {
         return instance;
     }
-    
+
     public <T> void cargar(VistasControladores vc, Stage destino) {
         String vista = String.format("/fxml/%s.fxml", vc.getVista());
         String icono = String.format("/img/%s", vc.getRutaIcon());
-        
+
         Parent root = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource(vista));
         try {
@@ -50,21 +50,33 @@ public class CargadorFXML {
         Scene escena = new Scene(root);
         destino.setTitle(vc.getTitulo());
         destino.getIcons().add(new Image(icono));
+        destino.setResizable(false);
         destino.centerOnScreen();
         destino.setScene(escena);
-        if (vc.getTitulo().equals(vc.INICIO.getTitulo())) {
-            controladoresSingleton.add(loader.getController());
+        if (vc.equals(vc.INICIO)) {
+            cCore = loader.getController();
+        }
+        if (vc.equals(VistasControladores.EQUIPO)) {
+            cEqu = loader.getController();
         }
     }
-    
+
     public controllerCore getControllerCore() {
-        return (controllerCore) controladoresSingleton.get(0);
+        return cCore;
     }
-    
+
     public void cerrarSesion() {
-        controladoresSingleton.clear();
+        cCore = null;
     }
-    
+
+    public controllerEquipo getControllerEquipo() {
+        return cEqu;
+    }
+
+    public void cerrarEquipo() {
+        cEqu = null;
+    }
+
     public void cargar(GridPane grid, int columna, int fila, Equipo equipo) {
         VistasControladores vc = VistasControladores.ENTRADAEQUIPO;
         try {
@@ -78,7 +90,7 @@ public class CargadorFXML {
             System.err.println("No se ha podido cargar el archivo: " + vc.getVista());
         }
     }
-    
+
     public void cargar(GridPane grid, int columna, int fila, Pokemon pokemon) {
         VistasControladores vc = VistasControladores.ENTRADAPOKEMON;
         try {
@@ -92,7 +104,7 @@ public class CargadorFXML {
             System.err.println("No se ha podido cargar el archivo: " + vc.getVista());
         }
     }
-    
+
     public void cargar(GridPane grid, int columna, int fila, Miembro miembro) {
         VistasControladores vc = VistasControladores.ENTRADAMIEMBRO;
         if (miembro == null) {
@@ -109,7 +121,7 @@ public class CargadorFXML {
             System.err.println("No se ha podido cargar el archivo: " + vc.getVista());
         }
     }
-    
+
     public void cargarAñadirMiembro(GridPane grid, int columna, int fila, Equipo e) {
         VistasControladores vc = VistasControladores.ENTRADAADDMIEMBRO;
         try {
@@ -123,26 +135,27 @@ public class CargadorFXML {
             System.err.println("No se ha podido cargar el archivo: " + vc.getVista());
         }
     }
-    
-    public void cargar(Stage v, String t) {
-    VistasControladores vc = VistasControladores.ELIMINAR;
 
-            String vista = String.format("/fxml/%s.fxml", vc.getVista());
-            String icono = String.format("/img/%s", vc.getRutaIcon());
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(vista));
-            try {
-                root = loader.load();
-            } catch (IOException ex) {
-                System.err.println("No se ha podido cargar el archivo: " + vc.getVista());
-            }
-            Scene inicio = new Scene(root);
-            v.setScene(inicio);
-            v.setOnCloseRequest(evento -> {
-                evento.consume();
-            });
-            v.setTitle(vc.getTitulo() + t);
-            v.getIcons().add(new Image(icono));
-            v.setAlwaysOnTop(true);
+    public void cargar(Stage v, String t) {
+        VistasControladores vc = VistasControladores.ELIMINAR;
+
+        String vista = String.format("/fxml/%s.fxml", vc.getVista());
+        String icono = String.format("/img/%s", vc.getRutaIcon());
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(vista));
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            System.err.println("No se ha podido cargar el archivo: " + vc.getVista());
+        }
+        Scene inicio = new Scene(root);
+        v.setScene(inicio);
+        v.setOnCloseRequest(evento -> {
+            evento.consume();
+        });
+        v.setTitle(vc.getTitulo() + t);
+        v.getIcons().add(new Image(icono));
+        v.setAlwaysOnTop(true);
+        v.setResizable(false);
     }
 }

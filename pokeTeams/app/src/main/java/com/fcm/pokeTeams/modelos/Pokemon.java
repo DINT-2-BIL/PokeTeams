@@ -9,6 +9,7 @@ package com.fcm.pokeTeams.modelos;
  * @author DFran49
  */
 public class Pokemon {
+
     private int nPokedex;
     private String especie;
     private String denominacion;
@@ -23,7 +24,7 @@ public class Pokemon {
 
     public Pokemon() {
     }
-    
+
     public String getEstadisticas() {
         return estadisticas;
     }
@@ -112,5 +113,4 @@ public class Pokemon {
         this.habilidades = habilidades;
     }
 
-    
 }

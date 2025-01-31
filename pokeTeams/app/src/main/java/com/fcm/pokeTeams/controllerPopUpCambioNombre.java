@@ -10,14 +10,8 @@ package com.fcm.pokeTeams;
  */
 import com.fcm.pokeTeams.DAO.EntrenadorDAO;
 import com.fcm.pokeTeams.modelos.Entrenador;
-import com.fcm.pokeTeams.util.Alertas;
 import com.fcm.pokeTeams.util.CargadorFXML;
-import com.fcm.pokeTeams.util.Conexion;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,13 +20,13 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
-public class controllerPopUpCambioNombre implements Initializable{
+public class controllerPopUpCambioNombre implements Initializable {
+
     private controllerCore cCore = CargadorFXML.getInstance().getControllerCore();
     private List<ValidationSupport> validadores;
 
@@ -66,25 +60,24 @@ public class controllerPopUpCambioNombre implements Initializable{
         ventana.close();
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ValidationSupport vSNombre = new ValidationSupport();
         vSNombre.registerValidator(txtNuevoNombre, Validator.createPredicateValidator(
-            texto -> {
-                if (texto == null || texto.toString().isEmpty()) {
-                return false;
-                }
-                try {
-                    int numero = texto.toString().length();
-                    return numero >= 1 && numero <= 20 && txtNuevoNombre.getText().matches("^[A-Za-z0-9. ]{3,}$");
-                } catch (NumberFormatException e) {
-                    return false;
-                }
-            },
-            "El nombre puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
+                texto -> {
+                    if (texto == null || texto.toString().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        int numero = texto.toString().length();
+                        return numero >= 1 && numero <= 20 && txtNuevoNombre.getText().matches("^[A-Za-z0-9. ]{3,}$");
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                },
+                "El nombre puede tener mínimo 3 caracteres y 20 de máximo y solo puede contener letras, números o puntos"
         ));
-        
+
         validadores = new ArrayList<>();
         validadores.addAll(Arrays.asList(vSNombre));
 

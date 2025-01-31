@@ -19,11 +19,13 @@ import javafx.collections.ObservableList;
  *
  * @author DFran49
  */
-public class MiembroDAO  extends BaseDAO implements SentenciasInt<Miembro> {
+public class MiembroDAO implements SentenciasInt<Miembro> {
+
     private static final MiembroDAO instance = new MiembroDAO();
     private Conexion conexion = Conexion.getInstance();
 
-    private MiembroDAO() { }
+    private MiembroDAO() {
+    }
 
     public static MiembroDAO getInstance() {
         return instance;
@@ -32,7 +34,7 @@ public class MiembroDAO  extends BaseDAO implements SentenciasInt<Miembro> {
     @Override
     public void update(Miembro m) {
         String sql = "UPDATE equipo SET N_Pokedex = ?, Genero = ?, Nivel = ?, Mote = ?, Habilidad = ?, Naturaleza = ?, Objeto = ?, Movimientos = ?, EVs = ?, IVs = ? "
-                    + "WHERE ID_Equipo = ? AND Mote = ?;";
+                + "WHERE ID_Equipo = ? AND Mote = ?;";
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
             ps.setInt(1, m.getnPokedex());
             ps.setString(2, String.valueOf(m.getGenero()));
@@ -60,8 +62,8 @@ public class MiembroDAO  extends BaseDAO implements SentenciasInt<Miembro> {
     @Override
     public void insert(Miembro m) {
         String sql = "INSERT INTO equipo (ID_Equipo, Mote, N_Pokedex, ID_Entrenador, Nombre_Equipo, Formato, Genero, Nivel, Habilidad, "
-                    + "Objeto, Movimientos, EVs, IVs) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "Objeto, Movimientos, EVs, IVs, Naturaleza) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
             ps.setInt(1, m.getEquipo().getIdEquipo());
             ps.setString(2, m.getMote());
@@ -76,6 +78,7 @@ public class MiembroDAO  extends BaseDAO implements SentenciasInt<Miembro> {
             ps.setString(11, m.getMovimientos());
             ps.setString(12, m.getEvs());
             ps.setString(13, m.getIvs());
+            ps.setString(14, m.getNaturaleza());
 
             if (ps.executeUpdate() > 0) {
                 System.out.println("Inserción exitosa.");
@@ -103,7 +106,7 @@ public class MiembroDAO  extends BaseDAO implements SentenciasInt<Miembro> {
             System.err.println(e.getMessage());
         }
     }
-    
+
     public Miembro getMiembro(ResultSet rs) throws SQLException {
         Miembro m = new Miembro();
         Equipo temp = new Equipo();
@@ -111,7 +114,7 @@ public class MiembroDAO  extends BaseDAO implements SentenciasInt<Miembro> {
         temp.setIdEntrenador(rs.getInt("ID_Entrenador"));
         temp.setNombre(rs.getString("Nombre_Equipo"));
         temp.setFormato(rs.getString("Formato"));
-        
+
         m.setEquipo(temp);
         m.setMote(rs.getString("Mote"));
         m.setEspecie(rs.getString("Especie"));
@@ -122,15 +125,16 @@ public class MiembroDAO  extends BaseDAO implements SentenciasInt<Miembro> {
         m.setNaturaleza(rs.getString("Naturaleza"));
         m.setObjeto(rs.getString("Objeto"));
         m.setMovimientos(rs.getString("Movimientos"));
+        m.setStats(rs.getString("Estadisticas"));
         m.setEvs(rs.getString("EVs"));
         m.setIvs(rs.getString("IVs"));
         m.setSprite(rs.getString("Sprite"));
         return m;
     }
-    
+
     public ObservableList<Miembro> getMiembros(Equipo e) {
         ObservableList<Miembro> lista = FXCollections.observableArrayList();
-        
+
         Miembro m;
         String sql = "SELECT * FROM equipo JOIN pokemon USING(N_Pokedex) WHERE ID_Equipo = ?";
 
@@ -145,7 +149,7 @@ public class MiembroDAO  extends BaseDAO implements SentenciasInt<Miembro> {
         } catch (SQLException ex) {
             Logger.getLogger(PokemonDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return lista;
     }
 }

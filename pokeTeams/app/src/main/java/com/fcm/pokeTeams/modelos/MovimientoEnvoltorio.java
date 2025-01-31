@@ -11,6 +11,7 @@ import java.util.List;
  * @author DFran49
  */
 public class MovimientoEnvoltorio {
+
     private List<Movimiento> movimientos;
 
     public MovimientoEnvoltorio(List<Movimiento> movimientos) {
@@ -20,15 +21,15 @@ public class MovimientoEnvoltorio {
     public List<Movimiento> getMovimientos() {
         return movimientos;
     }
-    
+
     public boolean vacia() {
         return movimientos.isEmpty();
     }
-    
+
     public Movimiento getMovimiento(int i) {
-                return  movimientos.get(i);
+        return movimientos.get(i);
     }
-    
+
     public int getSize() {
         return movimientos.size();
     }

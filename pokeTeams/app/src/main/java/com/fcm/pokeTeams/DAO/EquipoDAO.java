@@ -5,7 +5,6 @@
 package com.fcm.pokeTeams.DAO;
 
 import com.fcm.pokeTeams.modelos.Equipo;
-import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Conexion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,11 +19,13 @@ import javafx.collections.ObservableList;
  *
  * @author DFran49
  */
-public class EquipoDAO extends BaseDAO implements SentenciasInt<Equipo> {
+public class EquipoDAO implements SentenciasInt<Equipo> {
+
     private static final EquipoDAO instance = new EquipoDAO();
     private Conexion conexion = Conexion.getInstance();
 
-    private EquipoDAO() { }
+    private EquipoDAO() {
+    }
 
     public static EquipoDAO getInstance() {
         return instance;
@@ -37,14 +38,14 @@ public class EquipoDAO extends BaseDAO implements SentenciasInt<Equipo> {
             ps.setString(1, e.getNombre());
             ps.setString(2, e.getFormato());
             ps.setInt(3, e.getIdEquipo());
-            int filasActualizadas;                
-                filasActualizadas = ps.executeUpdate();
-                
-                if (filasActualizadas > 0) {
-                    System.out.println("Actualización exitosa. Filas afectadas: " + filasActualizadas);
-                } else {
-                    System.out.println("No se encontró el equipo para actualizar.");
-                }
+            int filasActualizadas;
+            filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                System.out.println("Actualización exitosa. Filas afectadas: " + filasActualizadas);
+            } else {
+                System.out.println("No se encontró el equipo para actualizar.");
+            }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -58,10 +59,7 @@ public class EquipoDAO extends BaseDAO implements SentenciasInt<Equipo> {
             ps.setInt(2, e.getIdEntrenador());
             ps.setString(3, e.getNombre());
             ps.setString(4, e.getFormato());
-            
-            int filasActualizadas;                
-                filasActualizadas = ps.executeUpdate();
-                
+
             if (ps.executeUpdate() > 0) {
                 System.out.println("Inserción exitosa.");
             } else {
@@ -71,13 +69,13 @@ public class EquipoDAO extends BaseDAO implements SentenciasInt<Equipo> {
             System.err.println(ex.getMessage());
         }
     }
-    
-    private int getUltimoEquipo(){
+
+    private int getUltimoEquipo() {
         String sql = "SELECT MAX(ID_Equipo) AS ultimo_equipo FROM equipo";
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
             ResultSet result = ps.executeQuery();
             result.next();
-            return result.getInt("ultimo_equipo")+1;
+            return result.getInt("ultimo_equipo") + 1;
         } catch (SQLException ex) {
             Logger.getLogger(EquipoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,15 +88,15 @@ public class EquipoDAO extends BaseDAO implements SentenciasInt<Equipo> {
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
             ps.setInt(1, (int) ref);
             if (ps.executeUpdate() > 0) {
-                    System.out.println("Borrado");
-                } else {
-                    System.out.println("No borrado");
-                }
+                System.out.println("Borrado");
+            } else {
+                System.out.println("No borrado");
+            }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
-    
+
     public Equipo getEquipo(ResultSet rs) throws SQLException {
         Equipo e = new Equipo();
         e.setIdEquipo(rs.getInt("ID_Equipo"));
@@ -113,14 +111,14 @@ public class EquipoDAO extends BaseDAO implements SentenciasInt<Equipo> {
         try {
             ArrayList<Integer> ids = new ArrayList<>();
             Equipo e;
-            
-            String sql = "SELECT DISTINCT ID_Equipo FROM equipo WHERE "+filter;
+
+            String sql = "SELECT DISTINCT ID_Equipo FROM equipo WHERE " + filter;
             PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ids.add(rs.getInt("ID_Equipo"));
             }
-            
+
             for (int id : ids) {
                 sql = "SELECT * FROM equipo WHERE ID_Equipo = ?";
                 ps = conexion.getConexion().prepareStatement(sql);
@@ -129,10 +127,26 @@ public class EquipoDAO extends BaseDAO implements SentenciasInt<Equipo> {
                 rs.next();
                 e = getEquipo(rs);
                 lista.add(e);
-            }  
+            }
         } catch (SQLException ex) {
             Logger.getLogger(EquipoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
+    }
+
+    public Equipo getPorID(Equipo e) {
+        String sql = "SELECT * FROM equipo WHERE ID_Equipo = ?";
+        Equipo equipo = null;
+        try {
+            PreparedStatement ps = conexion.getConexion().prepareStatement(sql);
+            ps = conexion.getConexion().prepareStatement(sql);
+            ps.setInt(1, e.getIdEquipo());
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            equipo = getEquipo(rs);
+        } catch (SQLException ex) {
+            Logger.getLogger(EquipoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return equipo;
     }
 }

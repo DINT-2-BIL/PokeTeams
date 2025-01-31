@@ -9,6 +9,7 @@ package com.fcm.pokeTeams.modelos;
  * @author DFran49
  */
 public class Movimiento {
+
     private String nombre;
 
     public Movimiento(String movimiento) {
@@ -22,6 +23,5 @@ public class Movimiento {
     public void setMovimiento(String movimiento) {
         this.nombre = movimiento;
     }
-    
-    
+
 }

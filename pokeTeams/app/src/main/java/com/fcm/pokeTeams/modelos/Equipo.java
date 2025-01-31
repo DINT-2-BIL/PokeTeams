@@ -9,6 +9,7 @@ package com.fcm.pokeTeams.modelos;
  * @author DFran49
  */
 public class Equipo {
+
     private int idEquipo;
     private String nombre;
     private String formato;
@@ -48,6 +49,5 @@ public class Equipo {
     public void setIdEntrenador(int idEntrenador) {
         this.idEntrenador = idEntrenador;
     }
-    
-    
+
 }
