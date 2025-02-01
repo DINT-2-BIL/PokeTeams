@@ -10,13 +10,19 @@ import com.fcm.pokeTeams.enums.VistasControladores;
 import com.fcm.pokeTeams.modelos.Equipo;
 import com.fcm.pokeTeams.modelos.Miembro;
 import com.fcm.pokeTeams.modelos.Pokemon;
+import java.io.File;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +34,7 @@ public class CargadorFXML {
     private static final CargadorFXML instance = new CargadorFXML();
     private controllerCore cCore;
     private controllerEquipo cEqu;
+    private boolean ayudaMostrada = false;
 
     private CargadorFXML() {
     }
@@ -52,6 +59,8 @@ public class CargadorFXML {
         destino.getIcons().add(new Image(icono));
         destino.setResizable(false);
         destino.centerOnScreen();
+        asignarAyuda(destino);
+        
         destino.setScene(escena);
         if (vc.equals(vc.INICIO)) {
             cCore = loader.getController();
@@ -157,5 +166,27 @@ public class CargadorFXML {
         v.getIcons().add(new Image(icono));
         v.setAlwaysOnTop(true);
         v.setResizable(false);
+        asignarAyuda(v);
+    }
+    
+    private void asignarAyuda(Stage escena) {
+        escena.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.F1 && !ayudaMostrada) {
+                WebView wvnuevo = new WebView();
+                wvnuevo.getEngine().load(new File("manualUser.html").toURI().toString());
+                StackPane stackPane = new StackPane(wvnuevo);
+                Scene scene = new Scene(stackPane, 900, 800);
+                Stage stage = new Stage();
+                stage.setTitle("Informe en HTML");
+                stage.getIcons().add(new Image("/img/pokedex.png"));
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.setOnCloseRequest(evento -> {
+                    ayudaMostrada = false;
+                });
+                stage.show();
+                ayudaMostrada = true;
+            }
+        });
     }
 }

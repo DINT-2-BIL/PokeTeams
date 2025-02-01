@@ -1,0 +1,2 @@
+@echo off
+java --module-path lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.swing,javafx.web,org.controlsfx.controls,org.apache.commons.logging -cp "lib\gson-2.11.0.jar;lib*;PokeTeams" com.fcm.pokeTeams.Main -jar PokeTeams.jar
