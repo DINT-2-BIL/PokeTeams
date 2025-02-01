@@ -38,10 +38,16 @@ public class DbConnection {
         Properties ip = new Properties();
 
         if (!ficheroIp.exists()) {
+            try {
+                ficheroIp.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
             try (FileOutputStream escribir = new FileOutputStream(ficheroIp)) {
                 ip.setProperty("SERVER", "localhost");
                 ip.store(escribir, "Configuración predeterminada de la IP");
                 System.out.println("Archivo de configuración de IP creado con valores predeterminados.");
+                escribir.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
