@@ -4,15 +4,27 @@
  */
 package com.fcm.pokeTeams.DAO;
 
+import com.fcm.pokeTeams.API.PokemonDeleteInt;
+import com.fcm.pokeTeams.API.PokemonInsertInt;
+import com.fcm.pokeTeams.API.PokemonSelectInt;
+import com.fcm.pokeTeams.API.PokemonUpdateInt;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import com.fcm.pokeTeams.util.Conexion;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  *
@@ -29,10 +41,28 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
     public static PokemonDAO getInstance() {
         return instance;
     }
+    
+    String baseURL = "http://54.210.213.109/APIRest_pokeTeams/crud/";
+    Gson gson = new GsonBuilder().setLenient().create();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(baseURL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+    PokemonSelectInt servicioLeer = retrofit.create(PokemonSelectInt.class);
+    PokemonInsertInt servicioInsertar = retrofit.create(PokemonInsertInt.class);
+    PokemonUpdateInt servicioActualizar = retrofit.create(PokemonUpdateInt.class);
+    PokemonDeleteInt servicioBorrar = retrofit.create(PokemonDeleteInt.class);
+    
+    private Call<Pokemon> callSel;
+    private Call<Pokemon> callIns;
+    private Call<Pokemon> callUpd;
+    private Call<Pokemon> callDel;
 
     @Override
     public void update(Pokemon p) {
-        String sql = "UPDATE pokemon SET Especie = ?, Denominacion = ?, Descripcion = ?, Sprite = ?, Tipo_1 = ?, Tipo_2 = ?, "
+        callUpd = servicioActualizar.actualizarPokemon(p);
+        this.encolaUpd();
+        /*String sql = "UPDATE pokemon SET Especie = ?, Denominacion = ?, Descripcion = ?, Sprite = ?, Tipo_1 = ?, Tipo_2 = ?, "
                 + "Tamaño = ?, Peso = ?, Habilidades = ?, Estadisticas = ? WHERE N_Pokedex = ?";
         try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
             ps.setString(1, p.getEspecie());
@@ -53,7 +83,28 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
+        }*/
+    }
+    
+    public void encolaUpd() {
+        callUpd.enqueue(new Callback<Pokemon>() {
+            @Override
+            public void onFailure(Call<Pokemon> call, Throwable t) {
+                System.out.println("Network Error :: " + t.getLocalizedMessage());
+            }
+            
+            @Override
+            public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
+                Platform.runLater(() -> {
+                    System.out.println("Respuesta ACTUALIZAR: " + response.message());
+                    if (response.isSuccessful()) {
+                        //TODO OK
+                    } else {
+                        // ERROR
+                    }
+                });
+            }
+        });
     }
 
     @Override
