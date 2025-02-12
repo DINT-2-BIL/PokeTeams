@@ -2,9 +2,9 @@
     <shortName>PokeTeams</shortName>
     <fullName>PokeTeams</fullName>
     <version>1.0</version>
-    <leftImage>C:/instaladores/distributionsWin/Pokeball.png</leftImage>
-    <logoImage>C:/instaladores/distributionsWin/Pokeball.png</logoImage>
-    <splashImage>C:/instaladores/distributionsWin/Pokeball.png</splashImage>
+    <leftImage>C:/instalador/distributionsWin/Pokeball.png</leftImage>
+    <logoImage>C:/instalador/distributionsWin/Pokeball.png</logoImage>
+    <splashImage>C:/instalador/distributionsWin/Pokeball.png</splashImage>
     <defaultLanguage>es</defaultLanguage>
     <componentList>
         <component>
@@ -23,7 +23,7 @@
                     <platforms>windows-x64</platforms>
                     <runAsAdmin>0</runAsAdmin>
                     <runInTerminal>0</runInTerminal>
-                    <windowsExec>${installdir}/PokeTeams.exe</windowsExec>
+                    <windowsExec>${installdir}/PokeTeams.bat</windowsExec>
                     <windowsExecArgs></windowsExecArgs>
                     <windowsIcon>${installdir}/logo-ico.ico</windowsIcon>
                     <windowsPath>${installdir}</windowsPath>
@@ -36,21 +36,24 @@
                     <name>programfiles</name>
                     <platforms>all</platforms>
                     <distributionFileList>
-                        <distributionFile>
-                            <origin>C:/instaladores/distributionsWin/manualUser.html</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>C:/instaladores/distributionsWin/Pokeball.png</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>C:/instaladores/distributionsWin/PokeTeams.jar</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>C:/instaladores/distributionsWin/logo-ico.ico</origin>
-                        </distributionFile>
                         <distributionDirectory>
-                            <origin>C:/instaladores/distributionsWin/lib</origin>
+                            <origin>C:/instalador/distributionsWin/lib</origin>
                         </distributionDirectory>
+                        <distributionFile>
+                            <origin>C:/instalador/distributionsWin/Pokeball.png</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>C:/instalador/distributionsWin/PokeTeams.jar</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>C:/instalador/distributionsWin/logo-ico.ico</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>C:/instalador/distributionsWin/manualUser.html</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>C:/instalador/distributionsWin/ip.properties</origin>
+                        </distributionFile>
                     </distributionFileList>
                     <shortcutList>
                         <shortcut>
@@ -94,7 +97,7 @@
                     <platforms>windows-x64</platforms>
                     <distributionFileList>
                         <distributionFile>
-                            <origin>C:/instaladores/distributionsWin/PokeTeams.bat</origin>
+                            <origin>C:/instalador/distributionsWin/PokeTeams.bat</origin>
                         </distributionFile>
                     </distributionFileList>
                 </folder>
@@ -159,7 +162,7 @@
                     <runInConsole>1</runInConsole>
                     <useLauncherDirectoryAsWorkingDirectory>1</useLauncherDirectoryAsWorkingDirectory>
                     <usePropertiesFile>0</usePropertiesFile>
-                    <vmParameters>--module-path lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,org.controlsfx.controls -cp "lib\gson-2.11.0.jar;lib*;PokeTeams"</vmParameters>
+                    <vmParameters>--module-path lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,java--module-path lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.swing,javafx.web,org.controlsfx.controls,org.apache.commons.logging -cp "lib\gson-2.11.0.jar;lib*;PokeTeams" com.fcm.pokeTeams.Main.11.0.jar com.fcm.pokeTeams.Main</vmParameters>
                     <windowsExecutableIcon>C:\instalador\distributionsWin\logo-ico.ico</windowsExecutableIcon>
                     <windowsResourceFileVersion>1.0.0.0</windowsResourceFileVersion>
                     <workingDirectory>${installdir}</workingDirectory>

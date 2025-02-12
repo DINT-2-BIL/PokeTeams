@@ -45,6 +45,8 @@ public class DbConnection {
             }
             try (FileOutputStream escribir = new FileOutputStream(ficheroIp)) {
                 ip.setProperty("SERVER", "localhost");
+                ip.setProperty("USER", "root");
+                ip.setProperty("PWD", "root");
                 ip.store(escribir, "Configuración predeterminada de la IP");
                 System.out.println("Archivo de configuración de IP creado con valores predeterminados.");
                 escribir.close();
@@ -65,8 +67,8 @@ public class DbConnection {
             properties.load(input);
             // Mostrar propiedades recuperadas
             URL = "jdbc:mariadb://" + ip.getProperty("SERVER") + ":" + properties.getProperty("PORT") + "/" + properties.getProperty("BBDD");
-            USER = properties.getProperty("USER");
-            PASSWORD = properties.getProperty("PWD");
+            USER = ip.getProperty("USER");
+            PASSWORD = ip.getProperty("PWD");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
