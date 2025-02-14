@@ -4,22 +4,35 @@
  */
 package com.fcm.pokeTeams.modelos;
 
+import com.google.gson.annotations.SerializedName;
+import retrofit2.http.Query;
+
 /**
  *
  * @author DFran49
  */
 public class Pokemon {
-
+    @SerializedName ("N_Pokedex")
     private int nPokedex;
+    @SerializedName ("Especie")
     private String especie;
+    @SerializedName ("Denominacion")
     private String denominacion;
+    @SerializedName ("Descripcion")
     private String descripcion;
+    @SerializedName ("Sprite")
     private String sprite;
+    @SerializedName ("Tipo_1")
     private String tipo1;
+    @SerializedName ("Tipo_2")
     private String tipo2;
+    @SerializedName ("Tamaño")
     private double tamaño;
+    @SerializedName ("Peso")
     private double peso;
+    @SerializedName ("Habilidades")
     private String habilidades;
+    @SerializedName ("Estadisticas")
     private String estadisticas;
 
     public Pokemon() {
@@ -113,4 +126,24 @@ public class Pokemon {
         this.habilidades = habilidades;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pokemon{");
+        sb.append("nPokedex=").append(nPokedex);
+        sb.append(", especie=").append(especie);
+        sb.append(", denominacion=").append(denominacion);
+        sb.append(", descripcion=").append(descripcion);
+        sb.append(", sprite=").append(sprite);
+        sb.append(", tipo1=").append(tipo1);
+        sb.append(", tipo2=").append(tipo2);
+        sb.append(", tama\u00f1o=").append(tamaño);
+        sb.append(", peso=").append(peso);
+        sb.append(", habilidades=").append(habilidades);
+        sb.append(", estadisticas=").append(estadisticas);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    
 }

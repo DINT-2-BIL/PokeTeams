@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +64,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import retrofit2.Call;
 
 /**
  *
@@ -426,7 +430,7 @@ public class controllerCore implements Initializable {
 
     void cargarGridPokemon() {
         this.gridPokemon.getChildren().clear();
-        listaPokemon = PokemonDAO.getInstance().getTodos("");
+        listaPokemon = (ObservableList<Pokemon>) txtBusquedaEquipos.getScene().getWindow().getUserData();
         listaPokemon.forEach(pokemon -> cargarPokemon(pokemon));
         row = 0;
         col = 0;
@@ -612,5 +616,17 @@ public class controllerCore implements Initializable {
     private void cerrar() {
         CargadorFXML.getInstance().cargar(VistasControladores.LOGIN, ventana);
         CargadorFXML.getInstance().cerrarSesion();
+    }
+    
+    public void esperar(Call<Pokemon[]> c) {
+        try {
+            synchronized (this) {
+                c.wait();
+            }
+            //c.wait();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(controllerCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

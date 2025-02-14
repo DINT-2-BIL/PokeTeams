@@ -5,6 +5,7 @@
 package com.fcm.pokeTeams;
 
 import com.fcm.pokeTeams.DAO.EntrenadorDAO;
+import com.fcm.pokeTeams.DAO.PokemonDAO;
 import com.fcm.pokeTeams.enums.VistasControladores;
 import com.fcm.pokeTeams.modelos.Entrenador;
 import com.fcm.pokeTeams.util.CargadorFXML;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,7 +55,9 @@ public class controllerLogIn implements Initializable {
         //if (todoOK) {
             Entrenador entrenador = EntrenadorDAO.getInstance().selectEntrenador(txtNombre.getText(), pwContraseña.getText());
             if (entrenador.getNombre() != null) {
+                this.txtNombre.getScene().getWindow().setUserData(PokemonDAO.getInstance().getTodos(""));
                 CargadorFXML.getInstance().cargar(VistasControladores.INICIO, (Stage) this.txtNombre.getScene().getWindow());
+                
                 CargadorFXML.getInstance().getControllerCore().entrenador = entrenador;
             }
         /*} else {

@@ -298,7 +298,7 @@ public class controllerAñadirPokemon implements Initializable {
                 for (ValidationSupport validationSupport : validadores) {
                     todoOK = (todoOK && validationSupport.getValidationResult().getErrors().isEmpty());
                 }
-                if (todoOK) {
+                //if (todoOK) {
                     try {
                         datos = new ArrayList<>();
                         datos.add(tipoPaso);
@@ -313,10 +313,10 @@ public class controllerAñadirPokemon implements Initializable {
                         new Alertas(Alert.AlertType.WARNING, "Algo falló", "Incoherencia con las restricciones",
                                 "Debe rellenar todos los campos y asegurarse de que siguen el formato que puede ver en el iconito de X pequeño").mostrarAlerta();
                     }
-                } else {
+                /*} else {
                     new Alertas(Alert.AlertType.WARNING, "Algo falló", "Incoherencia con las restricciones",
                             "Debe rellenar todos los campos y asegurarse de que siguen el formato que puede ver en el iconito de X pequeño").mostrarAlerta();
-                }
+                }*/
             });
 
         });

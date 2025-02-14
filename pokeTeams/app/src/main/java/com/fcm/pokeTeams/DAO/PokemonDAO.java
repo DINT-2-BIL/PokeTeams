@@ -8,13 +8,17 @@ import com.fcm.pokeTeams.API.PokemonDeleteInt;
 import com.fcm.pokeTeams.API.PokemonInsertInt;
 import com.fcm.pokeTeams.API.PokemonSelectInt;
 import com.fcm.pokeTeams.API.PokemonUpdateInt;
+import com.fcm.pokeTeams.modelos.ListaPokemon;
 import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -34,7 +38,7 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
 
     private static final PokemonDAO instance = new PokemonDAO();
     private Conexion conexion = Conexion.getInstance();
-
+    private Pokemon[] lp;
     private PokemonDAO() {
     }
 
@@ -42,7 +46,7 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
         return instance;
     }
     
-    String baseURL = "http://54.210.213.109/APIRest_pokeTeams/crud/";
+    String baseURL = "http://44.202.137.138/APIRest_pokeTeams/crud/";
     Gson gson = new GsonBuilder().setLenient().create();
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(baseURL)
@@ -53,37 +57,16 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
     PokemonUpdateInt servicioActualizar = retrofit.create(PokemonUpdateInt.class);
     PokemonDeleteInt servicioBorrar = retrofit.create(PokemonDeleteInt.class);
     
-    private Call<Pokemon> callSel;
+    public Call<Pokemon[]> callSel;
     private Call<Pokemon> callIns;
     private Call<Pokemon> callUpd;
     private Call<Pokemon> callDel;
 
     @Override
     public void update(Pokemon p) {
+        System.out.println(p);
         callUpd = servicioActualizar.actualizarPokemon(p);
         this.encolaUpd();
-        /*String sql = "UPDATE pokemon SET Especie = ?, Denominacion = ?, Descripcion = ?, Sprite = ?, Tipo_1 = ?, Tipo_2 = ?, "
-                + "Tamaño = ?, Peso = ?, Habilidades = ?, Estadisticas = ? WHERE N_Pokedex = ?";
-        try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
-            ps.setString(1, p.getEspecie());
-            ps.setString(2, p.getDenominacion());
-            ps.setString(3, p.getDescripcion());
-            ps.setString(4, p.getSprite());
-            ps.setString(5, p.getTipo1());
-            ps.setString(6, p.getTipo2());
-            ps.setDouble(7, p.getTamaño());
-            ps.setDouble(8, p.getPeso());
-            ps.setString(9, p.getHabilidades());
-            ps.setString(10, p.getEstadisticas());
-            ps.setInt(11, p.getnPokedex());
-            if (ps.executeUpdate() > 0) {
-                System.out.println("Actualización exitosa.");
-            } else {
-                System.out.println("No se actualizó el pokemon.");
-            }
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }*/
     }
     
     public void encolaUpd() {
@@ -98,9 +81,9 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
                 Platform.runLater(() -> {
                     System.out.println("Respuesta ACTUALIZAR: " + response.message());
                     if (response.isSuccessful()) {
-                        //TODO OK
+                        System.out.println("Actualización correcta.");
                     } else {
-                        // ERROR
+                        System.out.println("Actualización no realizada.");
                     }
                 });
             }
@@ -164,24 +147,34 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
     }
 
     public ObservableList<Pokemon> getTodos(String filter) {
-        ObservableList<Pokemon> lista = FXCollections.observableArrayList();
-        Pokemon p;
-        String sql = "SELECT * FROM pokemon";
-
-        if (!filter.isEmpty()) {
-            sql = "SELECT * FROM pokemon " + filter;
-        }
-
-        ResultSet rs;
-        try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                p = getPokemon(rs);
-                lista.add(p);
+        callSel = servicioLeer.getPokemon(-1);
+        this.encolaSel();
+        ObservableList<Pokemon> ol = FXCollections.observableArrayList(lp);
+        return ol;
+    }
+    
+    public void encolaSel() {
+        callSel.enqueue(new Callback<Pokemon[]>() {
+            @Override
+            public void onFailure(Call<Pokemon[]> call, Throwable t) {
+                System.out.println("Network Error :: " + t.getLocalizedMessage());
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(PokemonDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return lista;
+            
+            @Override
+            public void onResponse(Call<Pokemon[]> call, Response<Pokemon[]> response) {
+                Platform.runLater(() -> {
+                    System.out.println("Respuesta LEER: " + response.message());
+                    if (response.isSuccessful()) {
+                        System.out.println("Selección correcta.");
+                        lp = response.body();
+                        for (Pokemon p : lp) {
+                            System.out.println(p.toString());
+                        }
+                    } else {
+                        System.out.println("Selección no realizada.");
+                    }
+                });
+            }
+        });
     }
 }

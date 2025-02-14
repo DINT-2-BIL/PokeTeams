@@ -4,6 +4,7 @@
  */
 package com.fcm.pokeTeams.API;
 
+import com.fcm.pokeTeams.modelos.ListaPokemon;
 import com.fcm.pokeTeams.modelos.Pokemon;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,6 +16,6 @@ import retrofit2.http.Query;
  */
 public interface PokemonSelectInt {
     @GET("leer.php")
-    Call<Pokemon> getPokemon(@Query("N_Pokedex") int n_pokedex);
-    Call<Pokemon> getPokemon(@Query("Tipo_1") String tipo_1);
+    Call<Pokemon[]> getPokemon(@Query("N_Pokedex") int n_pokedex);
+    Call<ListaPokemon> getPokemon(@Query("Tipo_1") String tipo_1);
 }
