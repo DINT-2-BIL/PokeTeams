@@ -8,6 +8,7 @@ import com.fcm.pokeTeams.DAO.EntrenadorDAO;
 import com.fcm.pokeTeams.DAO.PokemonDAO;
 import com.fcm.pokeTeams.enums.VistasControladores;
 import com.fcm.pokeTeams.modelos.Entrenador;
+import com.fcm.pokeTeams.util.Alertas;
 import com.fcm.pokeTeams.util.CargadorFXML;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -52,7 +54,7 @@ public class controllerLogIn implements Initializable {
             todoOK = (todoOK && validationSupport.getValidationResult().getErrors().isEmpty());
         }
 
-        //if (todoOK) {
+        if (todoOK) {
             Entrenador entrenador = EntrenadorDAO.getInstance().selectEntrenador(txtNombre.getText(), pwContraseña.getText());
             if (entrenador.getNombre() != null) {
                 PokemonDAO.getInstance().getTodos("");
@@ -61,10 +63,10 @@ public class controllerLogIn implements Initializable {
                 
                 CargadorFXML.getInstance().getControllerCore().entrenador = entrenador;
             }
-        /*} else {
+        } else {
             new Alertas(Alert.AlertType.WARNING, "Algo falló", "Incoherencia con las restricciones", 
                         "Debe rellenar todos los campos y asegurarse de que siguen el formato que puede ver en el iconito de X pequeño").mostrarAlerta();
-        }*/
+        }
     }
 
     @FXML
