@@ -174,7 +174,7 @@ public class controllerAñadirPokemon implements Initializable {
         utils.crearTooltip("Seleccionar imagen", imgPokemon);
         inicializarSliders();
 
-        ValidationSupport vEsp = new ValidationSupport();
+        /*ValidationSupport vEsp = new ValidationSupport();
         vEsp.registerValidator(txtEspecie, Validator.createPredicateValidator(
                 texto -> {
                     if (texto == null || texto.toString().isEmpty()) {
@@ -280,12 +280,12 @@ public class controllerAñadirPokemon implements Initializable {
         ));
 
         validadores = new ArrayList<>();
-        validadores.addAll(Arrays.asList(vDeno, vDes, vEsp, vHab, vPes, vTam, vHab, vHabDes));
+        validadores.addAll(Arrays.asList(vDeno, vDes, vEsp, vHab, vPes, vTam, vHab, vHabDes));*/
 
         Platform.runLater(() -> {
-            for (ValidationSupport validationSupport : validadores) {
+            /*for (ValidationSupport validationSupport : validadores) {
                 validationSupport.initInitialDecoration();
-            }
+            }*/
             Stage ventana = (Stage) this.txtAtk.getScene().getWindow();
             pokemon = (Pokemon) ventana.getUserData();
             enviaPokemon();
@@ -294,10 +294,10 @@ public class controllerAñadirPokemon implements Initializable {
                 evento.consume();
                 Stage ventanaConfirmar = new Stage();
 
-                boolean todoOK = true;
+                /*boolean todoOK = true;
                 for (ValidationSupport validationSupport : validadores) {
                     todoOK = (todoOK && validationSupport.getValidationResult().getErrors().isEmpty());
-                }
+                }*/
                 //if (todoOK) {
                     try {
                         datos = new ArrayList<>();
@@ -331,7 +331,8 @@ public class controllerAñadirPokemon implements Initializable {
             txtPeso.setText(pokemon.getPeso() + "");
             cbTipo1.getSelectionModel().select(pokemon.getTipo1());
             cbTipo2.getSelectionModel().select(pokemon.getTipo2());
-            utils.recuperarImagenBBDD(pokemon.getSprite(), imgPokemon);
+            imgPokemon.setImage(new Image("/img/Klink.png"));
+            //utils.recuperarImagenBBDD(pokemon.getSprite(), imgPokemon);
             leerHabilidades(pokemon);
             leerStats(pokemon);
             tipoPaso = 2;

@@ -55,7 +55,8 @@ public class controllerLogIn implements Initializable {
         //if (todoOK) {
             Entrenador entrenador = EntrenadorDAO.getInstance().selectEntrenador(txtNombre.getText(), pwContraseña.getText());
             if (entrenador.getNombre() != null) {
-                this.txtNombre.getScene().getWindow().setUserData(PokemonDAO.getInstance().getTodos(""));
+                PokemonDAO.getInstance().getTodos("");
+                //this.txtNombre.getScene().getWindow().setUserData(PokemonDAO.getInstance().getTodos(""));
                 CargadorFXML.getInstance().cargar(VistasControladores.INICIO, (Stage) this.txtNombre.getScene().getWindow());
                 
                 CargadorFXML.getInstance().getControllerCore().entrenador = entrenador;

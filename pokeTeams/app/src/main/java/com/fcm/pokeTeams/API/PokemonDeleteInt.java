@@ -5,6 +5,7 @@
 package com.fcm.pokeTeams.API;
 
 import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.modelos.PokemonEliminar;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
@@ -21,5 +22,5 @@ public interface PokemonDeleteInt {
         "Accept: application/json"
     })
     @POST("borrar.php")
-    Call<Pokemon> borrarPokemon(@Query("N_Pokedex") String n_pokedex);
+    Call<Pokemon> borrarPokemon(@Body Pokemon p);
 }

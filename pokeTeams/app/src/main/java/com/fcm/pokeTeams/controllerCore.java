@@ -430,18 +430,20 @@ public class controllerCore implements Initializable {
 
     void cargarGridPokemon() {
         this.gridPokemon.getChildren().clear();
-        listaPokemon = (ObservableList<Pokemon>) txtBusquedaEquipos.getScene().getWindow().getUserData();
+        listaPokemon = FXCollections.observableArrayList(PokemonDAO.getInstance().lp);
         listaPokemon.forEach(pokemon -> cargarPokemon(pokemon));
         row = 0;
         col = 0;
+        PokemonDAO.getInstance().getTodos("");
     }
     
     void cargarGridPokemonFiltrado(String s) {
         this.gridPokemon.getChildren().clear();
-        listaPokemon = PokemonDAO.getInstance().getTodos(s);
+        listaPokemon = FXCollections.observableArrayList(PokemonDAO.getInstance().lp);
         listaPokemon.forEach(pokemon -> cargarPokemon(pokemon));
         row = 0;
         col = 0;
+        PokemonDAO.getInstance().getTodos("");
     }
 
     void cargarGridEquipo() {

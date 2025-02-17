@@ -352,7 +352,7 @@ public class controllerAñadirMiembro implements Initializable {
         cbGenero.getItems().addAll(Generos.M.getPokemon(), Generos.F.getPokemon(), Generos.N.getPokemon());
         cbNaturaleza.getItems().addAll(Naturalezas.getNaturalezas());
         cbNaturaleza.getSelectionModel().selectFirst();
-        PokemonDAO.getInstance().getTodos("").forEach(elemento -> {
+        /*PokemonDAO.getInstance().getTodos("").forEach(elemento -> {
             cbEspecie.getItems().add(elemento.getEspecie());
         });
         cbEspecie.valueProperty().addListener((observable, valViejo, valNuevo) -> {
@@ -365,7 +365,7 @@ public class controllerAñadirMiembro implements Initializable {
                 cbHabilidad.getSelectionModel().selectFirst();
                 util.recuperarImagenBBDD(elemento.getSprite(), imgPokemon);
             });
-        });
+        });*/
     }
 
     private void cargarMiembro() {
@@ -381,7 +381,7 @@ public class controllerAñadirMiembro implements Initializable {
         nuevoMiembro.setNaturaleza(cbNaturaleza.getSelectionModel().getSelectedItem());
         nuevoMiembro.setNivel(spNivel.getValue());
         nuevoMiembro.setObjeto(txtObjeto.getText());
-        nuevoMiembro.setnPokedex(PokemonDAO.getInstance().getTodos("WHERE Especie = '" + nuevoMiembro.getEspecie() + "'").get(0).getnPokedex());
+        //nuevoMiembro.setnPokedex(PokemonDAO.getInstance().getTodos("WHERE Especie = '" + nuevoMiembro.getEspecie() + "'").get(0).getnPokedex());
     }
 
     private String leerMovimientos() {

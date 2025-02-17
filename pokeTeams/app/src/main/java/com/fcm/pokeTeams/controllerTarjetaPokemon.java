@@ -11,6 +11,7 @@ package com.fcm.pokeTeams;
 import com.fcm.pokeTeams.DAO.PokemonDAO;
 import com.fcm.pokeTeams.enums.VistasControladores;
 import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.modelos.PokemonEliminar;
 import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.fcm.pokeTeams.util.Utilidades;
@@ -23,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
@@ -59,7 +61,7 @@ public class controllerTarjetaPokemon implements Initializable {
         if (event.getButton() == MouseButton.PRIMARY) {
             Stage ventana = new Stage();
             CargadorFXML.getInstance().cargar(VistasControladores.POKEMON, ventana);
-            ventana.getIcons().add(Utilidades.getInstance().getImage(pokemon.getSprite()));
+            ventana.getIcons().add(new Image("/img/Klink.png"));
             ventana.setTitle("Ver datos de ".concat(pokemon.getEspecie()));
             ventana.setUserData(pokemon);
             ventana.show();
@@ -70,7 +72,7 @@ public class controllerTarjetaPokemon implements Initializable {
     void editar(ActionEvent event) {
         Stage ventana = new Stage();
         CargadorFXML.getInstance().cargar(VistasControladores.ADDEDITPOKEMON, ventana);
-        ventana.getIcons().add(Utilidades.getInstance().getImage(pokemon.getSprite()));
+        ventana.getIcons().add(new Image("/img/Klink.png"));
         ventana.setTitle("Editar ".concat(pokemon.getEspecie()));
         ventana.setUserData(pokemon);
         ventana.show();
@@ -82,7 +84,7 @@ public class controllerTarjetaPokemon implements Initializable {
         CargadorFXML.getInstance().cargar(ventanaConfirmar, pokemon.getEspecie());
         ventanaConfirmar.showAndWait();
         if ((boolean) ventanaConfirmar.getUserData()) {
-            PokemonDAO.getInstance().delete(pokemon.getnPokedex());
+            PokemonDAO.getInstance().delete(pokemon);
             System.out.println(pokemon.getEspecie() + " eliminado.");
             cCore.cargarGridPokemon();
         }
@@ -101,7 +103,8 @@ public class controllerTarjetaPokemon implements Initializable {
     public void asignarPokemon() {
         txtEspecie.setText(pokemon.getEspecie());
         txtId.setText(Utilidades.definirIdPokemon(pokemon.getnPokedex()));
-        util.recuperarImagenBBDD(pokemon.getSprite(), imgPokemon);
+        imgPokemon.setImage(new Image("/img/Klink.png"));
+        //util.recuperarImagenBBDD("", imgPokemon);
         if (!cCore.entrenador.isEsAdmin()) {
             menu.getItems().clear();
         }

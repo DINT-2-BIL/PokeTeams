@@ -10,6 +10,7 @@ import com.fcm.pokeTeams.API.PokemonSelectInt;
 import com.fcm.pokeTeams.API.PokemonUpdateInt;
 import com.fcm.pokeTeams.modelos.ListaPokemon;
 import com.fcm.pokeTeams.modelos.Pokemon;
+import com.fcm.pokeTeams.modelos.PokemonEliminar;
 import com.fcm.pokeTeams.util.CargadorFXML;
 import com.fcm.pokeTeams.util.Conexion;
 import com.google.gson.Gson;
@@ -38,7 +39,7 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
 
     private static final PokemonDAO instance = new PokemonDAO();
     private Conexion conexion = Conexion.getInstance();
-    private Pokemon[] lp;
+    public Pokemon[] lp;
     private PokemonDAO() {
     }
 
@@ -46,7 +47,7 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
         return instance;
     }
     
-    String baseURL = "http://44.202.137.138/APIRest_pokeTeams/crud/";
+    String baseURL = "http://18.233.170.12/APIRest_pokeTeams/crud/";
     Gson gson = new GsonBuilder().setLenient().create();
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(baseURL)
@@ -66,6 +67,7 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
     public void update(Pokemon p) {
         System.out.println(p);
         callUpd = servicioActualizar.actualizarPokemon(p);
+        System.out.println(p.getnPokedex());
         this.encolaUpd();
     }
     
@@ -92,42 +94,58 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
 
     @Override
     public void insert(Pokemon p) {
-        String sql = "INSERT INTO pokemon (Especie, Denominacion, Descripcion, Sprite, Tipo_1, Tipo_2, Tamaño, Peso, Habilidades, Estadisticas) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
-            ps.setString(1, p.getEspecie());
-            ps.setString(2, p.getDenominacion());
-            ps.setString(3, p.getDescripcion());
-            ps.setString(4, p.getSprite());
-            ps.setString(5, p.getTipo1());
-            ps.setString(6, p.getTipo2());
-            ps.setDouble(7, p.getTamaño());
-            ps.setDouble(8, p.getPeso());
-            ps.setString(9, p.getHabilidades());
-            ps.setString(10, p.getEstadisticas());
-            if (ps.executeUpdate() > 0) {
-                System.out.println("Inserción exitosa.");
-            } else {
-                System.out.println("No se insertó el pokemon.");
+        System.out.println(p);
+        callIns = servicioInsertar.insertarPokemon(p);
+        this.encolaIns();
+    }
+    
+    public void encolaIns() {
+        callIns.enqueue(new Callback<Pokemon>() {
+            @Override
+            public void onFailure(Call<Pokemon> call, Throwable t) {
+                System.out.println("Network Error :: " + t.getLocalizedMessage());
             }
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
+            
+            @Override
+            public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
+                Platform.runLater(() -> {
+                    System.out.println("Respuesta INSERTAR: " + response.message());
+                    if (response.isSuccessful()) {
+                        System.out.println("Inserción correcta.");
+                    } else {
+                        System.out.println("Inserción no realizada.");
+                    }
+                });
+            }
+        });
     }
 
     @Override
     public <U> void delete(U ref) {
-        String sql = "DELETE FROM pokemon WHERE N_Pokedex = ?";
-        try (PreparedStatement ps = conexion.getConexion().prepareStatement(sql)) {
-            ps.setInt(1, (int) ref);
-            if (ps.executeUpdate() > 0) {
-                System.out.println("Borrado");
-            } else {
-                System.out.println("No borrado");
+        System.out.println((Pokemon) ref);
+        callDel = servicioBorrar.borrarPokemon((Pokemon) ref);
+        this.encolaDel();
+    }
+    
+    public void encolaDel() {
+        callDel.enqueue(new Callback<Pokemon>() {
+            @Override
+            public void onFailure(Call<Pokemon> call, Throwable t) {
+                System.out.println("Network Error :: " + t.getLocalizedMessage());
             }
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
+            
+            @Override
+            public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
+                Platform.runLater(() -> {
+                    System.out.println("Respuesta ELIMINAR: " + response.message());
+                    if (response.isSuccessful()) {
+                        System.out.println("Eliminación correcta.");
+                    } else {
+                        System.out.println("Eliminación no realizada.");
+                    }
+                });
+            }
+        });
     }
 
     public Pokemon getPokemon(ResultSet rs) throws SQLException {
@@ -146,11 +164,11 @@ public class PokemonDAO implements SentenciasInt<Pokemon> {
         return p;
     }
 
-    public ObservableList<Pokemon> getTodos(String filter) {
+    public void getTodos(String filter) {
         callSel = servicioLeer.getPokemon(-1);
         this.encolaSel();
-        ObservableList<Pokemon> ol = FXCollections.observableArrayList(lp);
-        return ol;
+        //ObservableList<Pokemon> ol = FXCollections.observableArrayList(lp);
+        //return ol;
     }
     
     public void encolaSel() {
